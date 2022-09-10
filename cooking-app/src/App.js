@@ -1,4 +1,3 @@
-import { db } from './api/firebase';
 import { BrowserRouter } from 'react-router-dom'
 import { GlobalStyle, Wrapper } from './components/styles/Global.styled';
 import { Header } from './components/Header/Header';

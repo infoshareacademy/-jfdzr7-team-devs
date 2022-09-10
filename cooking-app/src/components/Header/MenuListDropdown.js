@@ -81,9 +81,9 @@ export const MenuListDropdown= () => {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleClose}>Category 1</MenuItem>
+                    <MenuItem onClick={handleClose}>Category 2</MenuItem>
+                    <MenuItem onClick={handleClose}>Category 3</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
