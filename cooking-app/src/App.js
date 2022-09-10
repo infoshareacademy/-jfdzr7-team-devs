@@ -1,12 +1,23 @@
 import { db } from './api/firebase';
-import './App.css';
+import { BrowserRouter } from 'react-router-dom'
+import { GlobalStyle, Wrapper } from './components/styles/Global.styled';
+import { Header } from './components/Header/Header';
+import { Content } from './components/Content/Content';
+import { Footer } from './components/Footer/Footer';
 
-export const App = () => {
+
+function App() {
   return (
-    <div className="App">
-     <h1>Cześć wszystkim!</h1>
-    </div>
+    <BrowserRouter>
+      <GlobalStyle />
+      <Wrapper>
+        <Header />
+        <Content />
+        <Footer />
+      </Wrapper>
+    </BrowserRouter>
   );
 }
 
+export default App;
 
