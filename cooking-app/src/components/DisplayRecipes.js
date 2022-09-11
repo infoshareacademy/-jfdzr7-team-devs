@@ -10,13 +10,14 @@ export const DisplayRecipes = () => {
     const [imageList, setImageList] = useState([])
 
     const imageListRef = ref(storage, "images/")
-    console.log(imageList)
+    // console.log(imageList)
 
     useEffect(() => {
         listAll(imageListRef).then((response) => {
-            console.log(response)
+            // console.log(response)
             response.items.forEach((item) => {
                 getDownloadURL(item).then((url) => {
+                    // console.log(url)
                     setImageList((prev) => [...prev, url]);
                 })
             })
@@ -28,7 +29,7 @@ export const DisplayRecipes = () => {
         <>
             <h3>Zdjęcia przepisów pobrane z Storage  "images/"</h3>
             {imageList && imageList.map((url) => {
-                console.log(imageList[0])
+                // console.log(imageList[0])
                 return (
                     <div>
                         <img src={url} style={{ width: "300px", height: "200px" }}  ></img>

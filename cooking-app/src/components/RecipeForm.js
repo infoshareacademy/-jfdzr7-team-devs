@@ -1,4 +1,36 @@
-export const RecipeForm = ({ handleSubmit, onChange, formValues }) => {
+import { SelectImageToUpload } from "./SelectImageToUpload"
+
+const tags = [
+    {
+        key: "salt",
+        label: "Salt"
+    },
+    {
+        key: "sweet",
+        label: "Sweet"
+    },
+    {
+        key: "dinner",
+        label: "Dinner"
+    },
+    {
+        key: "lunch",
+        label: "Lunch"
+    },
+    {
+        key: "dessert",
+        label: "Dessert"
+    },
+    {
+        key: "breakfast",
+        label: "Breakfast"
+    },
+]
+
+
+export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
+
+
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -28,54 +60,19 @@ export const RecipeForm = ({ handleSubmit, onChange, formValues }) => {
                 </div>
 
                 <div>
-                    <label htmlFor="sweet" >Na słodko</label>
-                    <input type="checkbox" id="sweet" name="sweet" value="Na słodko" onChange={onChange} />
-
-                    <label htmlFor="salt" >Na słono</label>
-                    <input type="checkbox" id="salt" name="salt" value="Na słono" onChange={onChange} />
-
-                    <label htmlFor="dinner" >Kolacja</label>
-                    <input type="checkbox" id="dinner" name="dinner" value="Kolacja" onChange={onChange} />
-
-                    <label htmlFor="lunch" >Obiad</label>
-                    <input type="checkbox" id="lunch" name="lunch" value="Obiad" onChange={onChange} />
-
-                    <label htmlFor="cake" >Ciasto</label>
-                    <input type="checkbox" id="cake" name="cake" value="Ciasto" onChange={onChange} />
-
-                    <label htmlFor="kids" > Dla dzieci</label>
-                    <input type="checkbox" id="kids" name="kids" value="Dla dzieci" onChange={onChange} />
-
-                    <label htmlFor="picnic" >Na piknik</label>
-                    <input type="checkbox" id="picnic" name="picnic" value="Na piknik" onChange={onChange} />
-
-                    <label htmlFor="friuts" >Owoce</label>
-                    <input type="checkbox" id="fruits" name="fruits" value="Owoce" onChange={onChange} />
-
-                    <label htmlFor="cocoa" >Kakao</label>
-                    <input type="checkbox" id="cocoa" name="cocoa" value="Kakao" onChange={onChange} />
-
-                    <label htmlFor="cream" >Śmietanka</label>
-                    <input type="checkbox" id="cream" name="cream" value="Śmietanka" onChange={onChange} />
-
-                    <label htmlFor="honey" >Miód</label>
-                    <input type="checkbox" id="honey" name="honey" value="Miód" onChange={onChange} />
-
-                    <label htmlFor="vegetables" >Warzywa</label>
-                    <input type="checkbox" id="vegetables" name="vegetables" value="Warzywa" onChange={onChange} />
-
-                    <label htmlFor="meat" >Mięso</label>
-                    <input type="checkbox" id="meat" name="meat" value="Mięso" onChange={onChange} />
-
-                    <label htmlFor="fish" >Ryba</label>
-                    <input type="checkbox" id="fish" name="fish" value="Ryba" onChange={onChange} />
-
-                    <label htmlFor="gluten" >Bezglutenowe</label>
-                    <input type="checkbox" id="gluten" name="gluten" value="Bezglutenowe" onChange={onChange} />
-
-                    <label htmlFor="lactose" >Bez laktozy</label>
-                    <input type="checkbox" id="lactose" name="lactose" value="Bez laktozy" onChange={onChange} />
+                    {tags.map((tag, index) => {
+                        return (
+                            <>
+                                <label key={index} htmlFor={tag.key} >{tag.label}</label>
+                                <input type="checkbox" id={tag.key} name={tag.key} value={tag.label} onChange={onChange} />
+                            </>
+                        )
+                    })}
                 </div>
+                <br></br>
+                <br></br>
+                <SelectImageToUpload onClick={onClick} onChange={onChange} text={"Dodaj zdjęcie do Twojego przepisu"} />
+                <br></br>
                 <br></br>
                 <button>Zapisz przepis</button>
             </form>
