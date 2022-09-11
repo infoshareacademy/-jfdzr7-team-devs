@@ -1,17 +1,15 @@
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../api/firebase";
+import { db } from "../../../api/firebase";
 import { RecipeForm } from "./RecipeForm";
 import { useState } from "react";
-import { storage } from "../api/firebase";
+import { storage } from "../../../api/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import { urlStorage, urlStorageCD, folderStorage, collectionRecipesName, tags } from "../../../api/firebaseIndex";
 
-const urlStorage = "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/images%2F"
-const urlStorageCD = "?alt=media&token=04d9d94b-f79a-434c-804d-7989ede403e1"
-const folder = "/images"
 
 export const AddRecipe = () => {
-    const recipesCollection = collection(db, "recipes");
+    const recipesCollection = collection(db, collectionRecipesName);
     const defaultRecipe = {
         title: "",
         time: "",
@@ -27,7 +25,7 @@ export const AddRecipe = () => {
     const uploadImage = (e) => {
         e.preventDefault()
         if (imageUpload === null) return;
-        const imageRef = ref(storage, `${folder}/${imageUpload.name + v4()}`);
+        const imageRef = ref(storage, `${folderStorage}/${imageUpload.name + v4()}`);
         uploadBytes(imageRef, imageUpload).then((response) => {
             alert("image uploaded")
             setFormValues({
@@ -36,8 +34,6 @@ export const AddRecipe = () => {
             });
         })
     }
-
-
 
     const changeFormValues = (e) => {
         switch (e.target.name) {
@@ -71,13 +67,14 @@ export const AddRecipe = () => {
 
     const handleAddingRecipe = (e) => {
         e.preventDefault()
-        addDoc(recipesCollection, formValues)
+        addDoc(recipesCollection, formValues).then(response => console.log(response))
         alert("Przepis zapisano")
+        setFormValues(defaultRecipe)
     }
 
     return (
         <>
-            <h2> Dodaj przepis</h2>
+            <h2> Add Your Recipe</h2>
             <RecipeForm
                 handleSubmit={handleAddingRecipe}
                 onChange={changeFormValues}

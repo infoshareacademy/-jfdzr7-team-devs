@@ -1,61 +1,33 @@
 import { SelectImageToUpload } from "./SelectImageToUpload"
-
-const tags = [
-    {
-        key: "salt",
-        label: "Salt"
-    },
-    {
-        key: "sweet",
-        label: "Sweet"
-    },
-    {
-        key: "dinner",
-        label: "Dinner"
-    },
-    {
-        key: "lunch",
-        label: "Lunch"
-    },
-    {
-        key: "dessert",
-        label: "Dessert"
-    },
-    {
-        key: "breakfast",
-        label: "Breakfast"
-    },
-]
+import { tags } from "../../../api/firebaseIndex"
 
 
 export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
-
-
     return (
         <>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="title">Tytuł: </label>
+                    <label htmlFor="title">Title: </label>
                     <input type="text" id="title" name="title" value={formValues.title} onChange={onChange} />
                 </div>
 
                 <div>
-                    <label htmlFor="time">Czas przygotowania: </label>
+                    <label htmlFor="time">Preparing Time: </label>
                     <input type="text" id="time" name="time" value={formValues.time} onChange={onChange} />
                 </div>
 
                 <div>
-                    <label htmlFor="portion">Liczba porcji: </label>
+                    <label htmlFor="portion">Portions:</label>
                     <input type="text" id="portion" name="portion" value={formValues.portion} onChange={onChange} />
                 </div>
 
                 <div>
-                    <label htmlFor="ingredients">Składniki: </label>
+                    <label htmlFor="ingredients">Ingredients </label>
                     <textarea type="textarea" id="ingredients" name="ingredients" rows="10" cols="50" value={formValues.ingredients} onChange={onChange} />
                 </div>
 
                 <div>
-                    <label htmlFor="describe">Sposób przygotowania: </label>
+                    <label htmlFor="describe">How To Preapare: </label>
                     <textarea type="textarea" id="describe" name="describe" rows="10" cols="50" value={formValues.describe} onChange={onChange} />
                 </div>
 
@@ -71,10 +43,10 @@ export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
                 </div>
                 <br></br>
                 <br></br>
-                <SelectImageToUpload onClick={onClick} onChange={onChange} text={"Dodaj zdjęcie do Twojego przepisu"} />
+                <SelectImageToUpload onClick={onClick} onChange={onChange} text={"Add Photo to Your Recipe: "} />
                 <br></br>
                 <br></br>
-                <button>Zapisz przepis</button>
+                <button>Save Recipe</button>
             </form>
         </>
 

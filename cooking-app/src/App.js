@@ -1,19 +1,26 @@
-import './App.css';
-import { AddRecipe } from './components/AddRecipe';
-import { DisplayRecipes } from './components/DisplayRecipes';
+import { BrowserRouter } from 'react-router-dom'
+import { GlobalStyle, Wrapper } from './components/styles/Global.styled';
+import { Header } from './components/Header/Header';
+import { Content } from './components/Content/Content';
+import { Footer } from './components/Footer/Footer';
+import { AddRecipe } from "./components/Content/AddRecipes/AddRecipe"
 
 
-export const App = () => {
+function App() {
   return (
-    <div className="App">
-      <h1>Cześć wszystkim!</h1>
+    <BrowserRouter>
+      <GlobalStyle />
+      <Wrapper>
+        <Header />
+        <Content />
 
+        <AddRecipe />
 
-
-
-      <AddRecipe />
-    </div>
+        <Footer />
+      </Wrapper>
+    </BrowserRouter>
   );
 }
 
+export default App;
 

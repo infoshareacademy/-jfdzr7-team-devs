@@ -1,6 +1,4 @@
 export const SelectImageToUpload = ({ onChange, onClick, text }) => {
-    // console.log(onChange)
-    // console.log(onClick)
     return (
         <>
             <h3> {text}</h3>
@@ -9,8 +7,7 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
                 type="file"
                 onChange={onChange}
             />
-
-            <button onClick={onClick}>Dodaj zdjęcie</button>
+            <button onClick={onClick}>Add Photo</button>
         </>
     )
 }
