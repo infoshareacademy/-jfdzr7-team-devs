@@ -1,10 +1,20 @@
 import { PageTitle } from "../../styles/Global.styled";
 import { useParams } from "react-router-dom";
-import { GetData } from "../../../utils/GetData";
+import { onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { recipesCollection } from "../../../api/firebaseIndex";
+import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot"
 
 export const SingleRecipe = () => {
-    const recipies = GetData();
+    const [ recipies, setRecipies ] = useState([]);
+
     const idCurrent = useParams()
+
+    useEffect(() => {
+        onSnapshot(recipesCollection, singleRecipe => {
+            setRecipies(getDataFromSnapshot(singleRecipe))
+        })
+    },[])
 
     return (
         <>
