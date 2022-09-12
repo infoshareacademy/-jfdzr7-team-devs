@@ -8,21 +8,21 @@ export const SingleRecipe = () => {
 
     return (
         <>
-            {recipies.map((recipie) => {
+            {recipies.map((recipe) => {
                 
-            if (recipie.id === idCurrent.id) {
+            if (recipe.id === idCurrent.id) {
                 return (
-                    <div key={recipie.id}>
-                        <img src={recipie.url} alt={`${recipie.title} image`} />
-                        <PageTitle>{recipie.title}</PageTitle>
+                    <div key={recipe.id}>
+                        <img src={recipe.url} alt={`${recipe.title} image`} />
+                        <PageTitle>{recipe.title}</PageTitle>
                         <p>Categories: 
-                            {recipie.categories.map((category, index) => 
+                            {recipe.categories.map((category, index) => 
                             <li key={index}>{category}</li>)}
                         </p>
-                        <p>Time: {recipie.time}</p>
-                        <p>Portions: {recipie.portion}</p>
-                        <p>Ingredients: {recipie.ingredients}</p>
-                        <p>How to prepare? {recipie.describe}</p>
+                        <p>Time: {recipe.time}</p>
+                        <p>Portions: {recipe.portion}</p>
+                        <p>Ingredients: {recipe.ingredients}</p>
+                        <p>How to prepare? {recipe.describe}</p>
                     </div>
                 )}
             })}
