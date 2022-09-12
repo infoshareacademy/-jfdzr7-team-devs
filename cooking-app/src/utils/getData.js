@@ -9,13 +9,13 @@ const getDataFromSnapshot = data => {
     }))
 }
 
-export const getData = () => {
+export const GetData = () => {
     const [ data, setData ] = useState([]);
     useEffect(() => {
         onSnapshot(recipesCollection, singleRecipe => {
             setData(getDataFromSnapshot(singleRecipe))
         })
-    },[data])
+    },[])
 
 
     return data;

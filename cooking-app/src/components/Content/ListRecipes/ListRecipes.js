@@ -1,13 +1,15 @@
-import { getData } from "../../../utils/getData"
+import { GetData } from "../../../utils/GetData"
+import { PageTitle } from "../../styles/Global.styled"
 
 export const ListRecipes = () => {
-    const dataImport = getData();
+    const dataImport = GetData();
 
     return (
-        <div>
+        <>
+            <PageTitle>Recipes</PageTitle>
             {dataImport.map(({id,title}) => (
                 <li key={id}>{title}</li>
             ))}
-        </div>
+        </>
     )
 }

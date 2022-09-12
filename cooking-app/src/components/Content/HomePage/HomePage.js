@@ -1,11 +1,9 @@
-import { MainSlider } from "./MainSlider/MainSlider"
-import { ListRecipes } from "../ListRecipes/ListRecipes"
+import { MainBanner } from "./MainBanner/MainBanner"
 
 export const HomePage = () => {
     return (
         <>
-        <MainSlider />
-        <ListRecipes />
+        <MainBanner />
         </>
     )
 }
