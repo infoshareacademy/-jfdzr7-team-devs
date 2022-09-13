@@ -11,13 +11,13 @@ export const Header = () => {
             <StyledHeader>
                 <StyledHeaderContent>
                     <MenuListDropdown />
-                    <NavButton to="/">Tips</NavButton>
-                    <NavButton to="/">EBook</NavButton>
+                    <NavButton to="/tips">Tips</NavButton>
+                    <NavButton to="/ebook">EBook</NavButton>
                 </StyledHeaderContent>
                 <NavButtonLogo to="/">CookingApp</NavButtonLogo>
                 <StyledHeaderContent>
-                    <NavButton to="/"><FaSearch /> Search</NavButton>
-                    <NavButton to="/">Profile</NavButton>
+                    <NavButton to="/search"><FaSearch /> Search</NavButton>
+                    <NavButton to="/login">Login</NavButton>
                     <NavIcon href="https://facebook.com">
                     <FaFacebook />
                     </NavIcon> 

@@ -6,22 +6,23 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
-import { NavText } from './Header.styled';
+import { NavButton, MenuLink } from './Header.styled';
+import { useState, useRef } from "react";
 
 
 export const MenuListDropdown= () => {
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
+
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -40,23 +41,22 @@ export const MenuListDropdown= () => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
-
     prevOpen.current = open;
   }, [open]);
 
   return (
     <Stack direction="row" spacing={2}>
-      <div>
-          <NavText
+          <NavButton
           ref={anchorRef}
           id="composition-button"
           aria-controls={open ? 'composition-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-haspopup="true"
-          onClick={handleToggle}
+          onMouseEnter={handleToggle}
+          to="/ListRecipes"
         >
-          Recipies
-         </NavText>
+          Recipes
+         </NavButton>
         <Popper
           open={open}
           anchorEl={anchorRef.current}
@@ -64,6 +64,7 @@ export const MenuListDropdown= () => {
           placement="bottom-start"
           transition
           disablePortal
+          onMouseLeave={handleClose}
         >
           {({ TransitionProps, placement }) => (
             <Grow
@@ -80,17 +81,18 @@ export const MenuListDropdown= () => {
                     id="composition-menu"
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
+                    style={{display:"flex", flexDirection:"column"}}
                   >
-                    <MenuItem onClick={handleClose}>Category 1</MenuItem>
-                    <MenuItem onClick={handleClose}>Category 2</MenuItem>
-                    <MenuItem onClick={handleClose}>Category 3</MenuItem>
+                    <MenuLink to={`/ListRecipes/breakfast`} onClick={handleClose}>Breakfast</MenuLink>
+                    <MenuLink to={`/ListRecipes/lunch`} onClick={handleClose}>Lunch</MenuLink>
+                    <MenuLink to={`/ListRecipes/dinner`} onClick={handleClose}>Dinner</MenuLink>
+                    <MenuLink to={`/ListRecipes/dessert`} onClick={handleClose}>Dessert</MenuLink>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
             </Grow>
           )}
         </Popper>
-      </div>
     </Stack>
   );
 }

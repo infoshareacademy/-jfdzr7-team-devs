@@ -1,13 +1,24 @@
-import { getData } from "../../../utils/getData"
+import { PageTitle } from "../../styles/Global.styled"
+import { onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { recipesCollection } from "../../../api/firebaseIndex";
+import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot"
 
 export const ListRecipes = () => {
-    const dataImport = getData();
+    const [ recipies, setRecipies ] = useState([]);
+
+    useEffect(() => {
+        onSnapshot(recipesCollection, singleRecipe => {
+            setRecipies(getDataFromSnapshot(singleRecipe))
+        })
+    },[])
 
     return (
-        <div>
-            {dataImport.map(({id,title}) => (
+        <>
+            <PageTitle>Recipes</PageTitle>
+            {recipies.map(({id,title}) => (
                 <li key={id}>{title}</li>
             ))}
-        </div>
+        </>
     )
 }
