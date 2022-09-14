@@ -13,7 +13,7 @@ function App() {
         <Header />
         <Content />
 
-        <AddRecipe />
+        {/* <AddRecipe /> */}
 
         <Footer />
       </Wrapper>
