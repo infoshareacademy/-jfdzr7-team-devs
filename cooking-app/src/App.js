@@ -14,7 +14,6 @@ function App() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log("logged in status changed", user);
       if (user) {
         setIsLoggedIn(true);
         setUser(user);
