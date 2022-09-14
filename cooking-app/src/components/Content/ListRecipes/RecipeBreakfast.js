@@ -1,10 +1,9 @@
-import { PageTitle } from "../../styles/Global.styled"
+import { PageTitle } from "../../styles/Global.styled";
 
 export const RecipeBreakfast = () => {
-
-    return (
-        <>
-            <PageTitle>Breakfast</PageTitle>
-        </>
-    )
-}
+  return (
+    <>
+      <PageTitle>Breakfast</PageTitle>
+    </>
+  );
+};

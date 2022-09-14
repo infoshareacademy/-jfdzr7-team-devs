@@ -1,9 +1,9 @@
-import { MainBanner } from "./MainBanner/MainBanner"
+import { MainBanner } from "./MainBanner/MainBanner";
 
 export const HomePage = () => {
-    return (
-        <>
-        <MainBanner />
-        </>
-    )
-}
+  return (
+    <>
+      <MainBanner />
+    </>
+  );
+};

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const StyledSlider = styled.div`
   background-color: red;
@@ -6,4 +6,3 @@ export const StyledSlider = styled.div`
   font-size: 0.9em;
   padding: 0 15px;
 `;
-

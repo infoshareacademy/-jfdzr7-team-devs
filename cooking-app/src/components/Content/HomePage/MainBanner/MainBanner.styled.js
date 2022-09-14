@@ -12,5 +12,5 @@ export const StyledBanner = styled.div`
 `;
 
 export const BannerContent = styled.div`
-    padding-left: 60px;
+  padding-left: 60px;
 `;
