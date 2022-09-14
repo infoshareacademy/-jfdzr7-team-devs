@@ -9,8 +9,11 @@ import { Container } from "../styles/Global.styled";
 import { FaSearch } from "react-icons/fa";
 import { FaPinterest, FaFacebook, FaInstagram } from "react-icons/fa";
 import { MenuListDropdown } from "./MenuListDropdown";
+import { Button } from "@mui/material";
+import { signOut } from "firebase/auth";
+import { auth } from "../../api/firebase";
 
-export const Header = () => {
+export const Header = ({ isLoggedIn }) => {
   return (
     <Container>
       <StyledHeader>
@@ -24,16 +27,14 @@ export const Header = () => {
           <NavButton to="/search">
             <FaSearch /> Search
           </NavButton>
-          <NavButton to="/login">Login</NavButton>
-          <NavIcon href="https://facebook.com">
-            <FaFacebook />
-          </NavIcon>
-          <NavIcon href="https://instagram.com">
-            <FaInstagram />
-          </NavIcon>
-          <NavIcon href="https://pinterest.com">
-            <FaPinterest />
-          </NavIcon>
+          {!isLoggedIn ? null : <NavButton to="/account">My Account</NavButton>}
+          {!isLoggedIn ? (
+            <NavButton to="/login">Login</NavButton>
+          ) : (
+            <Button variant="text" onClick={() => signOut(auth)}>
+              Log out
+            </Button>
+          )}
         </StyledHeaderContent>
       </StyledHeader>
     </Container>
