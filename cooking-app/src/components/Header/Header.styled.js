@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { NavLink, Link } from 'react-router-dom'
+import styled from "styled-components";
+import { NavLink, Link } from "react-router-dom";
 
 export const StyledHeader = styled.nav`
   display: flex;
@@ -13,7 +13,7 @@ export const StyledHeaderContent = styled.div`
 `;
 
 export const NavButton = styled(NavLink)`
-  color:#585757;
+  color: #585757;
   text-transform: uppercase;
   padding: 6px 6px;
   text-decoration: none;
@@ -33,7 +33,7 @@ export const NavButtonLogo = styled(NavButton)`
 `;
 
 export const NavIcon = styled.a`
-  color:#585757;
+  color: #585757;
   padding: 6px 6px;
   text-decoration: none;
   font-size: 14px;
@@ -44,7 +44,7 @@ export const NavIcon = styled.a`
 `;
 
 export const MenuLink = styled(Link)`
-  color:#585757;
+  color: #585757;
   text-transform: uppercase;
   padding: 6px 12px;
   text-decoration: none;

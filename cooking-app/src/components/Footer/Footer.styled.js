@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const StyledFooter = styled.div`
   background-color: #1b1b1c;
@@ -15,7 +15,7 @@ export const StyledFooterContent = styled.div`
   p {
     padding: 15px 0;
     border-top: 1px solid #252626;
-    width:100%;
+    width: 100%;
     text-align: center;
   }
-  `
+`;
