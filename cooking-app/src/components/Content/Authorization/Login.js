@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from "@firebase/auth";
 import React, { useState } from "react";
 import { StyledLogin } from "./Login.styled";
 import { auth } from "../../../api/firebase";
+import { NavLink } from "react-router-dom";
 
 export const Login = () => {
   const defaultLoginForm = {
@@ -34,8 +35,6 @@ export const Login = () => {
       ...loginForm,
       [e.target.name]: e.target.value,
     });
-
-    console.log(loginForm);
   };
 
   const loginUser = (e) => {
@@ -82,7 +81,7 @@ export const Login = () => {
 
         <p>
           Don't have an account?
-          <a href="#"> Register</a>
+          <NavLink to="/register"> Register</NavLink>
         </p>
       </form>
 
