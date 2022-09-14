@@ -12,6 +12,7 @@ import { Tips } from "./Tips/Tips";
 import { Ebook } from "./Ebook/Ebook";
 import { Search } from "./Search/Search";
 import { SingleRecipe } from "./SingleRecipe/SingleRecipe";
+import Account from "./Account/Account";
 
 export const Content = () => {
   return (
@@ -23,6 +24,7 @@ export const Content = () => {
           <Route path="/tips" element={<Tips />} />
           <Route path="/ebook" element={<Ebook />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/account" element={<Account />} />
           <Route path="/recipe/:id" element={<SingleRecipe />} />
           <Route path="/ListRecipes" element={<ListRecipes />} />
           <Route path="/ListRecipes/breakfast" element={<RecipeBreakfast />} />
