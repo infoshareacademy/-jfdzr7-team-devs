@@ -14,6 +14,7 @@ import { Search } from "./Search/Search";
 import { SingleRecipe } from "./SingleRecipe/SingleRecipe";
 import Account from "./Account/Account";
 import Register from "./Authorization/Register";
+import ForgotPassword from "./Authorization/ForgotPassword";
 
 export const Content = ({ isLoggedIn }) => {
   return (
@@ -31,6 +32,16 @@ export const Content = ({ isLoggedIn }) => {
             path="/register"
             element={
               !isLoggedIn ? <Register /> : <Navigate replace to="/account" />
+            }
+          />
+          <Route
+            path="/forgot"
+            element={
+              !isLoggedIn ? (
+                <ForgotPassword />
+              ) : (
+                <Navigate replace to="/account" />
+              )
             }
           />
           <Route path="/tips" element={<Tips />} />

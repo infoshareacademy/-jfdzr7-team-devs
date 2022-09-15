@@ -22,7 +22,7 @@ export const Login = () => {
   };
 
   const handleClose = (event, reason) => {
-    if (reason == "clickaway") {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -79,10 +79,14 @@ export const Login = () => {
           Login
         </Button>
 
-        <p>
-          Don't have an account?
-          <NavLink to="/register"> Register</NavLink>
-        </p>
+        <div>
+          <p>
+            Don't have an account? <NavLink to="/register">Register</NavLink>
+          </p>
+          <p>
+            <NavLink to="/forgot">Forgot your password?</NavLink>
+          </p>
+        </div>
       </form>
 
       <Snackbar
