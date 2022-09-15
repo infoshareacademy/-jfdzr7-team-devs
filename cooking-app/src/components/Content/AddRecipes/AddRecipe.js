@@ -1,15 +1,20 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { db } from "../../../api/firebase";
-import { RecipeForm } from "./RecipeForm";
-import { useState } from "react";
+import { RecipeForm } from "./RecipeForm copy 2";
+import { useEffect, useState } from "react";
 import { storage } from "../../../api/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
-import { urlStorage, urlStorageCD, folderStorage, collectionRecipesName, tags } from "../../../api/firebaseIndex";
-
+import {
+    urlStorage,
+    urlStorageCD,
+    folderStorage,
+    recipesCollection,
+} from "../../../api/firebaseIndex";
+import { textsRecipe } from "./RecipeHelper"
+import { firestoreErrorsCodes, storageErrorsCodes } from "../../../api/firebaseIndex"
 
 export const AddRecipe = () => {
-    const recipesCollection = collection(db, collectionRecipesName);
     const defaultRecipe = {
         title: "",
         time: "",
@@ -17,8 +22,22 @@ export const AddRecipe = () => {
         ingredients: "",
         describe: "",
         url: [],
-        categories: []
+        categories: [],
+        dateTimestamp: Timestamp.fromDate(new Date()).toDate(),
+        userId: "",
     }
+
+    // consol // Thu Sep 15 2022 13:34:02 GMT+0200 (czas środkowoeuropejski letni)
+    // Firebase // September 15,2022 at 110:03:18 AM UTC+2
+
+    const timestampDate = Timestamp.fromDate(new Date()).toDate()
+    console.log(timestampDate)
+
+    const transformTimeStamp = () => {
+        timestampDate
+    }
+    console.log(transformTimeStamp())
+
     const [imageUpload, setImageUpload] = useState(null)
     const [formValues, setFormValues] = useState(defaultRecipe)
 
@@ -26,14 +45,19 @@ export const AddRecipe = () => {
         e.preventDefault()
         if (imageUpload === null) return;
         const imageRef = ref(storage, `${folderStorage}/${imageUpload.name + v4()}`);
-        uploadBytes(imageRef, imageUpload).then((response) => {
-            alert("image uploaded")
-            setFormValues({
-                ...formValues,
-                url: [...formValues.url, `${urlStorage}${response.metadata.name}${urlStorageCD}`]
-            });
-        })
-    }
+        uploadBytes(imageRef, imageUpload)
+            .then((response) => {
+                console.log("response Upload ----------", response)
+                alert("Image uploaded")
+                setFormValues({
+                    ...formValues,
+                    url: [...formValues.url, `${urlStorage}${response.metadata.name}${urlStorageCD}`]
+                });
+            })
+            .catch(e => {
+                alert(storageErrorsCodes[e.code])
+            })
+    };
 
     const changeFormValues = (e) => {
         switch (e.target.name) {
@@ -65,16 +89,26 @@ export const AddRecipe = () => {
         }
     }
 
+    useEffect(() => {
+        console.log(formValues)
+    })
+
     const handleAddingRecipe = (e) => {
         e.preventDefault()
-        addDoc(recipesCollection, formValues).then(response => console.log(response))
+        addDoc(recipesCollection, formValues)
+            .then(response => console.log(response))
+            .catch(e => {
+                console.log(e)
+                alert(firestoreErrorsCodes[e.code])
+            })
         alert("Przepis zapisano")
         setFormValues(defaultRecipe)
+        e.target.reset()
     }
 
     return (
         <>
-            <h2> Add Your Recipe</h2>
+            <h2> {textsRecipe.addRecipe.header}</h2>
             <RecipeForm
                 handleSubmit={handleAddingRecipe}
                 onChange={changeFormValues}

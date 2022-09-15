@@ -13,9 +13,6 @@ function App() {
       <Wrapper>
         <Header />
         <Content />
-
-        <AddRecipe />
-
         <Footer />
       </Wrapper>
     </BrowserRouter>

@@ -2,20 +2,24 @@ import styled from 'styled-components'
 import { Routes, Route } from "react-router-dom"
 import { Container } from '../styles/Global.styled'
 import { HomePage } from './HomePage/HomePage'
+import { AddRecipe } from './AddRecipes/AddRecipe'
 
 export const Content = () => {
     return (
         <StyledContent>
             <Container>
                 <Routes>
-                    <Route path="/" element={<HomePage />}/>
+                    <Route path="/" element={<HomePage />} />
 
                     ///dopisujemy swoje podstrony
+                    <Route path="/addrecipe" element={<AddRecipe />} />
+
+
 
                     <Route
-                    path="*"
-                    element={
-                    <h2 style={{ padding: '10px' }}>Ups, Strona nie istnieje</h2>}/>
+                        path="*"
+                        element={
+                            <h2 style={{ padding: '10px' }}>Ups, Strona nie istnieje</h2>} />
                 </Routes>
             </Container>
         </StyledContent>
