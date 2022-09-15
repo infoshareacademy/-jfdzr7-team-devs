@@ -6,20 +6,35 @@ import { Footer } from "./components/Footer/Footer";
 import { AddRecipe } from "./components/Content/AddRecipes/AddRecipe";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./api/firebase";
+import { auth, db, usersCollection } from "./api/firebase";
+import { createContext } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { Loader } from "./utils/Loader";
+
+export const UserDataContext = createContext("ulabula");
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLoggedIn(true);
-        setUser(user);
+        console.log(user);
+        getDoc(doc(db, "users", user.uid)).then((querySnaphot) => {
+          const tempData = querySnaphot.data();
+          setUserData({
+            firstName: tempData.firstName,
+            lastName: tempData.lastName,
+            email: tempData.email,
+            role: tempData.role,
+            uid: tempData.uid,
+          });
+        });
       } else {
         setIsLoggedIn(false);
-        setUser(null);
+        setUserData(null);
       }
     });
   }, []);
@@ -27,14 +42,13 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <Wrapper>
-        <Header isLoggedIn={isLoggedIn} />
-        <Content isLoggedIn={isLoggedIn} />
-
-        {/* <AddRecipe /> */}
-
-        <Footer />
-      </Wrapper>
+      <UserDataContext.Provider value={userData}>
+        <Wrapper>
+          <Header isLoggedIn={isLoggedIn} />
+          {!userData ? <Loader /> : <Content isLoggedIn={isLoggedIn} />}
+          <Footer />
+        </Wrapper>
+      </UserDataContext.Provider>
     </BrowserRouter>
   );
 }
