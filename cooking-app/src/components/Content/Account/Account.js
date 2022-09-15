@@ -7,7 +7,7 @@ const Account = () => {
   const userData = useContext(UserDataContext);
   return (
     <div>
-      <h1>Witaj {userData.firstName}</h1>
+      <h1>Witaj {userData?.firstName}</h1>
       <AddRecipe />;
     </div>
   );

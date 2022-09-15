@@ -45,7 +45,7 @@ function App() {
       <UserDataContext.Provider value={userData}>
         <Wrapper>
           <Header isLoggedIn={isLoggedIn} />
-          {!userData ? <Loader /> : <Content isLoggedIn={isLoggedIn} />}
+          {isLoggedIn === null ? <Loader /> : <Content isLoggedIn={isLoggedIn} />}
           <Footer />
         </Wrapper>
       </UserDataContext.Provider>
