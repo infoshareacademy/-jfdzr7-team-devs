@@ -58,10 +58,10 @@ export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
                         text={textsRecipe.recipeForm.fileInput} />
                     <br></br>
                     <br></br>
-                    <button>{textsRecipe.recipeForm.buttonSave} 📎</button>
+                    <button style={{width:"120px", height:"50px", padding:"8px", marginTop:"16px"}}>{textsRecipe.recipeForm.buttonSave}</button>
                 </div>
 
-                <button style={{ width: "40px", height: "40px" }}>&#128465;  🗑  📎</button>
+                {/* <button style={{ width: "40px", height: "40px" }}>&#128465;  🗑  📎</button> */}
             </StyledRecipeForm>
         </>
 

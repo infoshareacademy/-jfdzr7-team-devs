@@ -12,7 +12,7 @@ export const textsRecipe = {
         },
         fileInput: {
             headerUpload: "Add Photo to Recipe:",
-            buttonUpload: "Add Photo",
+            buttonUpload: "Upload Photo",
         },
         buttonSave: "Save Recipe",
     }
