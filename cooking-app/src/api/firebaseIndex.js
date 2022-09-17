@@ -1,6 +1,5 @@
-import { collection } from 'firebase/firestore';
-import { db } from './firebase';
-
+import { collection, doc } from "firebase/firestore";
+import { db } from "./firebase";
 
 export const recipesCollection = collection(db, "recipes");
 export const collectionRecipesName = "recipes"; // jeśli będą inne kolekcje

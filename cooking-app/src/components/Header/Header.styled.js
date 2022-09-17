@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import styled from "styled-components";
+import { NavLink, Link } from "react-router-dom";
 
 export const StyledHeader = styled.nav`
   display: flex;
@@ -9,15 +9,17 @@ export const StyledHeader = styled.nav`
 
 export const StyledHeaderContent = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 export const NavButton = styled(NavLink)`
-  color:#585757;
+  color: #585757;
   text-transform: uppercase;
   padding: 6px 6px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9em;
+  font-size: 14px;
+  outline: none;
 
   &:hover {
     color: #fab01f;
@@ -26,30 +28,29 @@ export const NavButton = styled(NavLink)`
 
 export const NavButtonLogo = styled(NavButton)`
   color: #000;
-  font-size: 1.25em;
+  font-size: 20px;
   text-transform: none;
 `;
 
 export const NavIcon = styled.a`
-  color:#585757;
+  color: #585757;
   padding: 6px 6px;
   text-decoration: none;
-  font-size: 0.9em;
+  font-size: 14px;
 
   &:hover {
     color: #fab01f;
   }
 `;
 
-export const NavText = styled.p`
-  color:#585757;
+export const MenuLink = styled(Link)`
+  color: #585757;
   text-transform: uppercase;
-  padding: 6px 6px;
+  padding: 6px 12px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9em;
-  cursor: pointer;
-  margin: 0;
+  font-size: 14px;
+  outline: none;
 
   &:hover {
     color: #fab01f;

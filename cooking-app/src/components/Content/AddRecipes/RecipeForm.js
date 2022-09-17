@@ -42,34 +42,61 @@ export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
                     <input type="text" id="portion" name="portion" value={formValues.portion} onChange={onChange} />
                 </div> */}
 
-                <div>
-                    <label htmlFor="ingredients">Ingredients </label>
-                    <textarea type="textarea" id="ingredients" name="ingredients" rows="10" cols="50" value={formValues.ingredients} onChange={onChange} />
-                </div>
+        <div>
+          <label htmlFor="ingredients">Ingredients </label>
+          <textarea
+            type="textarea"
+            id="ingredients"
+            name="ingredients"
+            rows="10"
+            cols="50"
+            value={formValues.ingredients}
+            onChange={onChange}
+          />
+        </div>
 
-                <div>
-                    <label htmlFor="describe">How To Preapare: </label>
-                    <textarea type="textarea" id="describe" name="describe" rows="10" cols="50" value={formValues.describe} onChange={onChange} />
-                </div>
+        <div>
+          <label htmlFor="describe">How To Preapare: </label>
+          <textarea
+            type="textarea"
+            id="describe"
+            name="describe"
+            rows="10"
+            cols="50"
+            value={formValues.describe}
+            onChange={onChange}
+          />
+        </div>
 
-                <div>
-                    {tags.map((tag, index) => {
-                        return (
-                            <>
-                                <label key={index} htmlFor={tag.key} >{tag.label}</label>
-                                <input type="checkbox" id={tag.key} name={tag.key} value={tag.label} onChange={onChange} />
-                            </>
-                        )
-                    })}
-                </div>
-                <br></br>
-                <br></br>
-                <SelectImageToUpload onClick={onClick} onChange={onChange} text={"Add Photo to Your Recipe: "} />
-                <br></br>
-                <br></br>
-                <button>Save Recipe</button>
-            </form>
-        </>
-
-    )
-}
+        <div>
+          {tags.map((tag, index) => {
+            return (
+              <>
+                <label key={index} htmlFor={tag.key}>
+                  {tag.label}
+                </label>
+                <input
+                  type="checkbox"
+                  id={tag.key}
+                  name={tag.key}
+                  value={tag.label}
+                  onChange={onChange}
+                />
+              </>
+            );
+          })}
+        </div>
+        <br></br>
+        <br></br>
+        <SelectImageToUpload
+          onClick={onClick}
+          onChange={onChange}
+          text={"Add Photo to Your Recipe: "}
+        />
+        <br></br>
+        <br></br>
+        <button>Save Recipe</button>
+      </form>
+    </>
+  );
+};
