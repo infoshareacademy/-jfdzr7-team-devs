@@ -7,7 +7,15 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body {
+  :root {
+    --color-gray: #585757;
+    --color-little-light-gray: #f2f2f2 ;
+    --color-light-gray: #989898;
+    --color-orange:  #fab01f;
+    --font-family: 'Montserrat', sans-serif;
+  }
+
+  body{
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
