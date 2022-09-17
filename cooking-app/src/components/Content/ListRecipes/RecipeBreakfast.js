@@ -9,11 +9,11 @@ import { IndividualRecipe } from "./IndividualRecipe";
 const reducer = (currentState, action)=>{
 switch(action.type){
   case "salt":
-    return {saltInput: !currentState.saltInput};
+    return {...currentState, saltInput: !currentState.saltInput};
   case "sweet":
-    return {sweetInput: !currentState.sweetInput};
+    return {...currentState, sweetInput: !currentState.sweetInput};
   case "text":
-    return {filterInput: action.payload};
+    return {...currentState, filterInput: action.payload};
   default: return currentState
 }}
 
