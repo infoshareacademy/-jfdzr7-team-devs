@@ -9,10 +9,12 @@ export const SingleRecipe = () => {
   const [recipies, setRecipies] = useState([]);
 
   const idCurrent = useParams();
+  console.log(idCurrent)
 
   useEffect(() => {
     onSnapshot(recipesCollection, (singleRecipe) => {
       setRecipies(getDataFromSnapshot(singleRecipe));
+      console.log(recipies)
     });
   }, []);
 
