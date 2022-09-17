@@ -7,7 +7,6 @@ import {
 } from "./Header.styled";
 import { Container } from "../styles/Global.styled";
 import { FaSearch } from "react-icons/fa";
-import { FaPinterest, FaFacebook, FaInstagram } from "react-icons/fa";
 import { MenuListDropdown } from "./MenuListDropdown";
 import { Button } from "@mui/material";
 import { signOut } from "firebase/auth";
