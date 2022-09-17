@@ -24,20 +24,10 @@ export const DisplayComments = () => {
     return <Loader />;
   }
 
-  //sprawdzenie czy istnieja juz komentarze
-
-  const ErrorMessage = () => {
-    return (
-      <Alert severity="error" variant="outlined">
-        {ERROR_MESSAGE.MISSING_WEBSITE}
-      </Alert>
-    );
-  };
-
   return (
     <>
       {!recipe.comments ? (
-        <ErrorMessage />
+        <p>no comments yet</p>
       ) : (
         recipe.comments.map(({ author, comment, idx }) => (
           <div>

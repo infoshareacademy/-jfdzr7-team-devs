@@ -75,7 +75,7 @@ export const SingleRecipe = () => {
               <AddComment />
             </div>
             <div>
-              {/* <DisplayComments /> */}
+              <DisplayComments />
             </div>
           </div>
         )}
