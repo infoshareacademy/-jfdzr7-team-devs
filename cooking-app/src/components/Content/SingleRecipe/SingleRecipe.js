@@ -14,7 +14,6 @@ export const SingleRecipe = () => {
   const [recipes, setRecipes] = useState([]);
   const [load, setLoad] = useState(false);
   const idCurrent = useParams();
-  console.log(idCurrent);
 
   useEffect(() => {
     onSnapshot(recipesCollection, (singleRecipe) => {

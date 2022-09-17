@@ -17,14 +17,17 @@ export const DisplayComments = () => {
     });
   }, [id]);
 
+  
+
   return (
     <>
       {!recipe.comments ? (
         <p>no comments yet</p>
       ) : (
         recipe.comments.map(({ author, comment, idx }) => (
-          <div>
-            <p key={idx}>Author: {author}</p>
+          <div key={idx}>
+            <p>Author: {author}</p>
+            {/* <p>{commentTimeStamp}</p> */}
             <p>{comment}</p>
             <br />
           </div>

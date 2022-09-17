@@ -4,7 +4,7 @@ import { TextField } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { db } from "../../../api/firebase";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
 
 export const AddComment = () => {
   const defaultCommentForm = {
@@ -30,6 +30,7 @@ export const AddComment = () => {
       comments: arrayUnion({
         author: commentForm.author,
         comment: commentForm.comment,
+        commentTimeStamp: Timestamp.fromDate(new Date()).toDate(),
       }),
     })
       .then((docRef) => {
