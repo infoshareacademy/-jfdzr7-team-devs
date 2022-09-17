@@ -66,3 +66,32 @@ export const StyledLink = styled(Link)`
     transform: translateY(0);
   }
 `;
+
+
+///troche glupie chyab ze mamy tutja link i button o tych samych wlasciwosciach. jak to uproscic?
+export const StyledButton = styled.button`
+  color: #fff;
+  background-color: #fab01f;
+  text-transform: uppercase;
+  padding: 16px 26px;
+  display: block;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  border-radius: 0.1rem;
+  border: none;
+  width: fit-content;
+
+  &:hover {
+    background-color: #e89a00;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  }
+
+  &:active {
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    transform: translateY(0);
+  }
+`;
+
