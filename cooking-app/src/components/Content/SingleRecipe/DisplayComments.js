@@ -2,9 +2,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { db } from "../../../api/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
-import { Loader } from "../../../utils/Loader";
-import { Alert } from "@mui/material";
-import { ERROR_MESSAGE } from "../../../utils/ErrorMessageTexts";
 
 export const DisplayComments = () => {
   const [recipe, setRecipe] = useState({});
@@ -18,11 +15,7 @@ export const DisplayComments = () => {
       setRecipe(doc.data(), doc.id);
       setLoad(true);
     });
-  }, [id, load]);
-
-  if (load === false) {
-    return <Loader />;
-  }
+  }, [id]);
 
   return (
     <>
