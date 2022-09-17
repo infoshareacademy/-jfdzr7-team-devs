@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { db } from "../../../api/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { Loader } from "../../../utils/Loader";
+import { Alert } from "@mui/material";
+import { ERROR_MESSAGE } from "../../../utils/ErrorMessageTexts";
 
 export const DisplayComments = () => {
   const [recipe, setRecipe] = useState({});
@@ -22,17 +24,29 @@ export const DisplayComments = () => {
     return <Loader />;
   }
 
-  console.log(recipe.comments);
+  //sprawdzenie czy istnieja juz komentarze
+
+  const ErrorMessage = () => {
+    return (
+      <Alert severity="error" variant="outlined">
+        {ERROR_MESSAGE.MISSING_WEBSITE}
+      </Alert>
+    );
+  };
 
   return (
     <>
-      {recipe.comments.map(({ author, comment, idx }) => (
-        <div>
-          <p key={idx}>Author: {author}</p>
-          <p>{comment}</p>
-          <br />
-        </div>
-      ))}
+      {!recipe.comments ? (
+        <ErrorMessage />
+      ) : (
+        recipe.comments.map(({ author, comment, idx }) => (
+          <div>
+            <p key={idx}>Author: {author}</p>
+            <p>{comment}</p>
+            <br />
+          </div>
+        ))
+      )}
     </>
   );
 };
