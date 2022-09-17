@@ -1,7 +1,7 @@
 import { PageTitle } from "../../styles/Global.styled";
 import { useParams, Link } from "react-router-dom";
 import { onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { recipesCollection } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { ERROR_MESSAGE } from "../../../utils/ErrorMessageTexts";

@@ -7,7 +7,7 @@ import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { UserDataContext } from "../../../App";
 
 export const AddComment = () => {
-  // const { userData } = useContext(UserDataContext);
+  const userData = useContext(UserDataContext);
   const defaultCommentForm = {
     author: "",
     comment: "",
@@ -29,7 +29,8 @@ export const AddComment = () => {
     e.preventDefault();
     updateDoc(docRef, {
       comments: arrayUnion({
-        author: commentForm.author,
+        author: userData?.firstName,
+        authorId: userData?.uid,
         comment: commentForm.comment,
         commentTimeStamp: Timestamp.fromDate(new Date()).toDate(),
       }),
@@ -46,16 +47,8 @@ export const AddComment = () => {
 
   return (
     <>
+    <p>{userData?.firstName} Zostaw nam komenatrz:</p>
       <form onSubmit={submitComment}>
-        <TextField
-          label="Name"
-          multiline
-          variant="filled"
-          value={commentForm.author}
-          name="author"
-          onChange={updateCommentForm}
-        />
-        <br />
         <TextField
           label="Add your comment"
           multiline
