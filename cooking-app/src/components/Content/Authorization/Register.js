@@ -1,9 +1,9 @@
 import { Alert, Button, Snackbar, TextField } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { auth, db } from "../../../api/firebase";
+import { auth, db, usersCollection } from "../../../api/firebase";
 import { StyledLogin } from "./Login.styled";
 
 const Register = () => {
@@ -33,7 +33,7 @@ const Register = () => {
       registerForm.password
     )
       .then((jwt) => {
-        addDoc(usersCollection, {
+        setDoc(doc(db, "users", jwt.user.uid), {
           ...registerForm,
           role: "standard",
           uid: jwt.user.uid,

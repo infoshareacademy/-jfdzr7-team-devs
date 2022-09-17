@@ -1,7 +1,7 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { db } from "../../../api/firebase";
-import { RecipeForm } from "./RecipeForm";
-import { useState } from "react";
+import { RecipeForm } from "./RecipeForm copy 2";
+import { useEffect, useState } from "react";
 import { storage } from "../../../api/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
@@ -9,12 +9,15 @@ import {
   urlStorage,
   urlStorageCD,
   folderStorage,
-  collectionRecipesName,
-  tags,
+  recipesCollection,
+} from "../../../api/firebaseIndex";
+import { textsRecipe } from "./RecipeHelper";
+import {
+  firestoreErrorsCodes,
+  storageErrorsCodes,
 } from "../../../api/firebaseIndex";
 
 export const AddRecipe = () => {
-  const recipesCollection = collection(db, collectionRecipesName);
   const defaultRecipe = {
     title: "",
     time: "",
@@ -23,7 +26,11 @@ export const AddRecipe = () => {
     describe: "",
     url: [],
     categories: [],
+    recipeTimestamp: Timestamp.fromDate(new Date()).toDate(),
+    author: " {name, email} z Context (jak zmergujemy)",
+    posts: [],
   };
+
   const [imageUpload, setImageUpload] = useState(null);
   const [formValues, setFormValues] = useState(defaultRecipe);
 
@@ -34,16 +41,21 @@ export const AddRecipe = () => {
       storage,
       `${folderStorage}/${imageUpload.name + v4()}`
     );
-    uploadBytes(imageRef, imageUpload).then((response) => {
-      alert("image uploaded");
-      setFormValues({
-        ...formValues,
-        url: [
-          ...formValues.url,
-          `${urlStorage}${response.metadata.name}${urlStorageCD}`,
-        ],
+    uploadBytes(imageRef, imageUpload)
+      .then((response) => {
+        console.log("response Upload ----------", response);
+        alert("Image uploaded");
+        setFormValues({
+          ...formValues,
+          url: [
+            ...formValues.url,
+            `${urlStorage}${response.metadata.name}${urlStorageCD}`,
+          ],
+        });
+      })
+      .catch((e) => {
+        alert(storageErrorsCodes[e.code]);
       });
-    });
   };
 
   const changeFormValues = (e) => {
@@ -76,18 +88,24 @@ export const AddRecipe = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(formValues);
+  });
+
   const handleAddingRecipe = (e) => {
     e.preventDefault();
-    addDoc(recipesCollection, formValues).then((response) =>
-      console.log(response)
-    );
+    addDoc(recipesCollection, formValues).catch((e) => {
+      console.log(e);
+      alert(firestoreErrorsCodes[e.code]);
+    });
     alert("Przepis zapisano");
     setFormValues(defaultRecipe);
+    e.target.reset();
   };
 
   return (
     <>
-      <h2> Add Your Recipe</h2>
+      <h2> {textsRecipe.addRecipe.header}</h2>
       <RecipeForm
         handleSubmit={handleAddingRecipe}
         onChange={changeFormValues}
