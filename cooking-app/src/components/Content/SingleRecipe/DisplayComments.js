@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { db } from "../../../api/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
+import moment from "moment";
 
 export const DisplayComments = () => {
   const [recipe, setRecipe] = useState({});
@@ -17,17 +18,15 @@ export const DisplayComments = () => {
     });
   }, [id]);
 
-  
-
   return (
     <>
       {!recipe.comments ? (
         <p>no comments yet</p>
       ) : (
-        recipe.comments.map(({ author, comment, idx }) => (
+        recipe.comments.map(({ author, comment, commentTimeStamp, idx }) => (
           <div key={idx}>
             <p>Author: {author}</p>
-            {/* <p>{commentTimeStamp}</p> */}
+            <p>{moment(commentTimeStamp.toDate()).calendar()}</p>
             <p>{comment}</p>
             <br />
           </div>
