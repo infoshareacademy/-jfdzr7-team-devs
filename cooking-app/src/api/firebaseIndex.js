@@ -29,7 +29,7 @@ export const firestoreErrorsCodes = {
     'not-found': 'Some requested document was not found.',
     'already-exists': 'Some document that we attempted to create already exists.',
     'permission-denied': 'The caller does not have permission to execute the specified operation.',
-    'resource-exhausted': 'Some resource has been exhausted, perhaps a per-user quota, or perhaps the entire file system is out of space.',
+    'code=resource-exhausted': 'Some resource has been exhausted, perhaps a per-user quota, or perhaps the entire file system is out of space.',
     'failed-precondition': "Operation was rejected because the system is not in a state required for the operation's execution.",
     'aborted': 'The operation was aborted, typically due to a concurrency issue like transaction aborts, etc.',
     'out-of-range': 'Operation was attempted past the valid range.',

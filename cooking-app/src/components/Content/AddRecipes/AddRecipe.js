@@ -23,8 +23,9 @@ export const AddRecipe = () => {
         describe: "",
         url: [],
         categories: [],
-        dateTimestamp: Timestamp.fromDate(new Date()).toDate(),
-        userId: "",
+        recipeTimestamp: Timestamp.fromDate(new Date()).toDate(),
+        author: " {name, email} z Context (jak zmergujemy)",
+        posts:[],
     }
 
     // consol // Thu Sep 15 2022 13:34:02 GMT+0200 (czas środkowoeuropejski letni)
