@@ -24,7 +24,6 @@ export const ListRecipes = () => {
   const dessertInput = useRef();
   const lunchInput = useRef();
 
-
   useEffect(() => {
     onSnapshot(recipesCollection, (snapshot) => {
       setdatafromFirebase(getDataFromSnapshot(snapshot));
@@ -50,25 +49,22 @@ export const ListRecipes = () => {
       } else return item.title.toLowerCase().includes(search);
     })
     .map((singleRecipe) => {
-      return (
-        <IndividualRecipe singleRecipe={singleRecipe}/>
-      );
+      return <IndividualRecipe singleRecipe={singleRecipe} />;
     });
-
 
   return (
     <>
-    <PageTitle>Recipes</PageTitle>
-    <label htmlFor="filter">Search by recipe title </label>
-    <input
-    id="filter"
+      <PageTitle>Recipes</PageTitle>
+      <label htmlFor="filter">Search by recipe title </label>
+      <input
+        id="filter"
         ref={textInput}
         type="text"
         onChange={(e) => {
           setSearch(e.target.value);
         }}
       />
-      <br/>
+      <br />
 
       <label htmlFor="salt">Salt</label>
       <input
@@ -100,7 +96,7 @@ export const ListRecipes = () => {
         }}
       />
 
-<label htmlFor="lunch">Lunch</label>
+      <label htmlFor="lunch">Lunch</label>
       <input
         ref={lunchInput}
         name="breakfast"
@@ -120,7 +116,7 @@ export const ListRecipes = () => {
         }}
       />
 
-<label htmlFor="dessert">Dessert</label>
+      <label htmlFor="dessert">Dessert</label>
       <input
         ref={dessertInput}
         name="dessert"
@@ -130,15 +126,13 @@ export const ListRecipes = () => {
         }}
       />
 
-
       <StyledDiv>{listofRecipe2}</StyledDiv>
     </>
   );
 };
 
 const StyledDiv = styled.div`
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-`
-
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
