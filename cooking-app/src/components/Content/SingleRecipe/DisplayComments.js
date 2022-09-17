@@ -23,8 +23,8 @@ export const DisplayComments = () => {
       {!recipe.comments ? (
         <p>no comments yet</p>
       ) : (
-        recipe.comments.map(({ author, comment, commentTimeStamp, idx }) => (
-          <div key={idx}>
+        recipe.comments.map(({ author, comment, commentTimeStamp, index }) => (
+          <div key={index}>
             <p>Author: {author}</p>
             <p>{moment(commentTimeStamp.toDate()).calendar()}</p>
             <p>{comment}</p>

@@ -1,5 +1,5 @@
 import { PageTitle } from "../../styles/Global.styled";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { recipesCollection } from "../../../api/firebaseIndex";
@@ -10,7 +10,7 @@ import { AddComment } from "./AddComment";
 import { Loader } from "../../../utils/Loader";
 import { DisplayComments } from "./DisplayComments";
 
-export const SingleRecipe = () => {
+export const SingleRecipe = ({ isLoggedIn }) => {
   const [recipes, setRecipes] = useState([]);
   const [load, setLoad] = useState(false);
   const idCurrent = useParams();
@@ -71,10 +71,13 @@ export const SingleRecipe = () => {
                 }
               })}
             </div>
+            <PageTitle>Comments</PageTitle>
             <div>
-              <AddComment />
-            </div>
-            <div>
+              {!isLoggedIn ? (
+                <p>To add comments, please <Link to="/login">Log in</Link></p>
+              ) : (
+                <AddComment />
+              )}
               <DisplayComments />
             </div>
           </div>

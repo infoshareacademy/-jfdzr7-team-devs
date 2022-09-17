@@ -1,12 +1,13 @@
-import { PageTitle, StyledButton } from "../../styles/Global.styled";
-import { useState } from "react";
+import { StyledButton } from "../../styles/Global.styled";
+import { useState, useContext } from "react";
 import { TextField } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { db } from "../../../api/firebase";
 import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
+import { UserDataContext } from "../../../App";
 
 export const AddComment = () => {
+  // const { userData } = useContext(UserDataContext);
   const defaultCommentForm = {
     author: "",
     comment: "",
@@ -45,8 +46,6 @@ export const AddComment = () => {
 
   return (
     <>
-      <PageTitle>Comments</PageTitle>
-
       <form onSubmit={submitComment}>
         <TextField
           label="Name"

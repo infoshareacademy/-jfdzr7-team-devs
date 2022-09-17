@@ -11,7 +11,7 @@ import { createContext } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { Loader } from "./utils/Loader";
 
-export const UserDataContext = createContext("ulabula");
+export const UserDataContext = createContext();
 
 function App() {
   const [userData, setUserData] = useState(null);

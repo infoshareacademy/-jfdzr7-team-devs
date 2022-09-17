@@ -53,7 +53,7 @@ export const Content = ({ isLoggedIn }) => {
               !isLoggedIn ? <Navigate replace to="/login" /> : <Account />
             }
           />
-          <Route path="/recipe/:id" element={<SingleRecipe />} />
+          <Route path="/recipe/:id" element={<SingleRecipe isLoggedIn={isLoggedIn}/>} />
           <Route path="/ListRecipes" element={<ListRecipes />} />
           <Route path="/ListRecipes/breakfast" element={<RecipeBreakfast />} />
           <Route path="/ListRecipes/lunch" element={<RecipeLunch />} />
