@@ -8,7 +8,7 @@ import { v4 } from "uuid";
 import {
   urlStorage,
   urlStorageCD,
-  folderStorage,
+  folderStorage, // images
   recipesCollection,
 } from "../../../api/firebaseIndex";
 import { textsRecipe } from "./RecipeHelper";
@@ -17,22 +17,28 @@ import {
   storageErrorsCodes,
 } from "../../../api/firebaseIndex";
 
-export const AddRecipe = () => {
-  const defaultRecipe = {
-    title: "",
-    time: "",
-    portion: "",
-    ingredients: "",
-    describe: "",
-    url: [],
-    categories: [],
-    recipeTimestamp: Timestamp.fromDate(new Date()).toDate(),
-    author: " {name, email} z Context (jak zmergujemy)",
-    posts: [],
-  };
+const defaultRecipe = {
+  title: "",
+  time: "",
+  portion: "",
+  ingredients: "",
+  describe: "",
+  url: [],
+  categories: [],
+  recipeTimestamp: Timestamp.fromDate(new Date()).toDate(),
+  author: "",
+  posts: [],
+};
 
+export const AddRecipe = () => {
+  const [imageRef, setImageRef] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
   const [formValues, setFormValues] = useState(defaultRecipe);
+
+  // useEffect(() => {
+  //   setImageRef(ref(storage, `${folderStorage}/${imageUpload?.name + v4()}`));
+  //   console.log(imageRef);
+  // }, [imageRef]);
 
   const uploadImage = (e) => {
     e.preventDefault();
@@ -43,7 +49,6 @@ export const AddRecipe = () => {
     );
     uploadBytes(imageRef, imageUpload)
       .then((response) => {
-        console.log("response Upload ----------", response);
         alert("Image uploaded");
         setFormValues({
           ...formValues,
@@ -84,7 +89,7 @@ export const AddRecipe = () => {
       case "file":
         setImageUpload(e.target.files[0]);
       default:
-        console.log("coś poszło nie tak");
+        console.log("sth goes wrong");
     }
   };
 
