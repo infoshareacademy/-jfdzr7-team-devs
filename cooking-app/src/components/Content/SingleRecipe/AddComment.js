@@ -6,6 +6,7 @@ import { db } from "../../../api/firebase";
 import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { UserDataContext } from "../../../App";
 
+
 export const AddComment = () => {
   const userData = useContext(UserDataContext);
   const defaultCommentForm = {
@@ -47,7 +48,6 @@ export const AddComment = () => {
 
   return (
     <>
-    <p>{userData?.firstName} Zostaw nam komenatrz:</p>
       <form onSubmit={submitComment}>
         <TextField
           label="Add your comment"

@@ -1,7 +1,7 @@
 import { PageTitle } from "../../styles/Global.styled";
 import { useParams, Link } from "react-router-dom";
 import { onSnapshot } from "firebase/firestore";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { recipesCollection } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { ERROR_MESSAGE } from "../../../utils/ErrorMessageTexts";
@@ -20,14 +20,13 @@ export const SingleRecipe = ({ isLoggedIn }) => {
       setRecipes(getDataFromSnapshot(singleRecipe));
       setLoad(true);
     });
-    //czy ten load jest ok?
   }, [load]);
 
   if (load === false) {
     return <Loader />;
   }
 
-  ///czy tutaj wydzielamy styl alertu na zewnatrz?
+  ///czy tutaj wydzielamy styl alertu na zewnatrz? co z jego stylowaniem?
   const ErrorMessage = () => {
     return (
       <Alert severity="error" variant="outlined">

@@ -6,7 +6,6 @@ import moment from "moment";
 
 export const DisplayComments = () => {
   const [recipe, setRecipe] = useState({});
-  const [load, setLoad] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -14,7 +13,6 @@ export const DisplayComments = () => {
 
     onSnapshot(docRef, (doc) => {
       setRecipe(doc.data(), doc.id);
-      setLoad(true);
     });
   }, [id]);
 
