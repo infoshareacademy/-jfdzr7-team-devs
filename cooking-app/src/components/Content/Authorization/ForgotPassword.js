@@ -3,14 +3,10 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import React from "react";
 import { useState } from "react";
 import { auth } from "../../../api/firebase";
+import { defaultResetForm } from "./defaultFormValues";
 import { StyledLogin } from "./Login.styled";
 
 const ForgotPassword = () => {
-  const defaultResetForm = {
-    email: "",
-    password: "",
-  };
-
   const [resetForm, setResetForm] = useState(defaultResetForm);
   const [showAlert, setShowAlert] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
@@ -41,7 +37,6 @@ const ForgotPassword = () => {
       .catch((e) => {
         setResponseMessage(e.code);
         setShowAlert(true);
-        console.log(e);
       });
 
     setResetForm(defaultResetForm);

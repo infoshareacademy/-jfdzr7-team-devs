@@ -1,5 +1,4 @@
-import { Alert, Button, IconButton, Snackbar, TextField } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { Alert, Button, Snackbar, TextField } from "@mui/material";
 
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import React, { useState } from "react";
@@ -16,10 +15,6 @@ export const Login = () => {
   const [loginForm, setLoginForm] = useState(defaultLoginForm);
   const [showAlert, setShowAlert] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
-
-  const handleOpen = () => {
-    setShowAlert(true);
-  };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -40,13 +35,10 @@ export const Login = () => {
   const loginUser = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, loginForm.email, loginForm.password)
-      .then((jwt) => {
-        console.log(jwt);
-      })
+      .then((jwt) => {})
       .catch((e) => {
         setResponseMessage(e.code);
         setShowAlert(true);
-        console.dir(e);
       });
     setLoginForm(defaultLoginForm);
   };
