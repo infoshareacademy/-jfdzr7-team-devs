@@ -19,16 +19,16 @@ export const DisplayComments = () => {
 
   return (
     <>
-      {!recipe.comments ? (
-        <p>no comments yet</p>
-      ) : (
-        recipe.comments.map(({ author, comment, idx }) => (
-          <div>
-            <p key={idx}>Author: {author}</p>
+      {recipe.comments ? (
+        recipe.comments.map(({ author, comment }, index) => (
+          <div key={index}>
+            <p>Author: {author}</p>
             <p>{comment}</p>
             <br />
           </div>
         ))
+      ) : (
+        <p>no comments yet</p>
       )}
     </>
   );

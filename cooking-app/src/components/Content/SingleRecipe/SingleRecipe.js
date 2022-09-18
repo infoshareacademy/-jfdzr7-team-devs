@@ -14,21 +14,18 @@ export const SingleRecipe = () => {
   const [recipes, setRecipes] = useState([]);
   const [load, setLoad] = useState(false);
   const idCurrent = useParams();
-  console.log(idCurrent);
 
   useEffect(() => {
     onSnapshot(recipesCollection, (singleRecipe) => {
       setRecipes(getDataFromSnapshot(singleRecipe));
       setLoad(true);
     });
-    //czy ten load jest ok?
   }, [load]);
 
   if (load === false) {
     return <Loader />;
   }
 
-  ///czy tutaj wydzielamy styl alertu na zewnatrz?
   const ErrorMessage = () => {
     return (
       <Alert severity="error" variant="outlined">
@@ -44,43 +41,41 @@ export const SingleRecipe = () => {
   });
 
   return (
-    <>
-      <div>
-        {!recipeFound ? (
-          <ErrorMessage />
-        ) : (
+    <div>
+      {!recipeFound ? (
+        <ErrorMessage />
+      ) : (
+        <div>
           <div>
-            <div>
-              {recipes.map((recipe) => {
-                if (recipe.id === idCurrent.id) {
-                  return (
-                    <div key={recipe.id}>
-                      <img src={recipe.url} alt={`${recipe.title}`} />
-                      <PageTitle>{recipe.title}</PageTitle>
-                      <p>
-                        Categories:
-                        {recipe.categories.map((category, index) => (
-                          <li key={index}>{category}</li>
-                        ))}
-                      </p>
-                      <p>Time: {recipe.time}</p>
-                      <p>Portions: {recipe.portion}</p>
-                      <p>Ingredients: {recipe.ingredients}</p>
-                      <p>How to prepare? {recipe.describe}</p>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-            <div>
-              <AddComment />
-            </div>
-            <div>
-              <DisplayComments />
-            </div>
+            {recipes.map((recipe) => {
+              if (recipe.id === idCurrent.id) {
+                return (
+                  <div key={recipe.id}>
+                    <img src={recipe.url} alt={`${recipe.title}`} />
+                    <PageTitle>{recipe.title}</PageTitle>
+                    <p>
+                      Categories:
+                      {recipe.categories.map((category, index) => (
+                        <li key={index}>{category}</li>
+                      ))}
+                    </p>
+                    <p>Time: {recipe.time}</p>
+                    <p>Portions: {recipe.portion}</p>
+                    <p>Ingredients: {recipe.ingredients}</p>
+                    <p>How to prepare? {recipe.describe}</p>
+                  </div>
+                );
+              }
+            })}
           </div>
-        )}
-      </div>
-    </>
+          <div>
+            <AddComment />
+          </div>
+          <div>
+            <DisplayComments />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
