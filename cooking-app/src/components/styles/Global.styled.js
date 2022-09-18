@@ -102,4 +102,3 @@ export const StyledButton = styled.button`
     transform: translateY(0);
   }
 `;
-

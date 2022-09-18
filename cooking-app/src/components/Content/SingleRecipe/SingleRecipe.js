@@ -26,7 +26,6 @@ export const SingleRecipe = ({ isLoggedIn }) => {
     return <Loader />;
   }
 
-  ///czy tutaj wydzielamy styl alertu na zewnatrz? co z jego stylowaniem?
   const ErrorMessage = () => {
     return (
       <Alert severity="error" variant="outlined">
@@ -42,11 +41,11 @@ export const SingleRecipe = ({ isLoggedIn }) => {
   });
 
   return (
-    <>
-      <div>
-        {!recipeFound ? (
-          <ErrorMessage />
-        ) : (
+    <div>
+      {!recipeFound ? (
+        <ErrorMessage />
+      ) : (
+        <div>
           <div>
             <div>
               {recipes.map((recipe) => {
@@ -80,8 +79,14 @@ export const SingleRecipe = ({ isLoggedIn }) => {
               <DisplayComments />
             </div>
           </div>
-        )}
-      </div>
-    </>
+          <div>
+            <AddComment />
+          </div>
+          <div>
+            <DisplayComments />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };

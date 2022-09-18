@@ -26,13 +26,15 @@ export const Header = ({ isLoggedIn }) => {
           <NavButton to="/search">
             <FaSearch /> Search
           </NavButton>
-          {!isLoggedIn ? null : <NavButton to="/account">My Account</NavButton>}
-          {!isLoggedIn ? (
-            <NavButton to="/login">Login</NavButton>
+          {isLoggedIn ? (
+            <>
+              <NavButton to="/account">My Account</NavButton>
+              <Button variant="text" onClick={() => signOut(auth)}>
+                Log out
+              </Button>
+            </>
           ) : (
-            <Button variant="text" onClick={() => signOut(auth)}>
-              Log out
-            </Button>
+            <NavButton to="/login">Login</NavButton>
           )}
         </StyledHeaderContent>
       </StyledHeader>

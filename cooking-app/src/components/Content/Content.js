@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Container } from "../styles/Global.styled";
 import { HomePage } from "./HomePage/HomePage";
 import { ListRecipes } from "./ListRecipes/ListRecipes";
@@ -15,6 +15,9 @@ import { SingleRecipe } from "./SingleRecipe/SingleRecipe";
 import Account from "./Account/Account";
 import Register from "./Authorization/Register";
 import ForgotPassword from "./Authorization/ForgotPassword";
+import Redirect from "./Authorization/Redirect";
+import ProtectedRoute from "./Authorization/ProtectedRoute";
+import { StyledContent, StyledH2 } from "./Content.styled";
 
 export const Content = ({ isLoggedIn }) => {
   return (
@@ -25,23 +28,25 @@ export const Content = ({ isLoggedIn }) => {
           <Route
             path="/login"
             element={
-              !isLoggedIn ? <Login /> : <Navigate replace to="/account" />
+              <Redirect isLoggedIn={isLoggedIn} redirect="/account">
+                <Login />
+              </Redirect>
             }
           />
           <Route
             path="/register"
             element={
-              !isLoggedIn ? <Register /> : <Navigate replace to="/account" />
+              <Redirect isLoggedIn={isLoggedIn} redirect="/account">
+                <Register />
+              </Redirect>
             }
           />
           <Route
             path="/forgot"
             element={
-              !isLoggedIn ? (
+              <Redirect isLoggedIn={isLoggedIn} redirect="/account">
                 <ForgotPassword />
-              ) : (
-                <Navigate replace to="/account" />
-              )
+              </Redirect>
             }
           />
           <Route path="/tips" element={<Tips />} />
@@ -50,7 +55,9 @@ export const Content = ({ isLoggedIn }) => {
           <Route
             path="/account"
             element={
-              !isLoggedIn ? <Navigate replace to="/login" /> : <Account />
+              <ProtectedRoute isLoggedIn={isLoggedIn} redirect="/login">
+                <Account />
+              </ProtectedRoute>
             }
           />
           <Route path="/recipe/:id" element={<SingleRecipe isLoggedIn={isLoggedIn}/>} />
@@ -62,21 +69,10 @@ export const Content = ({ isLoggedIn }) => {
 
           <Route
             path="*"
-            element={
-              <h2 style={{ padding: "10px", textAlign: "center" }}>
-                Ups, Website is not exists
-              </h2>
-            }
+            element={<StyledH2>Ups, Website does not exist</StyledH2>}
           />
         </Routes>
       </Container>
     </StyledContent>
   );
 };
-
-//do wydzielenia do osobnego komponentu pozniej
-export const StyledContent = styled.div`
-  display: flex;
-  flex: 1;
-  background: #fff;
-`;

@@ -1,19 +1,12 @@
-import { Alert, Button, Snackbar, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { auth, db, usersCollection } from "../../../api/firebase";
+import { auth, db } from "../../../api/firebase";
+import { defaultRegisterForm } from "./defaultFormValues";
 import { StyledLogin } from "./Login.styled";
 
 const Register = () => {
-  const defaultRegisterForm = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  };
-
   const [registerForm, setRegisterForm] = useState(defaultRegisterForm);
 
   const usersCollection = collection(db, "users");
@@ -92,15 +85,6 @@ const Register = () => {
           Register
         </Button>
       </form>
-
-      {/* <Snackbar
-        open={showAlert}
-        autoHideDuration={2000}
-        onClose={handleClose}
-        message={responseMessage}
-      >
-        <Alert severity="warning">{responseMessage}</Alert>
-      </Snackbar> */}
     </StyledLogin>
   );
 };
