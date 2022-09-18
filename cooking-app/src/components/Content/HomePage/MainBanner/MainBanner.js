@@ -25,14 +25,8 @@ export const MainBanner = () => {
 
   return (
     <>
-      {!dailyRecipe ? (
-        <Loader />
-      ) : (
-        <StyledBanner
-          style={{
-            backgroundImage: `linear-gradient(90deg, rgba(71,71,71,1) 0%, rgba(255,255,255,0) 50%), url(${dailyRecipe.url}`,
-          }}
-        >
+      {dailyRecipe ? (
+        <StyledBanner url={dailyRecipe.url}>
           <BannerContent>
             <StyledTitle>{dailyRecipe.title}</StyledTitle>
             <StyledLink to={`/recipe/${dailyRecipe.id}`}>
@@ -40,6 +34,8 @@ export const MainBanner = () => {
             </StyledLink>
           </BannerContent>
         </StyledBanner>
+      ) : (
+        <Loader />
       )}
     </>
   );
