@@ -1,24 +1,13 @@
 import { FaPinterest, FaFacebook, FaInstagram } from "react-icons/fa";
+import SocialIcon from "./SocialIcon";
 import { StyledSocialIcons } from "./SocialIcons.styled";
 
 export const SocialIcons = () => {
   return (
     <StyledSocialIcons>
-      <li>
-        <a href="https://facebook.com">
-          <FaFacebook />
-        </a>
-      </li>
-      <li>
-        <a href="https://instagram.com">
-          <FaInstagram />
-        </a>
-      </li>
-      <li>
-        <a href="https://pinterest.com">
-          <FaPinterest />
-        </a>
-      </li>
+      <SocialIcon link="https://facebook.com" element={<FaFacebook />} />
+      <SocialIcon link="https://instagram.com" element={<FaInstagram />} />
+      <SocialIcon link="https://pinterest.com" element={<FaPinterest />} />
     </StyledSocialIcons>
   );
 };
