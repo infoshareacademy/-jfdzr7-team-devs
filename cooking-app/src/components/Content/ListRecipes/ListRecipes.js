@@ -1,22 +1,42 @@
 import { onSnapshot } from "firebase/firestore";
-import { useEffect, useRef, useState } from "react";
-import { recipesCollection, tags } from "../../../api/firebaseIndex"
+import { useEffect, useReducer, useRef, useState } from "react";
+import { recipesCollection, tags } from "../../../api/firebaseIndex";
 import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { PageTitle } from "../../styles/Global.styled";
 import styled from "styled-components";
 import { InputElement } from "./InputElement";
+import { Grid, Container } from "@mui/material";
+
+const reducer = (currState, action) => {
+  switch (action.type) {
+    case "category":
+      return {...currState, inputCategory: action.payload };
+    case "newTextInput":
+      return {...currState, textInput: action.payload };
+    case "inputState":
+      return {...currState, inputState: !currState.inputState}
+    default:
+      throw new Error();
+  }
+};
 
 export const ListRecipes = () => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
-  const [inputState, setInputState] = useState(false);
-  const [inputCategory, setinputCategory] = useState(null);
-  const [search, setSearch] = useState("");
-  const textInput = useRef();
+
+  const [state, dispatcher] = useReducer(reducer, {
+    inputCategory: "",
+    textInput: "",
+    inputState: false,
+  });
+
+const handelTextInput = (e)=>{
+dispatcher({type: "newTextInput", payload: e.target.value})
+}
 
   const handleInput = (e) => {
-    setInputState(!inputState);
-    setinputCategory(e.target.name)
+    dispatcher({type: "inputState"});
+    dispatcher({type: "category", payload: e.target.name});
   };
 
   useEffect(() => {
@@ -25,29 +45,35 @@ export const ListRecipes = () => {
     });
   }, []);
 
+  console.log(state.inputState);
+  console.log(state.inputCategory);
+  console.log(state.textInput);
+
   const listofRecipe2 = datafromFirebase
     .filter((item) => {
-      if (inputState) {
-        return item.categories.includes(inputCategory);
-      } else if (search.toLowerCase() === "") {
+      if (state.inputState) {
+        return item.categories.includes(state.inputCategory);
+      } else if (state.textInput.toLowerCase() === "") {
         return item;
-      } else return item.title.toLowerCase().includes(search);
+      } else return item.title.toLowerCase().includes(state.textInput);
     })
     .map((singleRecipe) => {
-      return <IndividualRecipe singleRecipe={singleRecipe} />;
+      return (
+        <Grid item xs={12} sm={6} md={3}>
+          <IndividualRecipe singleRecipe={singleRecipe} />
+        </Grid>
+      );
     });
 
   return (
-    <>
+    <Container>
       <PageTitle>Recipes</PageTitle>
       <label htmlFor="filter">Search by recipe title </label>
       <input
         id="filter"
-        ref={textInput}
+        value={state.textInput}
         type="text"
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
+        onChange={handelTextInput}
       />
       <br />
       <div>
@@ -58,14 +84,15 @@ export const ListRecipes = () => {
         })}
       </div>
 
-      <StyledDiv>{listofRecipe2}</StyledDiv>
-    </>
+      <Grid container spacing={3}>
+        {listofRecipe2}
+      </Grid>
+    </Container>
   );
 };
 
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
+// const StyledDiv = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+// `;

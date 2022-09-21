@@ -1,21 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+import { Card, CardHeader, CardMedia } from "@mui/material";
 
-export const IndividualRecipe = ({singleRecipe}) => {
+export const IndividualRecipe = ({ singleRecipe }) => {
   return (
-    <ul key={singleRecipe.id}>
-    <NavLink to={`/recipe/${singleRecipe.id}`}>
-    <li>{singleRecipe.title}</li>
-    <StyledImg src={singleRecipe.url}></StyledImg>
-    </NavLink>
-  </ul>
+    <Card key={singleRecipe.id} sx={{ maxWidth: 345 }}>
+      <NavLink to={`/recipe/${singleRecipe.id}`}>
+        <CardHeader title={singleRecipe.title} subheader="data dodania?" />
+        <CardMedia
+          component="img"
+          height="194"
+          src={singleRecipe.url}
+          alt={singleRecipe.title}
+        />
+      </NavLink>
+    </Card>
   );
 };
-
-const StyledImg = styled.img`
-max-width: 200px;
-max-height: 200px;
-text-align: center;
-`
-
