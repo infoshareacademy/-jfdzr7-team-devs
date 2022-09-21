@@ -26,6 +26,9 @@ const AccountMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = () => {
+    signOut(auth);
+  };
   return (
     <>
       <Tooltip title="Account settings">
@@ -100,7 +103,7 @@ const AccountMenu = () => {
           Add Recipe
         </MenuItem>
 
-        <MenuItem onClick={() => signOut(auth)}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
