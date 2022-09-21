@@ -3,7 +3,7 @@ import { onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { recipesCollection } from "../../../../api/firebaseIndex";
 import { StyledBanner, BannerContent } from "../MainBanner/MainBanner.styled";
-import { StyledTitle, StyledLink } from "../../../styles/Global.styled";
+import { StyledTitle, StyledLink } from "../../../../utils/styles/Global.styled";
 
 export const MainBanner = () => {
   const [data, setData] = useState([]);
@@ -27,6 +27,7 @@ export const MainBanner = () => {
     <>
       {dailyRecipe ? (
         <StyledBanner url={dailyRecipe.url}>
+          {/* <StyledBanner url="https://cdn.jamieoliver.com/recipe-database/medium/134655533.jpg"> */}
           <BannerContent>
             <StyledTitle>{dailyRecipe.title}</StyledTitle>
             <StyledLink to={`/recipe/${dailyRecipe.id}`}>

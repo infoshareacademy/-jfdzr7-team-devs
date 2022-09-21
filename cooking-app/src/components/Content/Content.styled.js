@@ -8,5 +8,5 @@ export const StyledContent = styled.div`
 
 export const StyledH2 = styled.h2`
   padding: "10px";
-  textalign: "center";
+  text-align: "center";
 `;

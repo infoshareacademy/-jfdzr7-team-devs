@@ -1,4 +1,4 @@
-import { PageTitle } from "../../styles/Global.styled";
+import { PageTitle } from "../../../utils/styles/Global.styled";
 import { onSnapshot } from "firebase/firestore";
 import { recipesCollection } from "../../../api/firebaseIndex";
 import { useEffect, useReducer, useState } from "react";

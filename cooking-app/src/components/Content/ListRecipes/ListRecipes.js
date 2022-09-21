@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { recipesCollection } from "../../../api/firebaseIndex";
 import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
-import { PageTitle } from "../../styles/Global.styled";
+import { PageTitle } from "../../../utils/styles/Global.styled";
 import styled from "styled-components";
 
 export const ListRecipes = () => {

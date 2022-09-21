@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
-import { Container } from "../styles/Global.styled";
+import { Container } from "../../utils/styles/Global.styled";
 import { HomePage } from "./HomePage/HomePage";
 import { ListRecipes } from "./ListRecipes/ListRecipes";
 import { RecipeBreakfast } from "./ListRecipes/RecipeBreakfast";

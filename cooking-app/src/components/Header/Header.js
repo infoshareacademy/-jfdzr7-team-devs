@@ -5,7 +5,7 @@ import {
   NavButtonLogo,
   NavIcon,
 } from "./Header.styled";
-import { Container } from "../styles/Global.styled";
+import { Container } from "../../utils/styles/Global.styled";
 import { FaSearch } from "react-icons/fa";
 import { MenuListDropdown } from "./MenuListDropdown";
 import { Button } from "@mui/material";

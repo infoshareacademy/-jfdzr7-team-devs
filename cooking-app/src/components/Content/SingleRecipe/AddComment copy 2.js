@@ -17,10 +17,7 @@ import {
 import { useParams } from "react-router-dom";
 import { db } from "../../../api/firebase";
 import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
-import {
-  firestoreErrorsCodes,
-  storageErrorsCodes,
-} from "../../../api/firebaseIndex";
+import { firestoreErrorsCodes } from "../../../api/firebaseIndex";
 import { variantType } from "../../../utils/styles/muiStyles";
 import { UserDataContext } from "../../../App";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
@@ -35,6 +32,7 @@ import {
   folderStorage,
   recipesCollection,
 } from "../../../api/firebaseIndex";
+
 
 const defaultCommentForm = {
   author: "",
@@ -64,6 +62,7 @@ export const AddComment = () => {
     setResponseMessage("");
   };
 
+
   const uploadImage = (e) => {
     e.preventDefault();
     if (!imageUpload) return;
@@ -83,11 +82,11 @@ export const AddComment = () => {
         });
       })
       .catch((e) => {
-        alert(storageErrorsCodes[e.code]);
+        alert([e.code]);
       });
   };
 
-  // console.log(commentForm.url[0])
+  console.log(commentForm.url[0])
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -97,18 +96,20 @@ export const AddComment = () => {
           [e.target.name]: e.target.value,
         });
         break;
-      case "file":
-        setImageUpload(e.target.files[0]);
-        let imageDisplay = URL.createObjectURL(e.target.files[0]);
-        setFile(imageDisplay);
-      default:
-        console.log("sth goes wrong");
-    }
+        case "file":
+          setImageUpload(e.target.files[0]);
+        default:
+          console.log("coś poszło nie tak");
+        }
+ 
+    let imageDisplay = URL.createObjectURL(e.target.files[0]);
+    setFile(imageDisplay);
+    console.log(imageDisplay);
   };
 
-  // useEffect(() => {
-  //   console.log(commentForm);
-  // });
+  useEffect(() => {
+    console.log(commentForm);
+  });
 
   const submitComment = (e) => {
     e.preventDefault();
@@ -128,7 +129,6 @@ export const AddComment = () => {
       });
     setCommentForm(defaultCommentForm);
     setFile("");
-    e.target.reset();
   };
 
   return (
@@ -150,13 +150,12 @@ export const AddComment = () => {
             aria-label="upload picture"
             component="label"
           >
-            <input
-              hidden
-              accept="image/*"
-              type="file"
-              name="file"
-              onChange={handleChange}
-            />
+            <input 
+            hidden 
+            accept="image/*" 
+            type="file" 
+            name="file" 
+            onChange={handleChange}/>
             <PhotoCamera />
           </IconButton>
           <button onClick={uploadImage}>upload photo</button>
