@@ -15,6 +15,7 @@ import {
   firestoreErrorsCodes,
   storageErrorsCodes,
 } from "../../../api/firebaseIndex";
+import { RecipeForm2 } from "./RecipeForm";
 
 export const AddRecipe = () => {
   const [imageRef, setImageRef] = useState(null);
@@ -93,6 +94,8 @@ export const AddRecipe = () => {
         formValues={formValues}
         onClick={uploadImage}
       />
+      <hr></hr>
+      <RecipeForm2 />
     </>
   );
 };
