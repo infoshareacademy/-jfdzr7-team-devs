@@ -14,8 +14,13 @@ import Redirect from "./Authorization/Redirect";
 import ProtectedRoute from "./Authorization/ProtectedRoute";
 import { StyledContent, StyledH2 } from "./Content.styled";
 import AddRecipePage from "./Account/AddRecipePage";
+import AdminPage from "./Account/AdminPage";
+import { useContext } from "react";
+import { UserDataContext } from "../../App";
 
 export const Content = ({ isLoggedIn }) => {
+  const userData = useContext(UserDataContext);
+
   return (
     <StyledContent>
       <Container>
@@ -53,6 +58,17 @@ export const Content = ({ isLoggedIn }) => {
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn} redirect="/login">
                 <Account />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn && userData?.role === "admin"}
+                redirect="/account"
+              >
+                <AdminPage />
               </ProtectedRoute>
             }
           />

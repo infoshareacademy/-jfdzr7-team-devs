@@ -78,6 +78,12 @@ const AccountMenu = () => {
           <Avatar /> Profile
         </MenuItem>
 
+        {userData?.role === "admin" ? (
+          <MenuItem component={NavLink} to="/admin">
+            <Avatar /> Admin panel
+          </MenuItem>
+        ) : null}
+
         <Divider />
 
         <MenuItem component={NavLink} to="/account">
