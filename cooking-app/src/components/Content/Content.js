@@ -13,6 +13,7 @@ import ForgotPassword from "./Authorization/ForgotPassword";
 import Redirect from "./Authorization/Redirect";
 import ProtectedRoute from "./Authorization/ProtectedRoute";
 import { StyledContent, StyledH2 } from "./Content.styled";
+import AddRecipePage from "./Account/AddRecipePage";
 
 export const Content = ({ isLoggedIn }) => {
   return (
@@ -52,6 +53,14 @@ export const Content = ({ isLoggedIn }) => {
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn} redirect="/login">
                 <Account />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/addRecipe"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn} redirect="/login">
+                <AddRecipePage />
               </ProtectedRoute>
             }
           />

@@ -13,6 +13,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { LibraryAdd, Logout, Settings } from "@mui/icons-material";
 import { signOut } from "firebase/auth";
 import { auth } from "../../api/firebase";
+import { NavLink } from "react-router-dom";
 
 const AccountMenu = () => {
   const userData = useContext(UserDataContext);
@@ -79,18 +80,18 @@ const AccountMenu = () => {
 
         <Divider />
 
-        <MenuItem>
+        <MenuItem component={NavLink} to="/account">
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
         </MenuItem>
 
-        <MenuItem>
+        <MenuItem component={NavLink} to="/addRecipe">
           <ListItemIcon>
             <LibraryAdd fontSize="small" />
           </ListItemIcon>
-          Add recipe
+          Add Recipe
         </MenuItem>
 
         <MenuItem onClick={() => signOut(auth)}>
