@@ -1,5 +1,4 @@
-import { addDoc, Timestamp, collection } from "firebase/firestore";
-import { db } from "../../../api/firebase";
+import { addDoc } from "firebase/firestore";
 import { RecipeForm } from "./RecipeForm copy 2";
 import { useEffect, useState } from "react";
 import { storage } from "../../../api/firebase";
@@ -8,45 +7,27 @@ import { v4 } from "uuid";
 import {
   urlStorage,
   urlStorageCD,
-  folderStorage, // images
+  folderStorage,
   recipesCollection,
 } from "../../../api/firebaseIndex";
-import { textsRecipe } from "./RecipeHelper";
+import { textsRecipe, defaultRecipe } from "./RecipeHelper";
 import {
   firestoreErrorsCodes,
   storageErrorsCodes,
 } from "../../../api/firebaseIndex";
-
-const defaultRecipe = {
-  title: "",
-  time: "",
-  portion: "",
-  ingredients: "",
-  describe: "",
-  url: [],
-  categories: [],
-  recipeTimestamp: Timestamp.fromDate(new Date()).toDate(),
-  author: "",
-  posts: [],
-};
 
 export const AddRecipe = () => {
   const [imageRef, setImageRef] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
   const [formValues, setFormValues] = useState(defaultRecipe);
 
-  // useEffect(() => {
-  //   setImageRef(ref(storage, `${folderStorage}/${imageUpload?.name + v4()}`));
-  //   console.log(imageRef);
-  // }, [imageRef]);
+  useEffect(() => {
+    setImageRef(ref(storage, `${folderStorage}/${imageUpload?.name + v4()}`));
+  }, [imageUpload]);
 
   const uploadImage = (e) => {
     e.preventDefault();
-    if (imageUpload === null) return;
-    const imageRef = ref(
-      storage,
-      `${folderStorage}/${imageUpload.name + v4()}`
-    );
+    if (!imageUpload) return;
     uploadBytes(imageRef, imageUpload)
       .then((response) => {
         alert("Image uploaded");
@@ -93,17 +74,12 @@ export const AddRecipe = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(formValues);
-  });
-
   const handleAddingRecipe = (e) => {
     e.preventDefault();
     addDoc(recipesCollection, formValues).catch((e) => {
-      console.log(e);
       alert(firestoreErrorsCodes[e.code]);
     });
-    alert("Przepis zapisano");
+    alert("Recipe saved");
     setFormValues(defaultRecipe);
     e.target.reset();
   };

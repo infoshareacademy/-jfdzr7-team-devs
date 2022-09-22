@@ -34,19 +34,17 @@ export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
           />
         </StyledTitleDiv>
         <StyledInputsDivSelect>
-          {inputSelectAtributes.map(({ key, label, options }) => {
+          {inputSelectAtributes.map(({ key, label, options }, index) => {
             return (
-              <StyledInputsSelectDiv2>
+              <StyledInputsSelectDiv2 key={index}>
                 <label htmlFor={key}>{label}</label>
-                <StyledSelect
-                  style={{ width: "300px" }}
-                  id={key}
-                  name={key}
-                  onChange={onChange}
-                  required
-                >
-                  {options.map(({ value, option }) => {
-                    return <StyledOption value={value}>{option}</StyledOption>;
+                <StyledSelect id={key} name={key} onChange={onChange} required>
+                  {options.map(({ value, option }, index) => {
+                    return (
+                      <StyledOption key={index} value={value}>
+                        {option}
+                      </StyledOption>
+                    );
                   })}
                 </StyledSelect>
               </StyledInputsSelectDiv2>
@@ -84,12 +82,10 @@ export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
           />
         </StyledTitleDiv>
         <StyledCheckboxAll>
-          {tags.map(({ key, label, index }) => {
+          {tags.map(({ key, label }, index) => {
             return (
-              <StyledDivCheckbox>
-                <label key={index} htmlFor={key}>
-                  {label}
-                </label>
+              <StyledDivCheckbox key={index}>
+                <label htmlFor={key}>{label}</label>
                 <StyledCheckbox
                   style={{ marginRight: "20px" }}
                   type="checkbox"

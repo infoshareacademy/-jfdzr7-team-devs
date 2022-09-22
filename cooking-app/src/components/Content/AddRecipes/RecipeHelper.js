@@ -1,3 +1,18 @@
+import { Timestamp } from "firebase/firestore";
+
+export const defaultRecipe = {
+  title: "",
+  time: "",
+  portion: "",
+  ingredients: "",
+  describe: "",
+  url: [],
+  categories: [],
+  recipeTimestamp: Timestamp.fromDate(new Date()).toDate(),
+  author: "",
+  posts: [],
+};
+
 export const textsRecipe = {
   addRecipe: {
     header: "Add New Recipe",
