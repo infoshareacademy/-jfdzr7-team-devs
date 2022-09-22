@@ -32,6 +32,7 @@ const defaultRecipeValue = {
 };
 
 export const SelectedTagsContext = createContext([]);
+export const IngredientsContext = createContext([]);
 
 export const AddRecipeNew = () => {
   const [imageRef, setImageRef] = useState(null);
@@ -84,10 +85,23 @@ export const AddRecipeNew = () => {
 
   // ingredients array
   const [ingredients, setIngredients] = useState([""]);
-  const handleChangeIngredients = (e) => {
-    setIngredients([...ingredients, e.target.value]);
+  const handleChangeIngredients = (e, index) => {
+    // const name = e.target;
+    // const value = e.target.value;
+    const inputList = [...ingredients];
+    console.log(inputList);
+    inputList[index] = e.target.value;
+    setIngredients(inputList);
   };
 
+  useEffect(() => {
+    console.log(ingredients);
+  }, [ingredients]);
+
+  const handleAddTextInput = (e) => {
+    e.preventDefault();
+    setIngredients([...ingredients, ""]);
+  };
   // onChange
   const changeFormValues = (e) => {
     switch (e.target.name) {
@@ -95,16 +109,16 @@ export const AddRecipeNew = () => {
       case "description":
       case "time":
       case "servings":
-
-      case "ingredients":
-      //     setFormValues({
-      //       ...formValues,
-      //       ingredients:[...ingredients, e.target.value]
-      // })
       case "instructions":
         setFormValues({
           ...formValues,
           [e.target.name]: e.target.value,
+        });
+        break;
+      case "ingredients":
+        setFormValues({
+          ...formValues,
+          ingredients: [...ingredients],
         });
         break;
       case "tags":
@@ -134,14 +148,18 @@ export const AddRecipeNew = () => {
   return (
     <>
       <h2>Add Recipe</h2>
-      <SelectedTagsContext.Provider value={selectedTags}>
-        <RecipeForm2
-          onChange={changeFormValues}
-          onClick={uploadImage}
-          onSubmit={handleAddingRecipe}
-          handlerTags={handleChangeTags}
-        />
-      </SelectedTagsContext.Provider>
+      <IngredientsContext.Provider value={ingredients}>
+        <SelectedTagsContext.Provider value={selectedTags}>
+          <RecipeForm2
+            onChange={changeFormValues}
+            onClick={uploadImage}
+            onSubmit={handleAddingRecipe}
+            handlerTags={handleChangeTags}
+            handlerIngredients={handleChangeIngredients}
+            handlerAddInputIngredient={handleAddTextInput}
+          />
+        </SelectedTagsContext.Provider>
+      </IngredientsContext.Provider>
     </>
   );
 };
