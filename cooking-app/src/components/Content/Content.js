@@ -14,7 +14,7 @@ import Redirect from "./Authorization/Redirect";
 import ProtectedRoute from "./Authorization/ProtectedRoute";
 import { StyledContent, StyledH2 } from "./Content.styled";
 import AddRecipePage from "./Account/AddRecipePage";
-import AdminPage from "./Account/AdminPage";
+import AdminPage from "./Account/AdminPage/AdminPage";
 import { useContext } from "react";
 import { UserDataContext } from "../../App";
 
