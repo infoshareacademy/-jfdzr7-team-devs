@@ -9,8 +9,18 @@ import { Grid, Container } from "@mui/material";
 
 const reducer = (currState, action) => {
   switch (action.type) {
-    case "category":
-      return { ...currState, inputCategory: action.payload };
+    case "ADD_ITEM":
+      return {
+        ...currState,
+        inputCategory: [...currState.inputCategory, action.payload],
+      };
+    case "DELETE_ITEM":
+      return {
+        ...currState,
+        inputCategory: currState.inputCategory.filter(
+          (tag) => tag !== action.payload
+        ),
+      };
     case "newTextInput":
       return { ...currState, textInput: action.payload };
     case "inputState":
@@ -35,7 +45,11 @@ export const ListRecipes = () => {
 
   const handleInput = (e) => {
     dispatcher({ type: "inputState" });
-    dispatcher({ type: "category", payload: e.target.name });
+    if (e.target.checked) {
+      dispatcher({ type: "ADD_ITEM", payload: e.target.name });
+    } else {
+      dispatcher({ type: "DELETE_ITEM", payload: e.target.name });
+    }
   };
 
   useEffect(() => {
@@ -48,20 +62,18 @@ export const ListRecipes = () => {
   console.log(state.inputCategory);
   console.log(state.textInput);
 
-
   // const result = certs.filter(cert => {
   //   let arr = details.filter(detail => detail.b === cert.b)
   //   return !(arr.length === 0)
   // });
 
-
-
-
-
   const listofRecipe2 = datafromFirebase
     .filter((item) => {
-      if (state.inputState) {
-        return item.tags?.includes(state.inputCategory);
+      if (state.inputCategory.length > 0) {
+        // console.log(state.inputCategory.length);
+        // return item.tags?.includes(state.inputCategory);
+        let arr = state.inputCategory.filter((tag) => item.tags?.includes(tag));
+        return !(arr.length === 0);
       } else if (state.textInput.toLowerCase() === "") {
         return item;
       } else return item.name?.toLowerCase().includes(state.textInput);
@@ -90,7 +102,11 @@ export const ListRecipes = () => {
       <div>
         {tags.map((singleTag, index) => {
           return (
-            <InputElement key={index} tag={singleTag.label} handleInput={handleInput} />
+            <InputElement
+              key={index}
+              tag={singleTag}
+              handleInput={handleInput}
+            />
           );
         })}
       </div>
