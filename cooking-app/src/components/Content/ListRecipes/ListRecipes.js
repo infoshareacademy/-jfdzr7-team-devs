@@ -4,18 +4,17 @@ import { recipesCollection, tags } from "../../../api/firebaseIndex";
 import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { PageTitle } from "../../styles/Global.styled";
-import styled from "styled-components";
 import { InputElement } from "./InputElement";
 import { Grid, Container } from "@mui/material";
 
 const reducer = (currState, action) => {
   switch (action.type) {
     case "category":
-      return {...currState, inputCategory: action.payload };
+      return { ...currState, inputCategory: action.payload };
     case "newTextInput":
-      return {...currState, textInput: action.payload };
+      return { ...currState, textInput: action.payload };
     case "inputState":
-      return {...currState, inputState: !currState.inputState}
+      return { ...currState, inputState: !currState.inputState };
     default:
       throw new Error();
   }
@@ -30,13 +29,13 @@ export const ListRecipes = () => {
     inputState: false,
   });
 
-const handelTextInput = (e)=>{
-dispatcher({type: "newTextInput", payload: e.target.value})
-}
+  const handelTextInput = (e) => {
+    dispatcher({ type: "newTextInput", payload: e.target.value });
+  };
 
   const handleInput = (e) => {
-    dispatcher({type: "inputState"});
-    dispatcher({type: "category", payload: e.target.name});
+    dispatcher({ type: "inputState" });
+    dispatcher({ type: "category", payload: e.target.name });
   };
 
   useEffect(() => {
@@ -49,20 +48,32 @@ dispatcher({type: "newTextInput", payload: e.target.value})
   console.log(state.inputCategory);
   console.log(state.textInput);
 
+
+  // const result = certs.filter(cert => {
+  //   let arr = details.filter(detail => detail.b === cert.b)
+  //   return !(arr.length === 0)
+  // });
+
+
+
+
+
   const listofRecipe2 = datafromFirebase
     .filter((item) => {
       if (state.inputState) {
-        return item.categories.includes(state.inputCategory);
+        return item.tags?.includes(state.inputCategory);
       } else if (state.textInput.toLowerCase() === "") {
         return item;
-      } else return item.title.toLowerCase().includes(state.textInput);
+      } else return item.name?.toLowerCase().includes(state.textInput);
     })
-    .map((singleRecipe) => {
-      return (
-        <Grid item xs={12} sm={6} md={3}>
-          <IndividualRecipe singleRecipe={singleRecipe} />
-        </Grid>
-      );
+    .map((singleRecipe, index) => {
+      while (index < 20) {
+        return (
+          <Grid key={index} item xs={12} sm={6} md={3}>
+            <IndividualRecipe singleRecipe={singleRecipe} />
+          </Grid>
+        );
+      }
     });
 
   return (
@@ -77,9 +88,9 @@ dispatcher({type: "newTextInput", payload: e.target.value})
       />
       <br />
       <div>
-        {tags.map((singleTag) => {
+        {tags.map((singleTag, index) => {
           return (
-            <InputElement tag={singleTag.label} handleInput={handleInput} />
+            <InputElement key={index} tag={singleTag.label} handleInput={handleInput} />
           );
         })}
       </div>

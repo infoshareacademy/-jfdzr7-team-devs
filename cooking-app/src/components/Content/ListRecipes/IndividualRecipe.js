@@ -6,12 +6,12 @@ export const IndividualRecipe = ({ singleRecipe }) => {
   return (
     <Card key={singleRecipe.id} sx={{ maxWidth: 345 }}>
       <NavLink to={`/recipe/${singleRecipe.id}`}>
-        <CardHeader title={singleRecipe.title} subheader="data dodania?" />
+        <CardHeader title={singleRecipe.name} />
         <CardMedia
           component="img"
           height="194"
-          src={singleRecipe.url}
-          alt={singleRecipe.title}
+          image={singleRecipe.image}
+          alt={singleRecipe.imageAlt}
         />
       </NavLink>
     </Card>
