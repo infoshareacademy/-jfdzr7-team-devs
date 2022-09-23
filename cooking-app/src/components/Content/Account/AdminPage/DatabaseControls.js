@@ -1,10 +1,12 @@
 import { Button, Divider, ListItemText, Paper } from "@mui/material";
+import Ajv from "ajv";
 import { addDoc, collection } from "firebase/firestore";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { db } from "../../../../api/firebase";
 import { UserDataContext } from "../../../../App";
 import CustomizedSnackbar from "../../../../utils/CustomizedSnackbar";
 import LinearProgressWithLabel from "../../../../utils/LinearProgressWithLabel";
+import { JSONSchema } from "./JSONSchema";
 
 const DatabaseControls = () => {
   const userData = useContext(UserDataContext);
@@ -13,9 +15,16 @@ const DatabaseControls = () => {
   const [progress, setProgress] = useState(0);
   const [errorData, setErrorData] = useState({
     errorMessage: "",
-    severity: "",
+    severity: "warning",
   });
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const ajv = new Ajv({ allErrors: true });
+  const validate = ajv.compile(JSONSchema);
+
+  useEffect(() => {
+    const valid = validate(jsonData);
+    console.log(valid);
+  }, [jsonData]);
 
   const handleFileUpload = (e) => {
     const fileReader = new FileReader();
