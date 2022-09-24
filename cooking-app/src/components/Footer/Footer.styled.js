@@ -5,6 +5,7 @@ export const StyledFooter = styled.div`
   color: #989898;
   font-size: 0.9em;
   padding: 0 15px;
+  margin-top: 20px;
 `;
 
 export const StyledFooterContent = styled.div`

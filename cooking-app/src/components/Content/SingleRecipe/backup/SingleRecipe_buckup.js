@@ -1,16 +1,16 @@
-import { PageTitle } from "../../../utils/styles/Global.styled";
+import { PageTitle } from "../../../../utils/styles/Global.styled";
 import { useParams, Link } from "react-router-dom";
 import { onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { recipesCollection } from "../../../api/firebaseIndex";
-import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
-import { ERROR_MESSAGE } from "../../../utils/ErrorMessageTexts";
+import { recipesCollection } from "../../../../api/firebaseIndex";
+import { getDataFromSnapshot } from "../../../../utils/GetDataFromSnapshot";
+import { ERROR_MESSAGE } from "../../../../utils/ErrorMessageTexts";
 import { Alert } from "@mui/material";
-import { AddComment } from "./AddComment";
-import { Loader } from "../../../utils/Loader";
-import { DisplayComments } from "./DisplayComments";
-import { variantType } from "../../../utils/styles/muiStyles";
-import { StyledRecipePage } from "./SingleRecipe.styled"
+import { AddComment } from "../AddComment";
+import { Loader } from "../../../../utils/Loader";
+import { DisplayComments } from "../DisplayComments";
+import { variantType } from "../../../../utils/styles/muiStyles";
+import { StyledRecipePage } from "../SingleRecipe.styled"
 import styled from "styled-components";
 
 export const SingleRecipe = ({ isLoggedIn }) => {

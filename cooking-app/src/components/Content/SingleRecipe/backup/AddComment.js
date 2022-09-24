@@ -1,33 +1,32 @@
-import { useState, useContext } from "react";
-import CheckIcon from "@mui/icons-material/Check";
-import SendIcon from "@mui/icons-material/Send";
+import { PageTitle, StyledButton } from "../../../utils/styles/Global.styled";
+import { useState, useContext, useEffect } from "react";
 import {
   TextField,
   Snackbar,
   Alert,
   Button,
   IconButton,
+  CardContent,
   CardMedia,
   CardActionArea,
+  Typography,
   Card,
-  Box,
+  CardActions,
+  sizing,
 } from "@mui/material";
-
-import { LoadingButton } from "@mui/lab";
-
 import { useParams } from "react-router-dom";
-import { Timestamp, addDoc } from "firebase/firestore";
-import { storageErrorsCodes } from "../../../api/firebaseIndex";
+import { db } from "../../../api/firebase";
+import { arrayUnion, doc, Timestamp, updateDoc, addDoc} from "firebase/firestore";
+import {
+  firestoreErrorsCodes,
+  storageErrorsCodes,
+  singleRecipeCollection,
+} from "../../../api/firebaseIndex";
 import { variantType } from "../../../utils/styles/muiStyles";
 import { UserDataContext } from "../../../App";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import {
-  StyledCommentInput,
-  StyledUploadImageSection,
-  StyledForm,
-  StyledCard,
-  StyledImageContainer,
-} from "./SingleRecipe.styled";
+import { StyledCommentInput } from "./SingleRecipe.styled";
+import { addDoc } from "firebase/firestore";
 import { storage } from "../../../api/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
@@ -35,14 +34,15 @@ import {
   urlStorage,
   urlStorageCD,
   folderStorage,
-  commentsRecipeCollection,
+  recipesCollection,
+  commentsRecipeCollection
 } from "../../../api/firebaseIndex";
 
 const defaultCommentForm = {
   author: "",
   authorId: "",
   comment: "",
-  createdAt: "",
+  commentTimeStamp: "",
   url: [],
 };
 
@@ -52,11 +52,20 @@ export const AddComment = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [file, setFile] = useState("");
+  const [imageRef, setImageRef] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
-  const [imageChoosen, setImageChoosen] = useState(true);
   const { id } = useParams();
 
-  const docRef = commentsRecipeCollection(id);
+  // const docRef = singleRecipeCollection(id);
+  const docRef = commentsRecipeCollection(id)
+
+  const handleClose = (reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowAlert(false);
+    setResponseMessage("");
+  };
 
   const uploadImage = (e) => {
     e.preventDefault();
@@ -67,7 +76,7 @@ export const AddComment = () => {
     );
     uploadBytes(imageRef, imageUpload)
       .then((response) => {
-        setImageChoosen(!imageChoosen);
+        alert("Image uploaded");
         setCommentForm({
           ...commentForm,
           url: [
@@ -94,7 +103,6 @@ export const AddComment = () => {
         });
         break;
       case "file":
-        setImageChoosen(!imageChoosen);
         setImageUpload(e.target.files[0]);
         let imageDisplay = URL.createObjectURL(e.target.files[0]);
         setFile(imageDisplay);
@@ -103,19 +111,35 @@ export const AddComment = () => {
     }
   };
 
+  // const submitComment = (e) => {
+  //   e.preventDefault();
+  //   updateDoc(docRef, {
+  //     comments: arrayUnion(commentForm)
+  //   })
+  //     .then(() => {})
+  //     .catch((e) => {
+  //       setResponseMessage(e.code);
+  //       setShowAlert(true);
+  //     });
+  //   setCommentForm(defaultCommentForm);
+  //   setFile("");
+  //   e.target.reset();
+  // };
+
   const submitComment = (e) => {
     e.preventDefault();
-    addDoc(docRef, commentForm).catch((e) => {
-      console.log(e);
-    });
-    setCommentForm(defaultCommentForm);
-    setFile("");
-    e.target.reset();
+   addDoc(docRef, commentForm).catch((e)=> {
+    console.log(e);
+   });
+   alert("zapisano kementarz");
+   setCommentForm(defaultCommentForm);
+   e.target.rest();
   };
+
 
   return (
     <>
-      <StyledForm onSubmit={submitComment}>
+      <form onSubmit={submitComment}>
         <StyledCommentInput>
           <TextField
             multiline
@@ -141,40 +165,35 @@ export const AddComment = () => {
             />
             <PhotoCamera />
           </IconButton>
+          <button onClick={uploadImage}>upload photo</button>
         </StyledCommentInput>
 
         {file.length > 0 && (
-          <StyledUploadImageSection>
-            <Box sx={{ width: 140}} >
-              <Card sx={{ width: 140, mb: 2 }}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    alt="Contemplative Reptile"
-                    height="140"
-                    image={file}
-                  />
-                </CardActionArea>
-              </Card>
-
-              <Button variant="contained" fullWidth onClick={uploadImage}>
-                <CheckIcon /> Confirm
-              </Button>
-            </Box>
-          </StyledUploadImageSection >
+          <Card sx={{ width: 140 }}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="140"
+                image={file}
+              />
+            </CardActionArea>
+          </Card>
         )}
 
-        <LoadingButton
-          type="submit"
-          loading={!imageChoosen}
-          loadingIndicator="Submit comment"
-          endIcon={<SendIcon />}
-          variant="contained"
-          sx={{ mb: 10 }}
-        >
-          Submit comment
-        </LoadingButton>
-      </StyledForm>
+        <Button variant="contained" type="submit">
+          Submit
+        </Button>
+      </form>
+
+      <Snackbar
+        open={showAlert}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message={responseMessage}
+      >
+        <Alert severity="warning">{responseMessage}</Alert>
+      </Snackbar>
     </>
   );
 };

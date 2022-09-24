@@ -1,69 +1,70 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { onSnapshot, query, limit, startAfter } from "firebase/firestore";
+import {
+  onSnapshot,
+  query,
+  limit,
+  startAfter,
+  getDocs,
+  docs,
+} from "firebase/firestore";
 import moment from "moment";
-import { StyledComment } from "./SingleRecipe.styled";
+import { StyledComment } from "../SingleRecipe.styled";
 import {
   commentsRecipeCollection,
   defaultQueryConstraint,
-} from "../../../api/firebaseIndex";
-import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
-import { Loader } from "../../../utils/Loader";
+} from "../../../../api/firebaseIndex";
+import { getDataFromSnapshot } from "../../../../utils/GetDataFromSnapshot";
+import { Loader } from "../../../../utils/Loader";
 import { Button } from "@mui/material";
 
 export const DisplayComments = () => {
   const [singleComment, setComment] = useState([]);
   const [load, setLoad] = useState(false);
   const [lastDoc, setLastDoc] = useState();
-  const [commentsList, setCommentsList] = useState({});
+  const [nextCommentLoading, setNextCommentLoading] = useState({});
   const { id } = useParams();
-
-  useEffect(() => {
-    const docRef = commentsRecipeCollection(id);
-    onSnapshot(docRef, (comment) => {
-      setCommentsList(getDataFromSnapshot(comment));
-    });
-  }, []);
 
   useEffect(() => {
     const first = query(
       commentsRecipeCollection(id),
       defaultQueryConstraint,
-      limit(5)
+      limit(3)
     );
 
     onSnapshot(first, (comment) => {
       setComment(getDataFromSnapshot(comment));
+      setLastDoc(comment.docs.length - 1);
       setLoad(true);
     });
-    setLastDoc(singleComment[singleComment.length - 1]);
   }, [load]);
+  console.log("pierwszy raz", singleComment);
+  console.log(singleComment.createdAt);
 
   const handleMore = () => {
     const next = query(
       commentsRecipeCollection(id),
       defaultQueryConstraint,
-      startAfter(lastDoc.createdAt),
+      startAfter(2),
       limit(3)
     );
 
     onSnapshot(next, (comment) => {
-      setComment((singleComment) => [
-        ...singleComment,
-        ...getDataFromSnapshot(comment),
-      ]);
+      setComment(getDataFromSnapshot(comment));
+      // setComment((singleComment) => [
+      //   ...singleComment,
+      //   ...getDataFromSnapshot(comment),
+      // ]);
+      setNextCommentLoading(getDataFromSnapshot(comment));
+      setLastDoc(comment.docs.length - 1);
+      setLoad(true);
     });
+    console.log("drugi  drugi raz", singleComment);
   };
-
-  useEffect(() => {
-    setLastDoc(singleComment[singleComment.length - 1]);
-  });
 
   if (load === false) {
     return <Loader />;
   }
-
-  const moreLoading = commentsList.length - singleComment.length;
 
   return (
     <>
@@ -80,11 +81,7 @@ export const DisplayComments = () => {
               <br />
             </StyledComment>
           ))}
-          {moreLoading ? (
-            <Button onClick={handleMore} fullWidth variant="contained" sx={{ mb: 10 }}>
-              Show more
-            </Button>
-          ) : null}
+          <Button onClick={handleMore}>Show more</Button>
         </div>
       ) : (
         <p>no comments yet</p>

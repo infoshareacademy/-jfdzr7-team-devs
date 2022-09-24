@@ -1,11 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { db } from "../../../api/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { onSnapshot } from "firebase/firestore";
 import { PageTitle } from "../../../utils/styles/Global.styled";
 import { Loader } from "../../../utils/Loader";
 import { AddComment } from "./AddComment";
 import { DisplayComments } from "./DisplayComments";
+import { singleRecipeCollection } from "../../../api/firebaseIndex";
 
 export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
@@ -13,7 +13,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    const docRef = doc(db, "recipes", id);
+    const docRef = singleRecipeCollection(id);
 
     onSnapshot(docRef, (doc) => {
       setRecipe(doc.data(), doc.id);

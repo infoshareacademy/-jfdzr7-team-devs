@@ -1,4 +1,4 @@
-import { PageTitle, StyledButton } from "../../../utils/styles/Global.styled";
+import { PageTitle, StyledButton } from "../../../../utils/styles/Global.styled";
 import { useState, useContext, useEffect } from "react";
 import {
   TextField,
@@ -15,15 +15,15 @@ import {
   sizing,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { db } from "../../../api/firebase";
+import { db } from "../../../../api/firebase";
 import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
-import { firestoreErrorsCodes } from "../../../api/firebaseIndex";
-import { variantType } from "../../../utils/styles/muiStyles";
-import { UserDataContext } from "../../../App";
+import { firestoreErrorsCodes } from "../../../../api/firebaseIndex";
+import { variantType } from "../../../../utils/styles/muiStyles";
+import { UserDataContext } from "../../../../App";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import { StyledCommentInput } from "./SingleRecipe.styled";
+import { StyledCommentInput } from "../SingleRecipe.styled";
 import { addDoc } from "firebase/firestore";
-import { storage } from "../../../api/firebase";
+import { storage } from "../../../../api/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import {
@@ -31,7 +31,7 @@ import {
   urlStorageCD,
   folderStorage,
   recipesCollection,
-} from "../../../api/firebaseIndex";
+} from "../../../../api/firebaseIndex";
 
 
 const defaultCommentForm = {
