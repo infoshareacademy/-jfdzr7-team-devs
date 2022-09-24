@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import SendIcon from "@mui/icons-material/Send";
+import DisabledByDefaultRoundedIcon from "@mui/icons-material/DisabledByDefaultRounded";
 import {
   TextField,
   Snackbar,
@@ -11,6 +12,7 @@ import {
   CardActionArea,
   Card,
   Box,
+  Fab,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -21,12 +23,14 @@ import { storageErrorsCodes } from "../../../api/firebaseIndex";
 import { variantType } from "../../../utils/styles/muiStyles";
 import { UserDataContext } from "../../../App";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   StyledCommentInput,
   StyledUploadImageSection,
   StyledForm,
   StyledCard,
-  StyledImageContainer,
+  StyledUpladImg,
+  StyledUpladContainer,
 } from "./SingleRecipe.styled";
 import { storage } from "../../../api/firebase";
 import { ref, uploadBytes } from "firebase/storage";
@@ -113,6 +117,11 @@ export const AddComment = () => {
     e.target.reset();
   };
 
+  const handleStopUpload = () => {
+    setFile("");
+    setImageChoosen(!imageChoosen);
+  };
+
   return (
     <>
       <StyledForm onSubmit={submitComment}>
@@ -145,23 +154,28 @@ export const AddComment = () => {
 
         {file.length > 0 && (
           <StyledUploadImageSection>
-            <Box sx={{ width: 140}} >
-              <Card sx={{ width: 140, mb: 2 }}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    alt="Contemplative Reptile"
-                    height="140"
-                    image={file}
-                  />
-                </CardActionArea>
-              </Card>
-
-              <Button variant="contained" fullWidth onClick={uploadImage}>
-                <CheckIcon /> Confirm
+            <StyledUpladContainer>
+              <Fab
+                color="primary"
+                aria-label="delate"
+                size="small"
+                style={{ float: "right" }}
+                onClick={handleStopUpload}
+                disabled={imageChoosen}
+              >
+                <CloseIcon onClick={handleStopUpload} />
+              </Fab>
+              <StyledUpladImg style={{ backgroundImage: `url(${file})` }} />
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={uploadImage}
+                startIcon={<CheckIcon />}
+              >
+                Confirm
               </Button>
-            </Box>
-          </StyledUploadImageSection >
+            </StyledUpladContainer>
+          </StyledUploadImageSection>
         )}
 
         <LoadingButton
@@ -170,7 +184,6 @@ export const AddComment = () => {
           loadingIndicator="Submit comment"
           endIcon={<SendIcon />}
           variant="contained"
-          sx={{ mb: 10 }}
         >
           Submit comment
         </LoadingButton>

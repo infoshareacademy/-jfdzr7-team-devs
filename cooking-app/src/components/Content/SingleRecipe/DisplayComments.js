@@ -2,10 +2,18 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onSnapshot, query, limit, startAfter } from "firebase/firestore";
 import moment from "moment";
-import { StyledComment } from "./SingleRecipe.styled";
+import {
+  StyledComment,
+  StyledAuthorName,
+  StyledDate,
+  StyledImg,
+  StyledCommentItem,
+  StyledParagraph,
+} from "./SingleRecipe.styled";
 import {
   commentsRecipeCollection,
   defaultQueryConstraint,
+  urlStorageCD,
 } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { Loader } from "../../../utils/Loader";
@@ -65,29 +73,29 @@ export const DisplayComments = () => {
 
   const moreLoading = commentsList.length - singleComment.length;
 
+console.log(singleComment.length)
+
   return (
     <>
-      {singleComment ? (
-        <div>
+      {singleComment.length > 0 ? (
+        <StyledCommentItem>
           {singleComment.map(({ id, author, comment, createdAt, url }) => (
             <StyledComment key={id}>
-              <h4>{author}</h4>
-              <p>{moment(createdAt.toDate()).calendar()}</p>
+              <StyledAuthorName>{author}</StyledAuthorName>
+              <StyledDate>{moment(createdAt.toDate()).calendar()}</StyledDate>
               <p>{comment}</p>
-              {url.length > 0 ? (
-                <img src={url} style={{ height: "150px" }} />
-              ) : null}
+              {url.length > 0 ? <StyledImg src={url} /> : null}
               <br />
             </StyledComment>
           ))}
           {moreLoading ? (
-            <Button onClick={handleMore} fullWidth variant="contained" sx={{ mb: 10 }}>
+            <Button onClick={handleMore} fullWidth variant="contained">
               Show more
             </Button>
           ) : null}
-        </div>
+        </StyledCommentItem>
       ) : (
-        <p>no comments yet</p>
+        <StyledParagraph>no comments yet</StyledParagraph>
       )}
     </>
   );

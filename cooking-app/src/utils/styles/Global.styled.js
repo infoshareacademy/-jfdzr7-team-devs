@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     --color-main-light-gray: #fafafa;
     --color-light-gray: #c7c7c7;
     --color-gray: #757575;
+    --color-black: #000000;
     --color-orange:  #f9c02d;
     --color-orange-dark:  #c29000;
     --font-family: 'Roboto', sans-serif;

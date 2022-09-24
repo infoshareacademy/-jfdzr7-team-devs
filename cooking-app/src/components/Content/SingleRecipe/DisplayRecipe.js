@@ -6,6 +6,20 @@ import { Loader } from "../../../utils/Loader";
 import { AddComment } from "./AddComment";
 import { DisplayComments } from "./DisplayComments";
 import { singleRecipeCollection } from "../../../api/firebaseIndex";
+import {
+  TextField,
+  Snackbar,
+  Alert,
+  Button,
+  IconButton,
+  CardMedia,
+  CardActionArea,
+  Card,
+  Box,
+  Fab,
+} from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
+import { StyledUpladImg } from "./SingleRecipe.styled"
 
 export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
@@ -40,6 +54,9 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         <p>Portions: {recipe.portion}</p>
         <p>Ingredients: {recipe.ingredients}</p>
         <p>How to prepare? {recipe.describe}</p>
+
+
+
       </div>
       <PageTitle>Comments</PageTitle>
       <div>

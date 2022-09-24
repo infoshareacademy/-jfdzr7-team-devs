@@ -197,3 +197,29 @@ export const AddComment = () => {
     </>
   );
 };
+
+
+     {/* <Box sx={{ width: 140 }}>
+              <Card sx={{ width: 140, mb: 2 }}>
+                <CardActionArea style={{ position: "relative" }}>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    // image={file}
+                  />
+                  <Fab color="primary" aria-label="add">
+                    <DisabledByDefaultRoundedIcon />
+                  </Fab>
+
+                 
+                </CardActionArea>
+              </Card>
+
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={uploadImage}
+                startIcon={<CheckIcon />}
+              >
+                Confirm
+              </Button>
