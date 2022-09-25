@@ -36,14 +36,11 @@ export const Container = styled.div`
   max-width: 100%;
   width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0;
 `;
 
 export const PageTitle = styled.h1`
-  margin: 33px 0 33px;
-  font-size: 30px;
-  line-height: 34px;
-  font-weight: 500;
+  margin: 0;
 `;
 
 export const StyledTitle = styled.h2`
@@ -57,18 +54,23 @@ export const StyledLink = styled(Link)`
   color: var(-color-little-light-gray);
   background-color: var(--color-orange);
   text-transform: uppercase;
-  padding: 16px 26px;
+  padding: 6px 16px;
   display: block;
   text-decoration: none;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  vertical-align: middle;
+  letter-spacing: 0.02857em;
   transition: 0.3s;
-  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
-  border-radius: 0.1rem;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  border-radius: 4px;
   width: fit-content;
+  min-width: 64px;
 
   &:hover {
-    background-color: var(#c29000);
+    background-color: var(--color-orange-dark);
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   }
 
@@ -77,4 +79,3 @@ export const StyledLink = styled(Link)`
     transform: translateY(0);
   }
 `;
-

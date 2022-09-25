@@ -18,6 +18,7 @@ import {
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { Loader } from "../../../utils/Loader";
 import { Button } from "@mui/material";
+import { DisplayBiggerImage } from "./DisplayBiggerImage";
 
 export const DisplayComments = () => {
   const [singleComment, setComment] = useState([]);
@@ -73,8 +74,6 @@ export const DisplayComments = () => {
 
   const moreLoading = commentsList.length - singleComment.length;
 
-console.log(singleComment.length)
-
   return (
     <>
       {singleComment.length > 0 ? (
@@ -82,9 +81,10 @@ console.log(singleComment.length)
           {singleComment.map(({ id, author, comment, createdAt, url }) => (
             <StyledComment key={id}>
               <StyledAuthorName>{author}</StyledAuthorName>
+              {/* { createdAt ===undefined ? null : (<StyledDate>{moment(createdAt.toDate()).calendar()}</StyledDate> )} */}
               <StyledDate>{moment(createdAt.toDate()).calendar()}</StyledDate>
               <p>{comment}</p>
-              {url.length > 0 ? <StyledImg src={url} /> : null}
+              {url.length > 0 ? <StyledImg src={url} onClick={<DisplayBiggerImage />}/> : null}
               <br />
             </StyledComment>
           ))}
