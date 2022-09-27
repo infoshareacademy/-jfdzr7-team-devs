@@ -4,9 +4,11 @@ import { Card, CardHeader, CardMedia } from "@mui/material";
 
 export const IndividualRecipe = ({ singleRecipe }) => {
   return (
-    <Card key={singleRecipe.id} sx={{ maxWidth: 345 }}>
-      <NavLink to={`/recipe/${singleRecipe.id}`}>
-        <CardHeader title={singleRecipe.name} />
+    <Card 
+    key={singleRecipe.id} 
+    sx={{ width: 270, height: 300, backgroundColor: "darkgray", display: "flex", justifyContent: "center"}}>
+      <NavLink sx={{textDecoration: "none"}} to={`/recipe/${singleRecipe.id}`}>
+        <CardHeader sx={{fontSize: 39, color: "white" }} title={singleRecipe.name} />
         <CardMedia
           component="img"
           height="194"

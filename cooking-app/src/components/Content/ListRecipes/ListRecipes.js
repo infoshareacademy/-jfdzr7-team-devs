@@ -1,11 +1,12 @@
 import { onSnapshot } from "firebase/firestore";
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { recipesCollection, tags } from "../../../api/firebaseIndex";
 import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
-import { PageTitle } from "../../styles/Global.styled";
+import { PageTitle, StyledButton } from "../../styles/Global.styled";
 import { InputElement } from "./InputElement";
-import { Grid, Container } from "@mui/material";
+import { Grid} from "@mui/material";
+import styled from "styled-components";
 
 const reducer = (currState, action) => {
   switch (action.type) {
@@ -32,6 +33,7 @@ const reducer = (currState, action) => {
 
 export const ListRecipes = () => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
+  const [visible, setVisible] = useState(12);
 
   const [state, dispatcher] = useReducer(reducer, {
     inputCategory: "",
@@ -58,14 +60,9 @@ export const ListRecipes = () => {
     });
   }, []);
 
-  console.log(state.inputState);
-  console.log(state.inputCategory);
-  console.log(state.textInput);
-
-  // const result = certs.filter(cert => {
-  //   let arr = details.filter(detail => detail.b === cert.b)
-  //   return !(arr.length === 0)
-  // });
+  const showMoreItems = () => {
+    setVisible((prev) => prev + 8);
+  };
 
   const listofRecipe2 = datafromFirebase
     .filter((item) => {
@@ -78,22 +75,23 @@ export const ListRecipes = () => {
         return item;
       } else return item.name?.toLowerCase().includes(state.textInput);
     })
+    .slice(0, visible)
     .map((singleRecipe, index) => {
-      while (index < 20) {
         return (
           <Grid key={index} item xs={12} sm={6} md={3}>
             <IndividualRecipe singleRecipe={singleRecipe} />
           </Grid>
         );
-      }
+      
     });
 
   return (
-    <Container>
+    <StyledDiv>
       <PageTitle>Recipes</PageTitle>
-      <label htmlFor="filter">Search by recipe title </label>
-      <input
+      {/* <label htmlFor="filter">Search by recipe title </label> */}
+      <StyledInputText
         id="filter"
+        placeholder="please enter the recipe name..."
         value={state.textInput}
         type="text"
         onChange={handelTextInput}
@@ -111,15 +109,21 @@ export const ListRecipes = () => {
         })}
       </div>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={3} style={{marginBottom: 20}}>
         {listofRecipe2}
       </Grid>
-    </Container>
+      <StyledButton onClick={showMoreItems}>Show more</StyledButton>
+    </StyledDiv>
   );
 };
 
-// const StyledDiv = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   flex-wrap: wrap;
-// `;
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const StyledInputText = styled.input`
+width: 100%;
+height: 50px;
+`
