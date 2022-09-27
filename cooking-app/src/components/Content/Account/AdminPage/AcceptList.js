@@ -1,74 +1,47 @@
-import {
-  Dns,
-  KeyboardArrowDown,
-  People,
-  PermMedia,
-  Public,
-} from "@mui/icons-material";
-import {
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-} from "@mui/material";
-import React, { useState } from "react";
-
-const data = [
-  { icon: <People />, label: "Authentication" },
-  { icon: <Dns />, label: "Database" },
-  { icon: <PermMedia />, label: "Storage" },
-  { icon: <Public />, label: "Hosting" },
-];
+import { Badge, Divider, ListItemText, Paper } from "@mui/material";
+import { onSnapshot, query, where } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { recipesCollection } from "../../../../api/firebaseIndex";
+import { getDataFromSnapshot } from "../../../../utils/GetDataFromSnapshot";
+import AcceptItem from "./AcceptItem";
 
 const AcceptList = () => {
-  const [open, setOpen] = useState(true);
+  const [datafromFirebase, setdatafromFirebase] = useState([]);
+
+  useEffect(() => {
+    const q = query(recipesCollection, where("isApproved", "==", false));
+    onSnapshot(q, (snapshot) => {
+      setdatafromFirebase(getDataFromSnapshot(snapshot));
+    });
+  }, []);
 
   return (
     <Paper
       sx={{
-        // bgcolor: open ? "rgba(71, 98, 130, 0.2)" : null,
-        pb: open ? 2 : 0,
+        pb: 2.5,
+        px: 3,
+        py: 2.5,
+        my: 2,
       }}
     >
-      <Paper variant="outlined" elevation={0}>
-        <ListItemButton
-          alignItems="flex-start"
-          onClick={() => setOpen(!open)}
-          sx={{
-            px: 3,
-            pt: 2.5,
-            pb: 2.5,
-          }}
-        >
+      <Divider textAlign="left">
+        <Badge badgeContent={datafromFirebase.length} color="primary">
           <ListItemText
-            primary="Recipes to accept"
+            primary="Waiting List"
             primaryTypographyProps={{
               fontSize: 15,
-              fontWeight: "medium",
+              fontWeight: "bold",
               lineHeight: "20px",
               mb: "2px",
             }}
-            sx={{ my: 0 }}
+            sx={{ my: 1 }}
           />
-          <KeyboardArrowDown
-            sx={{
-              mr: -1,
-              transform: open ? "rotate(-180deg)" : "rotate(0)",
-              transition: "0.2s",
-            }}
-          />
-        </ListItemButton>
-      </Paper>
-      {open &&
-        data.map((item) => (
-          <ListItemButton key={item.label} sx={{ py: 0, minHeight: 32 }}>
-            <ListItemIcon sx={{ color: "inherit" }}>{item.icon}</ListItemIcon>
-            <ListItemText
-              primary={item.label}
-              primaryTypographyProps={{ fontSize: 14, fontWeight: "medium" }}
-            />
-          </ListItemButton>
-        ))}
+        </Badge>
+      </Divider>
+
+      {datafromFirebase.map((item) => (
+        <AcceptItem item={item} />
+      ))}
     </Paper>
   );
 };
