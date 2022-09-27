@@ -1,11 +1,4 @@
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
 
 export const SelectsBox = ({ onChange }) => {
@@ -53,15 +46,6 @@ export const SelectsBox = ({ onChange }) => {
           <MenuItem value={180}>180 minutes</MenuItem>
         </Select>
       </FormControl>
-
-      {/* <TextField
-        sx={{ width: 300 }}
-        id="outlined-basic"
-        label="Outlined"
-        variant="outlined"
-      />
-      <TextField id="filled-basic" label="Filled" variant="filled" />
-      <TextField id="standard-basic" label="Standard" variant="standard" /> */}
     </Box>
   );
 };

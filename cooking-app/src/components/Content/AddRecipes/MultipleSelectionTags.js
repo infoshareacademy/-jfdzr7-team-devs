@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -9,7 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import { SelectedTagsContext } from "./AddRecipeNew";
-// import { tags } from "../../../api/firebaseIndex";
+import { tags } from "../../../api/firebaseIndex";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -22,14 +21,32 @@ const MenuProps = {
   },
 };
 
-export const tags = [
-  "Salt",
-  "Sweet",
-  "Dinner",
-  "Lunch",
-  "Dessert",
-  "Breakfast",
-];
+// export const tags = [
+//   {
+//     key: "salt",
+//     label: "Salt",
+//   },
+//   {
+//     key: "sweet",
+//     label: "Sweet",
+//   },
+//   {
+//     key: "dinner",
+//     label: "Dinner",
+//   },
+//   {
+//     key: "lunch",
+//     label: "Lunch",
+//   },
+//   {
+//     key: "dessert",
+//     label: "Dessert",
+//   },
+//   {
+//     key: "breakfast",
+//     label: "Breakfast",
+//   },
+// ];
 
 function getStyles(tag, selectedTags, theme) {
   return {
@@ -43,7 +60,7 @@ function getStyles(tag, selectedTags, theme) {
 export function MultipleSelectTags({ handlerTags, onChange }) {
   const selectedTags = React.useContext(SelectedTagsContext);
 
-  console.log(selectedTags);
+  // console.log(selectedTags);
   const theme = useTheme();
   return (
     <div>
@@ -71,11 +88,11 @@ export function MultipleSelectTags({ handlerTags, onChange }) {
         >
           {tags.map((tag) => (
             <MenuItem
-              key={tag}
-              value={tag}
+              key={tag.key}
+              value={tag.label}
               style={getStyles(tag, selectedTags, theme)}
             >
-              {tag}
+              {tag.label}
             </MenuItem>
           ))}
         </Select>

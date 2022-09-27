@@ -2,18 +2,25 @@ import { TextField } from "@mui/material";
 import React from "react";
 import { variantType } from "../../styles/muiStyles";
 
-export const RecipeFormTextField = ({ name, label, onChange, value }) => {
+export const TextFieldIngredients = ({
+  name,
+  label,
+  onChange,
+  value,
+  handlerIngredients,
+  handlerMethods,
+}) => {
   return (
     <TextField
       sx={{ width: 900 }}
       label={label} //"Title"
       multiline
-      required
       variant={variantType.filled}
       name={name} //"name"
       // value={value}
       onChange={(e) => {
         onChange(e);
+        handlerIngredients(e);
       }}
     />
   );

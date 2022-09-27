@@ -1,6 +1,6 @@
 import { addDoc } from "firebase/firestore";
 // import { RecipeForm } from "./RecipeForm copy 2";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { storage } from "../../../api/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
@@ -16,9 +16,14 @@ import {
   storageErrorsCodes,
 } from "../../../api/firebaseIndex";
 import { RecipeForm2 } from "./RecipeForm";
+import { UserDataContext } from "../../../App";
+
+export const SelectedTagsContext = createContext([]);
+export const IngredientsContext = createContext([]);
+export const PreparingContext = createContext([]);
 
 const defaultRecipeValue = {
-  author: "Context",
+  author: {},
   name: "",
   description: "",
   ingredients: [],
@@ -31,13 +36,22 @@ const defaultRecipeValue = {
   isApproved: false,
 };
 
-export const SelectedTagsContext = createContext([]);
-export const IngredientsContext = createContext([]);
-
 export const AddRecipeNew = () => {
+  const userData = useContext(UserDataContext);
+  const [user, setUser] = useState(null);
   const [imageRef, setImageRef] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
   const [formValues, setFormValues] = useState(defaultRecipeValue);
+
+  useEffect(() => {
+    // console.log(userData);
+    setUser(userData);
+    setFormValues({ ...formValues, author: { user } });
+  }, [userData]);
+
+  // useEffect(() => {
+  //   console.log(user);
+  // }, [user]);
 
   useEffect(() => {
     console.log(formValues);
@@ -56,6 +70,7 @@ export const AddRecipeNew = () => {
         alert("Image uploaded");
         setFormValues({
           ...formValues,
+          // author: { ...user },
           image: [
             ...formValues.image,
             `${urlStorage}${response.metadata.name}${urlStorageCD}`,
@@ -67,11 +82,10 @@ export const AddRecipeNew = () => {
       });
   };
   // multiselect tags
-  const [selectedTags, setSelectedTags] = useState(["tag"]);
-
-  useEffect(() => {
-    console.log(selectedTags);
-  }, [selectedTags]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  // useEffect(() => {
+  //   console.log(selectedTags);
+  // }, [selectedTags]);
 
   const handleChangeTags = (event) => {
     const {
@@ -86,22 +100,37 @@ export const AddRecipeNew = () => {
   // ingredients array
   const [ingredients, setIngredients] = useState([""]);
   const handleChangeIngredients = (e, index) => {
-    // const name = e.target;
-    // const value = e.target.value;
     const inputList = [...ingredients];
-    console.log(inputList);
+    // console.log(inputList);
     inputList[index] = e.target.value;
     setIngredients(inputList);
   };
 
-  useEffect(() => {
-    console.log(ingredients);
-  }, [ingredients]);
+  // useEffect(() => {
+  //   console.log(ingredients);
+  // }, [ingredients]);
 
   const handleAddTextInput = (e) => {
     e.preventDefault();
     setIngredients([...ingredients, ""]);
   };
+
+  // preparing method array
+  const [methods, setMethods] = useState(["1 krok"]);
+  const handleChangeMethods = (e, index) => {
+    const inputList = [...methods];
+    // console.log("methods-----", inputList);
+    inputList[index] = e.target.value;
+    setMethods(inputList);
+  };
+  const handleMethodAddTextInput = (e) => {
+    e.preventDefault();
+    setMethods([...methods, ""]);
+  };
+  // useEffect(() => {
+  //   console.log("useEffect methods ------", methods);
+  // }, [methods]);
+
   // onChange
   const changeFormValues = (e) => {
     switch (e.target.name) {
@@ -109,7 +138,6 @@ export const AddRecipeNew = () => {
       case "description":
       case "time":
       case "servings":
-      case "instructions":
         setFormValues({
           ...formValues,
           [e.target.name]: e.target.value,
@@ -119,12 +147,19 @@ export const AddRecipeNew = () => {
         setFormValues({
           ...formValues,
           ingredients: [...ingredients],
+          author: { ...user },
+        });
+        break;
+      case "instructions":
+        setFormValues({
+          ...formValues,
+          instructions: [...methods],
         });
         break;
       case "tags":
         setFormValues({
           ...formValues,
-          tags: [e.target.value],
+          tags: e.target.value,
         });
         break;
       case "file":
@@ -137,9 +172,11 @@ export const AddRecipeNew = () => {
   //onSubmit
   const handleAddingRecipe = (e) => {
     e.preventDefault();
-    // addDoc(recipesCollection, formValues).catch((e) => {
-    //   alert(firestoreErrorsCodes[e.code]);
-    // });
+    addDoc(recipesCollection, formValues)
+      .then((response) => console.log(response))
+      .catch((e) => {
+        alert(firestoreErrorsCodes[e.code]);
+      });
     alert("Recipe saved");
     setFormValues(defaultRecipeValue);
     e.target.reset();
@@ -148,18 +185,22 @@ export const AddRecipeNew = () => {
   return (
     <>
       <h2>Add Recipe</h2>
-      <IngredientsContext.Provider value={ingredients}>
-        <SelectedTagsContext.Provider value={selectedTags}>
-          <RecipeForm2
-            onChange={changeFormValues}
-            onClick={uploadImage}
-            onSubmit={handleAddingRecipe}
-            handlerTags={handleChangeTags}
-            handlerIngredients={handleChangeIngredients}
-            handlerAddInputIngredient={handleAddTextInput}
-          />
-        </SelectedTagsContext.Provider>
-      </IngredientsContext.Provider>
+      <PreparingContext.Provider value={methods}>
+        <IngredientsContext.Provider value={ingredients}>
+          <SelectedTagsContext.Provider value={selectedTags}>
+            <RecipeForm2
+              onChange={changeFormValues}
+              onClick={uploadImage}
+              onSubmit={handleAddingRecipe}
+              handlerTags={handleChangeTags}
+              handlerIngredients={handleChangeIngredients}
+              handlerAddInputIngredient={handleAddTextInput}
+              handlerMethods={handleChangeMethods}
+              handlerAddInputMethod={handleMethodAddTextInput}
+            />
+          </SelectedTagsContext.Provider>
+        </IngredientsContext.Provider>
+      </PreparingContext.Provider>
     </>
   );
 };
