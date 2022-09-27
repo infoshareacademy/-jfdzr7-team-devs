@@ -1,5 +1,9 @@
 import { Routes, Route } from "react-router-dom";
+<<<<<<< HEAD
 import { Container } from "../../utils/styles/Global.styled";
+=======
+import { Container } from "../styles/Global.styled";
+>>>>>>> sprint
 import { HomePage } from "./HomePage/HomePage";
 import { ListRecipes } from "./ListRecipes/ListRecipes";
 import { Login } from "./Authorization/Login";
