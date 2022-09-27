@@ -81,7 +81,10 @@ export const MenuListDropdown = () => {
                   onKeyDown={handleListKeyDown}
                   style={{ display: "flex", flexDirection: "column" }}
                 >
-                  <MenuLink to={`/ListRecipes/breakfast`} onClick={handleClose}>
+                  {
+                    // te dropdown nie będzię wykorzystany w tym miejscu, chwilowo
+                    // zawieszamy prace nad nim
+                    /* <MenuLink to={`/ListRecipes/breakfast`} onClick={handleClose}>
                     Breakfast
                   </MenuLink>
                   <MenuLink to={`/ListRecipes/lunch`} onClick={handleClose}>
@@ -92,7 +95,8 @@ export const MenuListDropdown = () => {
                   </MenuLink>
                   <MenuLink to={`/ListRecipes/dessert`} onClick={handleClose}>
                     Dessert
-                  </MenuLink>
+                  </MenuLink> */
+                  }
                 </MenuList>
               </ClickAwayListener>
             </Paper>

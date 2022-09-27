@@ -2,10 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import { Container } from "../../utils/styles/Global.styled";
 import { HomePage } from "./HomePage/HomePage";
 import { ListRecipes } from "./ListRecipes/ListRecipes";
-import { RecipeBreakfast } from "./ListRecipes/RecipeBreakfast";
-import { RecipeLunch } from "./ListRecipes/RecipeLunch";
-import { RecipeDinner } from "./ListRecipes/RecipeDinner";
-import { RecipeDessert } from "./ListRecipes/RecipeDessert";
 import { Login } from "./Authorization/Login";
 import { UserProfile} from "./Account/UserProfile/UserProfile";
 import { Ebook } from "./Ebook/Ebook";
@@ -17,8 +13,14 @@ import ForgotPassword from "./Authorization/ForgotPassword";
 import Redirect from "./Authorization/Redirect";
 import ProtectedRoute from "./Authorization/ProtectedRoute";
 import { StyledContent, StyledH2 } from "./Content.styled";
+import AddRecipePage from "./Account/AddRecipePage";
+import AdminPage from "./Account/AdminPage/AdminPage";
+import { useContext } from "react";
+import { UserDataContext } from "../../App";
 
 export const Content = ({ isLoggedIn }) => {
+  const userData = useContext(UserDataContext);
+
   return (
     <StyledContent>
       <Container>
@@ -60,11 +62,26 @@ export const Content = ({ isLoggedIn }) => {
           />
           <Route path="/recipe/:id" element={<SingleRecipe isLoggedIn={isLoggedIn}/>} />
           <Route path="/user/:id" element={<UserProfile />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn && userData?.role === "admin"}
+                redirect="/account"
+              >
+                <AdminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/addRecipe"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn} redirect="/login">
+                <AddRecipePage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/ListRecipes" element={<ListRecipes />} />
-          <Route path="/ListRecipes/breakfast" element={<RecipeBreakfast />} />
-          <Route path="/ListRecipes/lunch" element={<RecipeLunch />} />
-          <Route path="/ListRecipes/dinner" element={<RecipeDinner />} />
-          <Route path="/ListRecipes/dessert" element={<RecipeDessert />} />
 
           <Route
             path="*"

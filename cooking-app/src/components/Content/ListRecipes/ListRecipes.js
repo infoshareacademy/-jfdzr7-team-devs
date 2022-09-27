@@ -1,28 +1,23 @@
 import { onSnapshot } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
-import { recipesCollection } from "../../../api/firebaseIndex";
+import { recipesCollection, tags } from "../../../api/firebaseIndex"
 import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { PageTitle } from "../../../utils/styles/Global.styled";
 import styled from "styled-components";
+import { InputElement } from "./InputElement";
 
 export const ListRecipes = () => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
+  const [inputState, setInputState] = useState(false);
+  const [inputCategory, setinputCategory] = useState(null);
   const [search, setSearch] = useState("");
-  const [salt, setSalt] = useState(false);
-  const [sweet, setSweet] = useState(false);
-  const [breakfast, setBreakfast] = useState(false);
-  const [dinner, setDinner] = useState(false);
-  const [dessert, setDessert] = useState(false);
-  const [lunch, setLunch] = useState(false);
-
   const textInput = useRef();
-  const saltInput = useRef();
-  const sweetInput = useRef();
-  const breakfastInput = useRef();
-  const dinnerInput = useRef();
-  const dessertInput = useRef();
-  const lunchInput = useRef();
+
+  const handleInput = (e) => {
+    setInputState(!inputState);
+    setinputCategory(e.target.name)
+  };
 
   useEffect(() => {
     onSnapshot(recipesCollection, (snapshot) => {
@@ -32,18 +27,8 @@ export const ListRecipes = () => {
 
   const listofRecipe2 = datafromFirebase
     .filter((item) => {
-      if (salt == true) {
-        return item.categories.includes("Salt");
-      } else if (sweet === true) {
-        return item.categories.includes("Sweet");
-      } else if (breakfast === true) {
-        return item.categories.includes("Breakfast");
-      } else if (dinner === true) {
-        return item.categories.includes("Dinner");
-      } else if (lunch === true) {
-        return item.categories.includes("Lunch");
-      } else if (dessert === true) {
-        return item.categories.includes("Dessert");
+      if (inputState) {
+        return item.categories.includes(inputCategory);
       } else if (search.toLowerCase() === "") {
         return item;
       } else return item.title.toLowerCase().includes(search);
@@ -65,66 +50,13 @@ export const ListRecipes = () => {
         }}
       />
       <br />
-
-      <label htmlFor="salt">Salt</label>
-      <input
-        ref={saltInput}
-        name="salt"
-        type="checkbox"
-        onChange={() => {
-          setSalt(!salt);
-        }}
-      />
-
-      <label htmlFor="sweet">Sweet</label>
-      <input
-        ref={sweetInput}
-        name="sweet"
-        type="checkbox"
-        onChange={() => {
-          setSweet(!sweet);
-        }}
-      />
-
-      <label htmlFor="dinner">Dinner</label>
-      <input
-        ref={dinnerInput}
-        name="dinner"
-        type="checkbox"
-        onChange={() => {
-          setDinner(!dinner);
-        }}
-      />
-
-      <label htmlFor="lunch">Lunch</label>
-      <input
-        ref={lunchInput}
-        name="breakfast"
-        type="checkbox"
-        onChange={() => {
-          setLunch(!lunch);
-        }}
-      />
-
-      <label htmlFor="breakfast">Breakfast</label>
-      <input
-        ref={breakfastInput}
-        name="breakfast"
-        type="checkbox"
-        onChange={() => {
-          setBreakfast(!breakfast);
-        }}
-      />
-
-      <label htmlFor="dessert">Dessert</label>
-      <input
-        ref={dessertInput}
-        name="dessert"
-        type="checkbox"
-        onChange={() => {
-          setDessert(!dessert);
-        }}
-      />
+      <div>
+        {tags.map((singleTag) => {
+          return (
+            <InputElement tag={singleTag.label} handleInput={handleInput} />
+          );
+        })}
+      </div>
 
       <StyledDiv>{listofRecipe2}</StyledDiv>
     </>
@@ -136,3 +68,4 @@ const StyledDiv = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
 `;
+

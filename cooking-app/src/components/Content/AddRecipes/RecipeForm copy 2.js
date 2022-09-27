@@ -34,19 +34,17 @@ export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
           />
         </StyledTitleDiv>
         <StyledInputsDivSelect>
-          {inputSelectAtributes.map(({ key, label, options }) => {
+          {inputSelectAtributes.map(({ key, label, options }, index) => {
             return (
-              <StyledInputsSelectDiv2>
+              <StyledInputsSelectDiv2 key={index}>
                 <label htmlFor={key}>{label}</label>
-                <StyledSelect
-                  style={{ width: "300px" }}
-                  id={key}
-                  name={key}
-                  onChange={onChange}
-                  required
-                >
-                  {options.map(({ value, option }) => {
-                    return <StyledOption value={value}>{option}</StyledOption>;
+                <StyledSelect id={key} name={key} onChange={onChange} required>
+                  {options.map(({ value, option }, index) => {
+                    return (
+                      <StyledOption key={index} value={value}>
+                        {option}
+                      </StyledOption>
+                    );
                   })}
                 </StyledSelect>
               </StyledInputsSelectDiv2>
@@ -84,12 +82,10 @@ export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
           />
         </StyledTitleDiv>
         <StyledCheckboxAll>
-          {tags.map(({ key, label, index }) => {
+          {tags.map(({ key, label }, index) => {
             return (
-              <StyledDivCheckbox>
-                <label key={index} htmlFor={key}>
-                  {label}
-                </label>
+              <StyledDivCheckbox key={index}>
+                <label htmlFor={key}>{label}</label>
                 <StyledCheckbox
                   style={{ marginRight: "20px" }}
                   type="checkbox"
@@ -102,16 +98,13 @@ export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
             );
           })}
         </StyledCheckboxAll>
-        <br></br>
-        <br></br>
+
         <div>
           <SelectImageToUpload
             onClick={onClick}
             onChange={onChange}
             text={textsRecipe.recipeForm.fileInput}
           />
-          <br></br>
-          <br></br>
           <button
             style={{
               width: "120px",
@@ -123,8 +116,6 @@ export const RecipeForm = ({ handleSubmit, onChange, formValues, onClick }) => {
             {textsRecipe.recipeForm.buttonSave}
           </button>
         </div>
-
-        {/* <button style={{ width: "40px", height: "40px" }}>&#128465;  🗑  📎</button> */}
       </StyledRecipeForm>
     </>
   );
