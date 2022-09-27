@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { onSnapshot } from "firebase/firestore";
 import {
   PageTitle,
-  StyledParagraphRegular,
 } from "../../../utils/styles/Global.styled";
 import { Loader } from "../../../utils/Loader";
 import { AddComment } from "./AddComment";
@@ -32,7 +31,6 @@ import {
   StyledTagsDiet,
   StyledAuthorLink,
 } from "./SingleRecipe.styled";
-import Avatar from "@mui/material/Avatar";
 
 export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
