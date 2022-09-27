@@ -114,9 +114,10 @@ export const AddComment = () => {
     e.target.reset();
   };
 
-  const handleStopUpload = () => {
+  const handleStopUpload = (e) => {
     setFile("");
     setImageChoosen(!imageChoosen);
+    setImageUpload(e.target.value = null);
   };
 
   return (
@@ -157,7 +158,7 @@ export const AddComment = () => {
                 aria-label="delate"
                 size="small"
                 style={{ float: "right" }}
-                onClick={handleStopUpload}
+                // onClick={handleStopUpload}
                 disabled={imageChoosen}
               >
                 <CloseIcon onClick={handleStopUpload} />
