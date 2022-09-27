@@ -18,7 +18,6 @@ export const Header = ({ isLoggedIn }) => {
       <StyledHeader>
         <StyledHeaderContent>
           <MenuListDropdown />
-          <NavButton to="/tips">Tips</NavButton>
           <NavButton to="/ebook">EBook</NavButton>
         </StyledHeaderContent>
         <NavButtonLogo to="/">CookingApp</NavButtonLogo>

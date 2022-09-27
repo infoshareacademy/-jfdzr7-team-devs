@@ -9,7 +9,7 @@ import {
   StyledDescription,
   StyledTitle,
   StyledParagraph,
-} from "../MainBanner/MainBanner.styled";
+} from "./MainBanner.styled";
 import { StyledLink } from "../../../../utils/styles/Global.styled";
 
 export const MainBanner = () => {

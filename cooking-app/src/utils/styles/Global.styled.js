@@ -16,6 +16,7 @@ export const GlobalStyle = createGlobalStyle`
     --color-orange:  #f9c02d;
     --color-orange-dark:  #c29000;
     --font-family: 'Roboto', sans-serif;
+    --font-family-title: 'Roboto Serif', serif;
   }
 
   body{
@@ -48,6 +49,15 @@ export const StyledTitle = styled.h2`
   font-size: 38px;
   font-weight: 600;
   color: #fff;
+`;
+
+export const StyledParagraph = styled.p`
+  color: var(--color-light-gray);
+  margin: 20px 0;
+`;
+
+export const StyledParagraphRegular = styled.p`
+  margin: 20px 0;
 `;
 
 export const StyledLink = styled(Link)`

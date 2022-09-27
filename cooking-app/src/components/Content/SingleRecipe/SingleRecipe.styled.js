@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Card, Paper, Box, CardMedia } from "@mui/material";
-import { Link } from "react-router-dom";
 import { StyledLink } from "../../../utils/styles/Global.styled";
+import Avatar from "@mui/material/Avatar";
+import { Link } from "react-router-dom"
 
 export const StyledCommentItem = styled.div`
   margin-bottom: 20px;
@@ -18,6 +18,23 @@ export const StyledComment = styled.div`
   border-bottom: 1px solid lightgray;
   padding: 20px 0;
 `;
+export const StyledAuthorLink = styled(Link)`
+  display: flex;
+`;
+
+export const StyledCommentAuthor = styled.div`
+  padding: 20px 0;
+`;
+
+export const StyledCommentSection = styled.div`
+  margin-left: 80px;
+`;
+export const StyledAvatar = styled(Avatar)`
+  margin: 20px;
+`;
+export const StyledCommentText = styled.p`
+  margin: 0 0 15px 0;
+`;
 
 export const StyledUploadImageSection = styled.div`
   background-color: var(--color-main-light-gray);
@@ -32,7 +49,7 @@ export const StyledForm = styled.form`
 
 export const StyledAuthorName = styled.h3`
   color: var(--color-black);
-  margin-bottom: 10px;
+  margin: 0px;
 `;
 
 export const StyledParagraph = styled.p`
@@ -61,7 +78,16 @@ export const StyledImg = styled.img`
   height: 150px;
   width: 150px;
   object-fit: cover;
+  cursor: pointer;
 `;
+
+export const StyledDialog = styled.dialog`
+  box-shadow: 0 8px 6px -6px black;
+  position: static;
+  left: 20%;
+  top: 10%;
+`;
+
 export const StyledImgMain = styled.img`
   height: 100%;
   width: 100%;
@@ -169,7 +195,7 @@ export const StyledDetailedInfo = styled.p`
 
 export const StyledTags = styled(StyledLink)`
   text-transform: uppercase;
-  /* color: var(--color-gray); */
+  color: var(--color-black);
   background-color: transparent;
   box-shadow: none;
   white-space: nowrap;

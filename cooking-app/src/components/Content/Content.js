@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import { Container } from "../../utils/styles/Global.styled";
 import { HomePage } from "./HomePage/HomePage";
@@ -8,7 +7,7 @@ import { RecipeLunch } from "./ListRecipes/RecipeLunch";
 import { RecipeDinner } from "./ListRecipes/RecipeDinner";
 import { RecipeDessert } from "./ListRecipes/RecipeDessert";
 import { Login } from "./Authorization/Login";
-import { Tips } from "./Tips/Tips";
+import { UserProfile} from "./Account/UserProfile/UserProfile";
 import { Ebook } from "./Ebook/Ebook";
 import { Search } from "./Search/Search";
 import { SingleRecipe } from "./SingleRecipe/SingleRecipe";
@@ -49,7 +48,6 @@ export const Content = ({ isLoggedIn }) => {
               </Redirect>
             }
           />
-          <Route path="/tips" element={<Tips />} />
           <Route path="/ebook" element={<Ebook />} />
           <Route path="/search" element={<Search />} />
           <Route
@@ -61,6 +59,7 @@ export const Content = ({ isLoggedIn }) => {
             }
           />
           <Route path="/recipe/:id" element={<SingleRecipe isLoggedIn={isLoggedIn}/>} />
+          <Route path="/user/:id" element={<UserProfile />} />
           <Route path="/ListRecipes" element={<ListRecipes />} />
           <Route path="/ListRecipes/breakfast" element={<RecipeBreakfast />} />
           <Route path="/ListRecipes/lunch" element={<RecipeLunch />} />

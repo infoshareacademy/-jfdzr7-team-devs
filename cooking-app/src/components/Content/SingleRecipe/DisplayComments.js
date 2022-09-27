@@ -9,22 +9,28 @@ import {
   StyledImg,
   StyledCommentItem,
   StyledParagraph,
+  StyledDialog,
+  StyledCommentInfo,
+  StyledCommentAuthor,
+  StyledAvatar,
+  StyledCommentSection,
+  StyledCommentText,
+  StyledAuthorLink
 } from "./SingleRecipe.styled";
 import {
   commentsRecipeCollection,
   defaultQueryConstraint,
-  urlStorageCD,
 } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { Loader } from "../../../utils/Loader";
 import { Button } from "@mui/material";
-import { DisplayBiggerImage } from "./DisplayBiggerImage";
 
 export const DisplayComments = () => {
   const [singleComment, setComment] = useState([]);
   const [load, setLoad] = useState(false);
   const [lastDoc, setLastDoc] = useState();
   const [commentsList, setCommentsList] = useState({});
+  const [imgIsOpen, setImgOpen] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -74,18 +80,47 @@ export const DisplayComments = () => {
 
   const moreLoading = commentsList.length - singleComment.length;
 
+  const handleShowDialog = () => {
+    return setImgOpen(!imgIsOpen);
+  };
+
+
   return (
     <>
       {singleComment.length > 0 ? (
         <StyledCommentItem>
-          {singleComment.map(({ id, author, comment, createdAt, url }) => (
+          {singleComment.map(({ id, author, comment, createdAt, url, uid }) => (
             <StyledComment key={id}>
-              <StyledAuthorName>{author}</StyledAuthorName>
-              {/* { createdAt ===undefined ? null : (<StyledDate>{moment(createdAt.toDate()).calendar()}</StyledDate> )} */}
-              <StyledDate>{moment(createdAt.toDate()).calendar()}</StyledDate>
-              <p>{comment}</p>
-              {url.length > 0 ? <StyledImg src={url} onClick={<DisplayBiggerImage />}/> : null}
-              <br />
+              <StyledAuthorLink to={`/user/${uid}`}>
+                <StyledAvatar />
+                <StyledCommentAuthor>
+                  <StyledAuthorName>{author}</StyledAuthorName>
+                  <StyledDate>
+                    {moment(createdAt.toDate()).calendar()}
+                  </StyledDate>
+                </StyledCommentAuthor>
+              </StyledAuthorLink>
+
+              <StyledCommentSection>
+                <StyledCommentText>{comment}</StyledCommentText>
+                {url.length > 0 ? (
+                  <div>
+                    <StyledImg src={url} onClick={handleShowDialog} />
+                    {imgIsOpen && (
+                      <StyledDialog
+                        style={{ position: "absolute" }}
+                        onClick={handleShowDialog}
+                      >
+                        <img
+                          src={url}
+                          style={{ width: "400px" }}
+                          onClick={handleShowDialog}
+                        />
+                      </StyledDialog>
+                    )}
+                  </div>
+                ) : null}
+              </StyledCommentSection>
             </StyledComment>
           ))}
           {moreLoading ? (

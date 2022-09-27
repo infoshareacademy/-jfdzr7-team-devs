@@ -1,5 +1,4 @@
-import { PageTitle } from "../../../utils/styles/Global.styled";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { recipesCollection } from "../../../api/firebaseIndex";

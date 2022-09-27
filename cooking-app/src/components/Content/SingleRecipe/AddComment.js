@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
-
 import { useParams } from "react-router-dom";
 import { Timestamp, addDoc } from "firebase/firestore";
 import { storageErrorsCodes } from "../../../api/firebaseIndex";
@@ -28,7 +27,6 @@ import {
   StyledCommentInput,
   StyledUploadImageSection,
   StyledForm,
-  StyledCard,
   StyledUpladImg,
   StyledUpladContainer,
 } from "./SingleRecipe.styled";
@@ -53,8 +51,6 @@ const defaultCommentForm = {
 export const AddComment = () => {
   const [commentForm, setCommentForm] = useState(defaultCommentForm);
   const userData = useContext(UserDataContext);
-  const [showAlert, setShowAlert] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
   const [file, setFile] = useState("");
   const [imageUpload, setImageUpload] = useState(null);
   const [imageChoosen, setImageChoosen] = useState(true);
@@ -86,6 +82,7 @@ export const AddComment = () => {
   };
 
   const handleChange = (e) => {
+    console.log(file.length);
     switch (e.target.name) {
       case "comment":
         setCommentForm({
@@ -103,7 +100,7 @@ export const AddComment = () => {
         let imageDisplay = URL.createObjectURL(e.target.files[0]);
         setFile(imageDisplay);
       default:
-        console.log("sth goes wrong");
+        console.log("default");
     }
   };
 
@@ -171,6 +168,7 @@ export const AddComment = () => {
                 fullWidth
                 onClick={uploadImage}
                 startIcon={<CheckIcon />}
+                disabled={imageChoosen}
               >
                 Confirm
               </Button>

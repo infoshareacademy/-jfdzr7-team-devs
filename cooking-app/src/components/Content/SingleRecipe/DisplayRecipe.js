@@ -1,24 +1,14 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onSnapshot } from "firebase/firestore";
-import { PageTitle } from "../../../utils/styles/Global.styled";
+import {
+  PageTitle,
+  StyledParagraphRegular,
+} from "../../../utils/styles/Global.styled";
 import { Loader } from "../../../utils/Loader";
 import { AddComment } from "./AddComment";
 import { DisplayComments } from "./DisplayComments";
 import { singleRecipeCollection } from "../../../api/firebaseIndex";
-import {
-  TextField,
-  Snackbar,
-  Alert,
-  Button,
-  IconButton,
-  CardMedia,
-  CardActionArea,
-  Card,
-  Box,
-  Fab,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import {
   StyledImgMain,
   StyledCommentContainer,
@@ -34,18 +24,15 @@ import {
   StyledParagraph,
   SubHeadingBig,
   StyledDetailedInfo,
-  StyledNutritionsSection,
-  StyledNutritionsList,
   StyledRecipeDescriptionQuote,
   StyledList,
-  StyledNutritions,
   StyledListItemNumber,
   StyledListItem,
   StyledRecipeDescriptionDetails,
   StyledTagsDiet,
-  
+  StyledAuthorLink,
 } from "./SingleRecipe.styled";
-import styled from "styled-components";
+import Avatar from "@mui/material/Avatar";
 
 export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
@@ -74,6 +61,11 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
 
         <StyledMainContent>
           <PageTitle>{recipe.name}</PageTitle>
+
+          <StyledAuthorLink to={`/user/${recipe.author.uid}`}>
+            By {recipe.author.firstName} {recipe.author.lastName}
+          </StyledAuthorLink>
+
           <SubHeading>{recipe.subName}</SubHeading>
           <StyledRecipeDescription>
             {recipe.specialDiets
@@ -120,38 +112,36 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         <StyledAsideRecipe>
           <SubHeadingBig>Ingredients</SubHeadingBig>
 
-          {recipe.ingredients ? (recipe.ingredients.map((ingredients, index) =>
-            (ingredients === ingredients.toUpperCase()) ? (
-              <SubHeadingMedium key={index} to="/">
-                {ingredients}
-              </SubHeadingMedium>
-            ) : ( 
-              <StyledListItem key={index} to="/">
-                {ingredients}
-              </StyledListItem>
+          {recipe.ingredients ? (
+            recipe.ingredients.map((ingredients, index) =>
+              ingredients === ingredients.toUpperCase() ? (
+                <SubHeadingMedium key={index} to="/">
+                  {ingredients}
+                </SubHeadingMedium>
+              ) : (
+                <StyledListItem key={index} to="/">
+                  {ingredients}
+                </StyledListItem>
+              )
             )
-          )) : <StyledParagraph>List is empty</StyledParagraph>}
-
+          ) : (
+            <StyledParagraph>List is empty</StyledParagraph>
+          )}
         </StyledAsideRecipe>
 
         <StyledMainContent>
           <SubHeadingBig>Instructions</SubHeadingBig>
           <StyledList>
-          {recipe.instructions
-              ? 
-              (recipe.instructions.map((instruction, index) => (
-                 <StyledListItemNumber key={index} to="/">
+            {recipe.instructions
+              ? recipe.instructions.map((instruction, index) => (
+                  <StyledListItemNumber key={index} to="/">
                     {instruction}
                   </StyledListItemNumber>
-                  
-                )))
+                ))
               : null}
-              </StyledList>
+          </StyledList>
         </StyledMainContent>
       </StyledRecipeContainer>
-
-
-
 
       <StyledCommentContainer>
         <SubHeadingBig>Comments</SubHeadingBig>
@@ -167,18 +157,3 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
     </>
   );
 };
-
-/*
-<PageTitle>{recipe.title}</PageTitle>
-<img src={recipe.url} alt={`${recipe.title}`} />
-<p>
-  Categories:
-  {recipe.categories.map((category, index) => (
-    <li key={index}>{category}</li>
-  ))}
-</p>
-<p>Time: {recipe.time}</p>
-<p>Portions: {recipe.portion}</p>
-<p>Ingredients: {recipe.ingredients}</p>
-<p>How to prepare? {recipe.describe}</p>
-*/
