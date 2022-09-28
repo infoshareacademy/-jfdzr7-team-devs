@@ -13,6 +13,8 @@ import { v4 } from "uuid";
 import { useContext, useEffect, useState } from "react";
 import { UserDataContext } from "../../../App";
 import { Button } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { SelectImageToUpload } from "../AddRecipes/SelectImageToUpload";
 
 const usersCollection = collection(db, "users");
@@ -105,29 +107,38 @@ export const GetCurrentUserData = () => {
         alert(storageErrorsCodes[e.code]);
       });
   };
-  ///////
+  /////////////////////////////// update avatar
 
   const UpdateUserAvatar = (e) => {
-    updateDoc(docRefUser, { avatarUrl: avatarUrl }).catch((e) => alert(e));
+    updateDoc(docRefUser, { "avatarUrl.custom": avatarUrl }).catch((e) =>
+      alert(e)
+    );
     alert("avatar updated");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
       console.log(userDataFromDB);
       setUser(userDataFromDB);
+      setIsCustomAvatar(true);
     });
   };
   const defaultAvatar =
     "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2Favatar%20default.jpg8d69a1ee-c52d-4004-83a4-d5efa733c5ab?alt=media&token=78be46ed-8666-41d2-b987-b8782d27da63";
+
+  // const defaultAvatarUrlFromUseState = user?.avatarUrl.default;
+
   const deleteAvatar = () => {
-    updateDoc(docRefUser, { avatarUrl: defaultAvatar }).catch((e) => alert(e));
+    updateDoc(docRefUser, {
+      "avatarUrl.custom": user.avatarUrl.default,
+    }).catch((e) => alert(e));
     alert("avatar deleted");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
       console.log(userDataFromDB);
       setUser(userDataFromDB);
     });
+    setIsCustomAvatar(false);
   };
-
+  const [isCustomAvatar, setIsCustomAvatar] = useState(true);
   return (
     <>
       <h3>Test useContext: {CurrentUser?.firstName}</h3>
@@ -145,11 +156,27 @@ export const GetCurrentUserData = () => {
             }}
           >
             <div>
-              <img
-                src={user.avatarUrl}
-                alt="avatar"
-                style={{ width: "200px", height: "200px", borderRadius: "50%" }}
-              />
+              {!isCustomAvatar ? (
+                <img
+                  src={user.avatarUrl.default}
+                  alt="avatar"
+                  style={{
+                    width: "200px",
+                    height: "200px",
+                    borderRadius: "50%",
+                  }}
+                />
+              ) : (
+                <img
+                  src={user.avatarUrl.custom}
+                  alt="avatar"
+                  style={{
+                    width: "200px",
+                    height: "200px",
+                    borderRadius: "50%",
+                  }}
+                />
+              )}
             </div>
             <div
               style={{
@@ -163,39 +190,48 @@ export const GetCurrentUserData = () => {
                 {/* <p>Lastname: {user.lastName}</p> */}
                 <p>{user.email}</p>
               </div>
-              <input
-                onChange={handlerImageUpload}
-                type="file"
-                name="avatar"
-              ></input>
-              <Button onClick={uploadImage} variant="contained">
-                Ładuj zdjęcie
-              </Button>
-              <Button onClick={UpdateUserAvatar} variant="contained">
-                {" "}
-                Edit dane - user Avatar{" "}
-              </Button>
-              <Button onClick={deleteAvatar} variant="contained">
-                Delete Avatar
-              </Button>
+              <div>
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="label"
+                  size="large"
+                >
+                  <input
+                    hidden
+                    accept="image/*"
+                    type="file"
+                    name="avatar"
+                    onChange={handlerImageUpload}
+                  />
+                  <PhotoCamera />
+                </IconButton>
+                {/* <input
+                  onChange={handlerImageUpload}
+                  type="file"
+                  name="avatar"
+                ></input> */}
+                <Button onClick={uploadImage} variant="contained">
+                  Upload Photo
+                </Button>
+              </div>
+              <div style={{ marginTop: "40px" }}>
+                <Button
+                  onClick={UpdateUserAvatar}
+                  variant="contained"
+                  style={{ marginRight: "16px" }}
+                >
+                  Save Update
+                </Button>
+
+                <Button onClick={deleteAvatar} variant="contained">
+                  Delete Avatar
+                </Button>
+              </div>
             </div>
           </div>
         </>
       )}
     </>
   );
-
-  // if (docSnap) {
-  //   console.log("Document data:", docSnap.data());
-  // } else {
-  //   // doc.data() will be undefined in this case
-  //   console.log("No such document!");
-  // }
-
-  //
-  // useEffect(() => {
-  //   onSnapshot(usersCollection, (us) => {
-  //     setUsers(getDataFromSnapshot(us));
-  //   });
-  // }, []);
 };
