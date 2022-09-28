@@ -58,6 +58,7 @@ export const StyledParagraph = styled.p`
 
 export const StyledParagraphRegular = styled.p`
   margin: 20px 0;
+  color: var(--color-black);
 `;
 
 export const StyledLink = styled(Link)`

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { StyledLink } from "../../../utils/styles/Global.styled";
 import Avatar from "@mui/material/Avatar";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export const StyledCommentItem = styled.div`
   margin-bottom: 20px;
@@ -20,6 +20,12 @@ export const StyledComment = styled.div`
 `;
 export const StyledAuthorLink = styled(Link)`
   display: flex;
+  text-decoration: none;
+  color: var(--color-black);
+
+  &:hover {
+    color: var(--color-orange);
+  }
 `;
 
 export const StyledCommentAuthor = styled.div`
@@ -172,6 +178,7 @@ export const StyledMainContent = styled.div`
 export const SubHeading = styled.p`
   text-transform: uppercase;
   font-weight: 500;
+
 `;
 
 export const SubHeadingBig = styled(SubHeading)`

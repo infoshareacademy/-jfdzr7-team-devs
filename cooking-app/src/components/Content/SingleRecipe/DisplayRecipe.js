@@ -32,7 +32,7 @@ import {
   StyledTagsDiet,
   StyledAuthorLink,
 } from "./SingleRecipe.styled";
-
+import { GetUser } from "./GetUser";
 
 export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
@@ -45,14 +45,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
     onSnapshot(docRef, (doc) => {
       setRecipe(doc.data(), doc.id);
       setLoad(true);
-      console.log(recipe.author);
     });
-
-    // const authorRef = singleUserCollection(recipe.author);
-    // onSnapshot(authorRef, (doc) => {
-    //   setRecipeAuthor(doc.data(), doc.recipe.author);
-    //   setLoad(true);
-    // });
   }, [id, load]);
 
   if (load === false) {
@@ -69,9 +62,8 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         <StyledMainContent>
           <PageTitle>{recipe.name}</PageTitle>
 
-
           <StyledAuthorLink to={`/user/${recipe.author}`}>
-            By 
+            <GetUser userId={recipe.author} />
           </StyledAuthorLink>
 
           <SubHeading>{recipe.subName}</SubHeading>
