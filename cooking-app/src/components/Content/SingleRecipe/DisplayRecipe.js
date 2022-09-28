@@ -60,8 +60,9 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         <StyledMainContent>
           <PageTitle>{recipe.name}</PageTitle>
 
-          <StyledAuthorLink to={`/user/${recipe.author.uid}`}>
-            By {recipe.author.firstName} {recipe.author.lastName}
+
+          <StyledAuthorLink to={`/user/${recipe.author}`}>
+            By 
           </StyledAuthorLink>
 
           <SubHeading>{recipe.subName}</SubHeading>
