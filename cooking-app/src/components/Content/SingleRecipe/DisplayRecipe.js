@@ -1,13 +1,14 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onSnapshot } from "firebase/firestore";
-import {
-  PageTitle,
-} from "../../../utils/styles/Global.styled";
+import { PageTitle } from "../../../utils/styles/Global.styled";
 import { Loader } from "../../../utils/Loader";
 import { AddComment } from "./AddComment";
 import { DisplayComments } from "./DisplayComments";
-import { singleRecipeCollection } from "../../../api/firebaseIndex";
+import {
+  singleRecipeCollection,
+  singleUserCollection,
+} from "../../../api/firebaseIndex";
 import {
   StyledImgMain,
   StyledCommentContainer,
@@ -32,18 +33,26 @@ import {
   StyledAuthorLink,
 } from "./SingleRecipe.styled";
 
+
 export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
   const [load, setLoad] = useState(false);
+  const [recipeAuthor, setRecipeAuthor] = useState();
   const { id } = useParams();
 
   useEffect(() => {
     const docRef = singleRecipeCollection(id);
-
     onSnapshot(docRef, (doc) => {
       setRecipe(doc.data(), doc.id);
       setLoad(true);
+      console.log(recipe.author);
     });
+
+    // const authorRef = singleUserCollection(recipe.author);
+    // onSnapshot(authorRef, (doc) => {
+    //   setRecipeAuthor(doc.data(), doc.recipe.author);
+    //   setLoad(true);
+    // });
   }, [id, load]);
 
   if (load === false) {
@@ -60,8 +69,8 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         <StyledMainContent>
           <PageTitle>{recipe.name}</PageTitle>
 
-          <StyledAuthorLink to={`/user/${recipe.author.uid}`}>
-            By {recipe.author.firstName} {recipe.author.lastName}
+          <StyledAuthorLink to={`/user/${recipe.author}`}>
+            By {recipe.author} 
           </StyledAuthorLink>
 
           <SubHeading>{recipe.subName}</SubHeading>
@@ -150,7 +159,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         ) : (
           <AddComment />
         )}
-        <DisplayComments />
+        <DisplayComments recipeName={recipe.name} />
       </StyledCommentContainer>
     </>
   );

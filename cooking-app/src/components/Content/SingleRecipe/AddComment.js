@@ -1,17 +1,10 @@
 import { useState, useContext } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import SendIcon from "@mui/icons-material/Send";
-import DisabledByDefaultRoundedIcon from "@mui/icons-material/DisabledByDefaultRounded";
 import {
   TextField,
-  Snackbar,
-  Alert,
   Button,
   IconButton,
-  CardMedia,
-  CardActionArea,
-  Card,
-  Box,
   Fab,
 } from "@mui/material";
 
@@ -99,6 +92,7 @@ export const AddComment = () => {
         setImageUpload(e.target.files[0]);
         let imageDisplay = URL.createObjectURL(e.target.files[0]);
         setFile(imageDisplay);
+        break;
       default:
         console.log("default");
     }

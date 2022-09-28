@@ -1,7 +1,5 @@
 import { Loader } from "../../../../utils/Loader";
-import { onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { recipesCollection } from "../../../../api/firebaseIndex";
+import { useState } from "react";
 import {
   StyledSlider,
   StyledBanner,
@@ -16,7 +14,6 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { IconButton } from "@mui/material";
 
 export const MainBanner = ({ slides }) => {
-  const [data, setData] = useState([]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const goToNextSlide = () => {
