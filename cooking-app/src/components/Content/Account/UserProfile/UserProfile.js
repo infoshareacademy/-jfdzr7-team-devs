@@ -1,5 +1,5 @@
-import { UserDataContext } from "../../../../App";
-import { useContext } from "react";
+import {  useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { ButtonGroup, Button } from "@mui/material";
 import {
   StyledUserCover,
@@ -12,23 +12,41 @@ import {
   StyledUserData,
   StyledUserNavigation,
 } from "./UserProfileStyled";
+import { singleUserCollection } from "../../../../api/firebaseIndex";
+import { Loader } from "../../../../utils/Loader"
+import { onSnapshot } from "firebase/firestore";
 
 export const UserProfile = () => {
-  const userData = useContext(UserDataContext);
+  const [user, setUser] = useState({});
+  const [load, setLoad] = useState(false);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const docRef = singleUserCollection(id);
+    onSnapshot(docRef, (doc) => {
+      setUser(doc.data(), doc.id);
+      setLoad(true);
+    });
+  }, [id, load]);
+
+  if (load === false) {
+    return <Loader />;
+  }
+
   return (
     <>
       <StyledLayout>
         <StyledUserIntro>
           <StyledUserCover>
             <StyledAvatar
-              alt={userData?.firstName}
-              src={userData?.avatar}
+              alt={user.firstName}
+              src={user.avatarUrl}
               sx={{ width: 200, height: 200 }}
             />
           </StyledUserCover>
           <StyledUserData>
             <StyledUserPhoto />
-            <StyledAuthorName>Ada Góra</StyledAuthorName>
+            <StyledAuthorName>{user.firstName} {user.lastName}</StyledAuthorName>
           </StyledUserData>
         </StyledUserIntro>
 
