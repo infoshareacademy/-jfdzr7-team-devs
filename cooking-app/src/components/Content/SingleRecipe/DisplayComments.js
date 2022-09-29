@@ -36,7 +36,6 @@ export const DisplayComments = ({ recipeName }) => {
     const docRef = commentsRecipeCollection(id);
     onSnapshot(docRef, (comment) => {
       setCommentsList(getDataFromSnapshot(comment));
-      // console.log(singleComment.author)
     });
   }, [id]);
 
