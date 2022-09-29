@@ -4,16 +4,33 @@ import { Card, CardHeader, CardMedia } from "@mui/material";
 
 export const IndividualRecipe = ({ singleRecipe }) => {
   return (
-    <Card 
-    key={singleRecipe.id} 
-    sx={{ width: 270, height: 300, backgroundColor: "darkgray", display: "flex", justifyContent: "center"}}>
-      <NavLink sx={{textDecoration: "none"}} to={`/recipe/${singleRecipe.id}`}>
-        <CardHeader sx={{fontSize: 39, color: "white" }} title={singleRecipe.name} />
+    <Card
+      key={singleRecipe.id}
+      sx={{
+        width: 280,
+        height: 300,
+        backgroundColor: "darkgray",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <NavLink style={{textDecoration: 'none'}}
+        to={`/recipe/${singleRecipe.id}`}
+      >
         <CardMedia
+          sx={{ width: 280, height: 250, borderRadius: 2 }}
           component="img"
-          height="194"
-          image={singleRecipe.image}
+          src={singleRecipe.image}
           alt={singleRecipe.imageAlt}
+        />
+        <CardHeader
+          titleTypographyProps={{
+            variant: "h6",
+            align: "center",
+            color: "white",
+            fontFamily: "Montserrat"
+          }}
+          title={singleRecipe.name}
         />
       </NavLink>
     </Card>

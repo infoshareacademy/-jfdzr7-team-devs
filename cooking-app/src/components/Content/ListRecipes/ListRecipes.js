@@ -5,7 +5,7 @@ import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { PageTitle, StyledButton } from "../../styles/Global.styled";
 import { InputElement } from "./InputElement";
-import { Grid} from "@mui/material";
+import { Grid } from "@mui/material";
 import styled from "styled-components";
 
 const reducer = (currState, action) => {
@@ -67,8 +67,6 @@ export const ListRecipes = () => {
   const listofRecipe2 = datafromFirebase
     .filter((item) => {
       if (state.inputCategory.length > 0) {
-        // console.log(state.inputCategory.length);
-        // return item.tags?.includes(state.inputCategory);
         let arr = state.inputCategory.filter((tag) => item.tags?.includes(tag));
         return !(arr.length === 0);
       } else if (state.textInput.toLowerCase() === "") {
@@ -77,18 +75,16 @@ export const ListRecipes = () => {
     })
     .slice(0, visible)
     .map((singleRecipe, index) => {
-        return (
-          <Grid key={index} item xs={12} sm={6} md={3}>
-            <IndividualRecipe singleRecipe={singleRecipe} />
-          </Grid>
-        );
-      
+      return (
+        <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+          <IndividualRecipe singleRecipe={singleRecipe} />
+        </Grid>
+      );
     });
 
   return (
     <StyledDiv>
       <PageTitle>Recipes</PageTitle>
-      {/* <label htmlFor="filter">Search by recipe title </label> */}
       <StyledInputText
         id="filter"
         placeholder="please enter the recipe name..."
@@ -109,7 +105,16 @@ export const ListRecipes = () => {
         })}
       </div>
 
-      <Grid container spacing={3} style={{marginBottom: 20}}>
+      <Grid
+        direction="row"
+        container
+        spacing={3}
+        sx={{
+          marginBottom: 2,
+          paddingRight: 2
+        }}
+        justifyContent="center"
+      >
         {listofRecipe2}
       </Grid>
       <StyledButton onClick={showMoreItems}>Show more</StyledButton>
@@ -121,9 +126,11 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+  width: auto;
 `;
 
 const StyledInputText = styled.input`
-width: 100%;
-height: 50px;
-`
+  width: 100%;
+  height: 50px;
+`;
