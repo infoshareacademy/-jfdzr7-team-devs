@@ -71,7 +71,6 @@ export const DisplayComments = ({ recipeName }) => {
     });
   };
 
-
   // useEffect(() => {
   //   const authorRef = singleUserCollection(singleComment.author);
   //   console.log(singleComment.author)

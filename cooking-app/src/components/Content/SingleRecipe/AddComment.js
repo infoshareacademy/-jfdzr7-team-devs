@@ -1,12 +1,7 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import SendIcon from "@mui/icons-material/Send";
-import {
-  TextField,
-  Button,
-  IconButton,
-  Fab,
-} from "@mui/material";
+import { TextField, Button, IconButton, Fab } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
 import { useParams } from "react-router-dom";
@@ -48,6 +43,7 @@ export const AddComment = () => {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageChoosen, setImageChoosen] = useState(true);
   const { id } = useParams();
+  const imageInputRef = useRef();
 
   const docRef = commentsRecipeCollection(id);
 
@@ -111,7 +107,7 @@ export const AddComment = () => {
   const handleStopUpload = (e) => {
     setFile("");
     setImageChoosen(!imageChoosen);
-    setImageUpload(e.target.value = null);
+    imageInputRef.current.value = "";
   };
 
   return (
@@ -139,6 +135,7 @@ export const AddComment = () => {
               type="file"
               name="file"
               onChange={handleChange}
+              ref={imageInputRef}
             />
             <PhotoCamera />
           </IconButton>
