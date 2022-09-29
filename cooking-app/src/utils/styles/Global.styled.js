@@ -42,6 +42,9 @@ export const Container = styled.div`
 
 export const PageTitle = styled.h1`
   margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 60px;
+  padding: 0 0 16px 0;
 `;
 
 export const StyledTitle = styled.h2`
@@ -59,6 +62,9 @@ export const StyledParagraph = styled.p`
 export const StyledParagraphRegular = styled.p`
   margin: 20px 0;
   color: var(--color-black);
+`;
+export const StyledParagraphLow = styled(StyledParagraphRegular)`
+  margin: 0;
 `;
 
 export const StyledLink = styled(Link)`

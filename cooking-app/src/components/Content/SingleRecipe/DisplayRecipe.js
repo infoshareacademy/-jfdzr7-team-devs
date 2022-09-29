@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { onSnapshot } from "firebase/firestore";
 import { PageTitle } from "../../../utils/styles/Global.styled";
 import { Loader } from "../../../utils/Loader";
@@ -7,7 +7,6 @@ import { AddComment } from "./AddComment";
 import { DisplayComments } from "./DisplayComments";
 import {
   singleRecipeCollection,
-  singleUserCollection,
 } from "../../../api/firebaseIndex";
 import {
   StyledImgMain,
@@ -31,14 +30,20 @@ import {
   StyledRecipeDescriptionDetails,
   StyledTagsDiet,
   StyledAuthorLink,
+  StyledRecipeHeader
 } from "./SingleRecipe.styled";
 import { GetUser } from "./GetUser";
+import { UserDataContext } from "../../../App";
+
+
+import { AddFavourites } from "./AddFavourites"
 
 export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
   const [load, setLoad] = useState(false);
-  const [recipeAuthor, setRecipeAuthor] = useState();
+  const userData = useContext(UserDataContext);
   const { id } = useParams();
+
 
   useEffect(() => {
     const docRef = singleRecipeCollection(id);
@@ -60,7 +65,10 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         </StyledAsideRecipe>
 
         <StyledMainContent>
-          <PageTitle>{recipe.name}</PageTitle>
+          <StyledRecipeHeader>
+            <PageTitle>{recipe.name}</PageTitle>
+            {userData ? <AddFavourites id={id}/> : null }
+          </StyledRecipeHeader>
 
           <StyledAuthorLink to={`/user/${recipe.author}`}>
             <GetUser userId={recipe.author} />

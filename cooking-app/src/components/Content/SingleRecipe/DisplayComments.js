@@ -14,11 +14,10 @@ import {
   StyledAvatar,
   StyledCommentSection,
   StyledCommentText,
-  StyledAuthorLink,
+  StyledCommentAuthorLink
 } from "./SingleRecipe.styled";
 import {
   commentsRecipeCollection,
-  singleUserCollection,
   defaultQueryConstraint,
 } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
@@ -31,7 +30,6 @@ export const DisplayComments = ({ recipeName }) => {
   const [lastDoc, setLastDoc] = useState();
   const [commentsList, setCommentsList] = useState({});
   const [imgIsOpen, setImgOpen] = useState(false);
-  const [commentAuthor, setAuthorComment] = useState();
   const { id } = useParams();
 
   useEffect(() => {
@@ -71,16 +69,6 @@ export const DisplayComments = ({ recipeName }) => {
     });
   };
 
-
-  // useEffect(() => {
-  //   const authorRef = singleUserCollection(singleComment.author);
-  //   console.log(singleComment.author)
-  //   onSnapshot(authorRef, (doc) => {
-  //     setAuthorComment(doc.data(), doc.author);
-  //     setLoad(true);
-  //   });
-  // }, [singleComment.author, load]);
-
   if (load === false) {
     return <Loader />;
   }
@@ -95,9 +83,9 @@ export const DisplayComments = ({ recipeName }) => {
     <>
       {singleComment.length > 0 ? (
         <StyledCommentItem>
-          {singleComment.map(({ id, author, comment, createdAt, url, uid }) => (
+          {singleComment.map(({ id, author, comment, createdAt, url, authorId }) => (
             <StyledComment key={id}>
-              <StyledAuthorLink to={`/user/${uid}`}>
+              <StyledCommentAuthorLink to={`/user/${authorId}`}>
                 <StyledAvatar />
                 <StyledCommentAuthor>
                   <StyledAuthorName>{author}</StyledAuthorName>
@@ -105,7 +93,7 @@ export const DisplayComments = ({ recipeName }) => {
                     {moment(createdAt.toDate()).calendar()}
                   </StyledDate>
                 </StyledCommentAuthor>
-              </StyledAuthorLink>
+              </StyledCommentAuthorLink>
 
               <StyledCommentSection>
                 <StyledCommentText>{comment}</StyledCommentText>

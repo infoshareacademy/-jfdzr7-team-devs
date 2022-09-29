@@ -20,7 +20,10 @@ export const StyledComment = styled.div`
 `;
 export const StyledAuthorLink = styled(Link)`
   display: flex;
+  display: inline-block;
+  margin: 0;
   text-decoration: none;
+  margin-bottom: 20px;
   color: var(--color-black);
 
   &:hover {
@@ -28,8 +31,13 @@ export const StyledAuthorLink = styled(Link)`
   }
 `;
 
+export const StyledCommentAuthorLink = styled(StyledAuthorLink)`
+  display: flex;
+`;
+
 export const StyledCommentAuthor = styled.div`
   padding: 20px 0;
+  color: var(--color-black);
 `;
 
 export const StyledCommentSection = styled.div`
@@ -56,6 +64,10 @@ export const StyledForm = styled.form`
 export const StyledAuthorName = styled.h3`
   color: var(--color-black);
   margin: 0px;
+
+  &:hover {
+    color: var(--color-orange);
+  }
 `;
 
 export const StyledParagraph = styled.p`
@@ -126,6 +138,15 @@ export const StyledRecipeDescription = styled.div`
   flex-wrap: wrap;
   margin: 10px 0;
 `;
+
+export const StyledRecipeHeader = styled(StyledRecipeDescription)`
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  flex-direction: row;
+  flex-wrap: nowrap;
+`;
+
 export const StyledRecipeDescriptionDetails = styled.div`
   display: flex;
   flex-wrap: nowrap;
@@ -178,7 +199,8 @@ export const StyledMainContent = styled.div`
 export const SubHeading = styled.p`
   text-transform: uppercase;
   font-weight: 500;
-
+  margin-top: 0;
+  margin: 20px 0;
 `;
 
 export const SubHeadingBig = styled(SubHeading)`
