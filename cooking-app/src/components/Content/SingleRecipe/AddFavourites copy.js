@@ -16,25 +16,29 @@ export const AddFavourites = ({ id }) => {
   // const userId = userData.uid;
   const docRef = singleUserCollection(userData.uid);
 
-  const [favourite, setFavourite] = useState(true);
+  const [favourite, setFavourite] = useState(true)
 
+
+  // const isSaved = userData.favourites.some((recipeId) => {
+  //   if (recipeId === id) {
+  //     return true;
+  //   } else return false;
+  // });
+
+
+  // let isSaved = userData.favourites.some((recipeId) => {
+  //   if (recipeId === id) {
+  //     return true;
+  //   } else return false;
+  // });
 useEffect(() => {
-  const isChecked = userData.favourites.some((recipeId) => {
-    if (recipeId === id) {
-      return true;
-    } else return false;
-  });
+  console.log(userData.favourites)
+})
+  
 
-  if (isChecked) {
-    setFavourite(true);
-  } else {
-    setFavourite(false);
-  }
-},[])
-
-  const handleChange = (e) => {
+  const handleSave = (e) => {
     e.preventDefault();
-    if (!favourite) {
+    if (favourite) {
       updateDoc(docRef, {
         favourites: arrayUnion(id),
       })
@@ -62,10 +66,11 @@ useEffect(() => {
       <IconButton
         aria-label="favourites"
         style={{ height: "51px", alignSelf: "start", marginTop: "14px" }}
-        onClick={handleChange}
+        onClick={handleSave}
       >
-        {favourite ? (
+        {!favourite ? (
           <FavoriteIcon color="neutral" fontSize="large" />
+          
         ) : (
           <FavoriteBorderIcon color="neutral" fontSize="large" />
         )}

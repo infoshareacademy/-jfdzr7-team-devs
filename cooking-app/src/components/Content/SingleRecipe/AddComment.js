@@ -71,7 +71,6 @@ export const AddComment = () => {
   };
 
   const handleChange = (e) => {
-    console.log(file.length);
     switch (e.target.name) {
       case "comment":
         setCommentForm({

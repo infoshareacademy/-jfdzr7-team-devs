@@ -17,6 +17,8 @@ export const UserDataContext = createContext({
   email: "",
   role: "",
   uid: "",
+  favourites:[],
+  avatarUrl:"",
 });
 
 export const theme = createTheme({
@@ -56,6 +58,7 @@ function App() {
             role: tempData.role,
             uid: tempData.uid,
             avatarUrl: tempData.avatarUrl,
+            favourites: tempData.favourites,
           });
         });
       } else {
