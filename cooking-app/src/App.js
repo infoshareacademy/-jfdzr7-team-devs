@@ -34,6 +34,7 @@ function App() {
             email: tempData.email,
             role: tempData.role,
             uid: tempData.uid,
+            avatarUrl: tempData.avatarUrl,
           });
         });
       } else {

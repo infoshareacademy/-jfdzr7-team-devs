@@ -11,7 +11,7 @@ import { TextFieldMethods } from "./TextFieldMethods";
 export const RecipeForm2 = ({
   onChange,
   onClick,
-  onSubmit,
+  handleSubmit,
   handlerTags,
   handlerIngredients,
   handlerMethods,
@@ -21,7 +21,11 @@ export const RecipeForm2 = ({
   const ingredients = useContext(IngredientsContext);
   const methods = useContext(PreparingContext);
   return (
-    <form onSubmit={onSubmit}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <RecipeFormTextField label="Title" name="name" onChange={onChange} />
       <RecipeFormTextField
         label="Short description"
@@ -70,7 +74,9 @@ export const RecipeForm2 = ({
         onClick={onClick}
         text="textsAddRecipe"
       />
-      <Button variant="contained">Save recipe</Button>
+      <Button onClick={handleSubmit} variant="contained">
+        Save recipe
+      </Button>
     </form>
   );
 };

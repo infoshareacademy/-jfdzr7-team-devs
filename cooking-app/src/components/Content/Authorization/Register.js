@@ -1,8 +1,9 @@
 import { Button, TextField } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
+import { ref, uploadBytes } from "firebase/storage";
 import React, { useState } from "react";
-import { auth, db } from "../../../api/firebase";
+import { auth, db, storage } from "../../../api/firebase";
 import { defaultRegisterForm } from "./defaultFormValues";
 import { StyledLogin } from "./Login.styled";
 
@@ -18,8 +19,9 @@ const Register = () => {
     });
   };
 
-  const createNewUser = (e) => {
+  const createNewUser = async (e) => {
     e.preventDefault();
+
     createUserWithEmailAndPassword(
       auth,
       registerForm.email,
@@ -27,12 +29,14 @@ const Register = () => {
     )
       .then((jwt) => {
         setDoc(doc(db, "users", jwt.user.uid), {
-          ...registerForm,
+          firstName: registerForm.firstName,
+          lastName: registerForm.lastName,
+          email: registerForm.email,
           role: "standard",
           uid: jwt.user.uid,
+          avatarUrl: `https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=${registerForm.firstName}+${registerForm.lastName}`,
         });
         e.target.reset();
-        console.log(jwt.user.uid);
       })
       .catch((e) => {
         console.log(e.code);
