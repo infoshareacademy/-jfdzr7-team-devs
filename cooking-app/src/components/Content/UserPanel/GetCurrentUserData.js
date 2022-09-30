@@ -55,6 +55,7 @@ export const GetCurrentUserData = () => {
   useEffect(() => {
     console.log(user);
   }, [user]);
+
   ////////////
   const [imageUpload, setImageUpload] = useState(null);
   const [imageRef, setImageRef] = useState(null);
@@ -64,9 +65,9 @@ export const GetCurrentUserData = () => {
   const handlerImageUpload = (e) => {
     setImageUpload(e.target.files[0]);
   };
-  useEffect(() => {
-    console.log("--załadowane zdjęcie", imageUpload);
-  }, [imageUpload]);
+  // useEffect(() => {
+  //   console.log("--załadowane zdjęcie", imageUpload);
+  // }, [imageUpload]);
 
   useEffect(() => {
     setImageRef(
@@ -74,12 +75,13 @@ export const GetCurrentUserData = () => {
     );
   }, [imageUpload]);
 
-  useEffect(() => {
-    console.log("--imageRef--", imageRef);
-  }, [imageRef]);
-  useEffect(() => {
-    console.log("avatarUrl--", avatarUrl);
-  }, [avatarUrl]);
+  // useEffect(() => {
+  //   console.log("--imageRef--", imageRef);
+  // }, [imageRef]);
+
+  // useEffect(() => {
+  //   console.log("avatarUrl--", avatarUrl);
+  // }, [avatarUrl]);
 
   const urlStorageAvatars =
     "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2F";
