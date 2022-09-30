@@ -3,11 +3,7 @@ import { db } from "../../../api/firebase";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { doc, getDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
-import {
-  urlStorage,
-  urlStorageCD,
-  storageErrorsCodes,
-} from "../../../api/firebaseIndex";
+import { storageErrorsCodes } from "../../../api/firebaseIndex";
 import { storage } from "../../../api/firebase";
 import { v4 } from "uuid";
 import { useContext, useEffect, useState } from "react";
@@ -15,7 +11,6 @@ import { UserDataContext } from "../../../App";
 import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import { SelectImageToUpload } from "../AddRecipes/SelectImageToUpload";
 
 const usersCollection = collection(db, "users");
 
