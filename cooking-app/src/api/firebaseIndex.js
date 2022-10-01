@@ -1,9 +1,20 @@
-import { collection } from "firebase/firestore";
+import { collection, doc, orderBy } from "firebase/firestore";
 import { db } from "./firebase";
 
-export const recipesCollection = collection(db, "radekTesty");
-export const collectionRecipesName = "recipes"; // jeśli będą inne kolekcje
+export const collectionRecipesName = "radekTesty";
+export const collectionCommentsName = "commentsList";
+export const collectionUsers = "users";
 export const folderStorage = "/images";
+
+export const recipesCollection = collection(db, collectionRecipesName);
+export const singleRecipeCollection = (docId) =>
+  doc(db, collectionRecipesName, docId);
+export const commentsRecipeCollection = (docId) =>
+  collection(db, collectionRecipesName, docId, collectionCommentsName);
+export const defaultQueryConstraint = orderBy("createdAt", "desc");
+
+export const singleUserCollection = (userId) =>
+  doc(db, collectionUsers, userId);
 
 export const urlStorage =
   "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/images%2F";

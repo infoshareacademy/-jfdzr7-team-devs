@@ -4,9 +4,10 @@ import {
   NavButton,
   NavButtonLogo,
 } from "./Header.styled";
-import { Container } from "../styles/Global.styled";
+import { Container } from "../../utils/styles/Global.styled";
 import { FaSearch } from "react-icons/fa";
 import { MenuListDropdown } from "./MenuListDropdown";
+import { useContext } from "react";
 import AccountMenu from "./AccountMenu";
 
 export const Header = ({ isLoggedIn }) => {
@@ -15,7 +16,6 @@ export const Header = ({ isLoggedIn }) => {
       <StyledHeader>
         <StyledHeaderContent>
           <MenuListDropdown />
-          <NavButton to="/tips">Tips</NavButton>
           <NavButton to="/ebook">EBook</NavButton>
         </StyledHeaderContent>
         <NavButtonLogo to="/">CookingApp</NavButtonLogo>

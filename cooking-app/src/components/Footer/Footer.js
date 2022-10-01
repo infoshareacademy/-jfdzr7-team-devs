@@ -1,4 +1,4 @@
-import { Container } from "../styles/Global.styled";
+import { Container } from "../../utils/styles/Global.styled";
 import { StyledFooter, StyledFooterContent } from "./Footer.styled";
 import { SocialIcons } from "./SocialIcons";
 

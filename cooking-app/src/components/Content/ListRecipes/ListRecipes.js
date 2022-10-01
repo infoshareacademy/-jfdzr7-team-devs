@@ -3,10 +3,10 @@ import { useEffect, useReducer, useState } from "react";
 import { recipesCollection, tags } from "../../../api/firebaseIndex";
 import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
-import { PageTitle, StyledButton } from "../../styles/Global.styled";
-import { InputElement } from "./InputElement";
-import { Grid } from "@mui/material";
+import { PageTitle } from "../../../utils/styles/Global.styled";
 import styled from "styled-components";
+import { InputElement } from "./InputElement";
+import { Button, Grid } from "@mui/material";
 
 const reducer = (currState, action) => {
   switch (action.type) {
@@ -111,13 +111,15 @@ export const ListRecipes = () => {
         spacing={3}
         sx={{
           marginBottom: 2,
-          paddingRight: 2
+          paddingRight: 2,
         }}
         justifyContent="center"
       >
         {listofRecipe2}
       </Grid>
-      <StyledButton onClick={showMoreItems}>Show more</StyledButton>
+      <Button onClick={showMoreItems} variant="contained">
+        Show more
+      </Button>
     </StyledDiv>
   );
 };
