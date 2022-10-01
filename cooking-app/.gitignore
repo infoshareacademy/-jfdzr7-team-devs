@@ -4,9 +4,11 @@ firebase.config.js
 AddRecipe copy.js
 StorageUpload.js
 DisplayRecipes.js
-RecipeForm.js
 InputAutocomplet.js
 RecipeForm copy.js
+AddRecipe.js
+RecipeForm copy 2.js
+RecipeForm.styled.js
 # dependencies
 /node_modules
 /.pnp

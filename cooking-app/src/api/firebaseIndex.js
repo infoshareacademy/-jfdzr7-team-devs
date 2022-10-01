@@ -43,7 +43,7 @@ export const firestoreErrorsCodes = {
   "already-exists": "Some document that we attempted to create already exists.",
   "permission-denied":
     "The caller does not have permission to execute the specified operation.",
-  "code=resource-exhausted":
+  "resource-exhausted":
     "Some resource has been exhausted, perhaps a per-user quota, or perhaps the entire file system is out of space.",
   "failed-precondition":
     "Operation was rejected because the system is not in a state required for the operation's execution.",

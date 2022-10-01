@@ -1,8 +1,8 @@
 import React from "react";
-import { AddRecipe } from "../AddRecipes/AddRecipe";
+import { AddRecipeNew } from "../AddRecipes/AddRecipeNew";
 
 const AddRecipePage = () => {
-  return <AddRecipe />;
+  return <AddRecipeNew />;
 };
 
 export default AddRecipePage;
