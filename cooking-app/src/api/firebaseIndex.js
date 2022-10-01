@@ -80,29 +80,31 @@ export const storageErrorsCodes = {
     "File on the client does not match the size of the file recieved by the server. Try uploading again.",
 };
 
-export const tags = [
-  {
-    key: "salt",
-    label: "Salt",
-  },
-  {
-    key: "sweet",
-    label: "Sweet",
-  },
-  {
-    key: "dinner",
-    label: "Dinner",
-  },
-  {
-    key: "lunch",
-    label: "Lunch",
-  },
-  {
-    key: "dessert",
-    label: "Dessert",
-  },
-  {
-    key: "breakfast",
-    label: "Breakfast",
-  },
-];
+export const tags = ["Sweet", "Dinner", "Dessert", "Lunch", "Salt"];
+
+// export const tags = [
+//   {
+//     key: "salt",
+//     label: "Salt",
+//   },
+//   {
+//     key: "sweet",
+//     label: "Sweet",
+//   },
+//   {
+//     key: "dinner",
+//     label: "Dinner",
+//   },
+//   {
+//     key: "lunch",
+//     label: "Lunch",
+//   },
+//   {
+//     key: "dessert",
+//     label: "Dessert",
+//   },
+//   {
+//     key: "breakfast",
+//     label: "Breakfast",
+//   },
+// ];
