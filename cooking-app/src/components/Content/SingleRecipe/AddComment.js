@@ -4,8 +4,7 @@ import { TextField, Snackbar, Alert } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { db } from "../../../api/firebase";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { firestoreErrorsCodes } from "../../../api/firebaseIndex";
-import { variantType } from "../../styles/muiStyles"
+import { variantType } from "../../styles/muiStyles";
 
 const defaultCommentForm = {
   author: "",
