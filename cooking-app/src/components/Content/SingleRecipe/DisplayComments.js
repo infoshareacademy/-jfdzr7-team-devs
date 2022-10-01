@@ -24,12 +24,18 @@ import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { Loader } from "../../../utils/Loader";
 import { Button } from "@mui/material";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 export const DisplayComments = ({ recipeName }) => {
   const [singleComment, setComment] = useState([]);
   const [load, setLoad] = useState(false);
   const [lastDoc, setLastDoc] = useState();
   const [commentsList, setCommentsList] = useState({});
-  const [imgIsOpen, setImgOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -74,9 +80,13 @@ export const DisplayComments = ({ recipeName }) => {
 
   const moreLoading = commentsList.length - singleComment.length;
 
-  // const handleShowDialog = () => {
-  //   return setImgOpen(!imgIsOpen);
-  // };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -97,8 +107,26 @@ export const DisplayComments = ({ recipeName }) => {
 
                 <StyledCommentSection>
                   <StyledCommentText>{comment}</StyledCommentText>
+                  {url.length > 0 ? (
+                    <StyledImg
+                      src={url}
+                      alt={recipeName}
+                      onClick={handleClickOpen}
+                    />
+                  ) : null}
 
-                  {url.length > 0 ? <StyledImg src={url} /> : null}
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    hasCloseButton
+                    style={{ maxWidth: "100%", maxHeight: "100%" }}
+                  >
+                    <img
+                      style={{ width: "auto", height: "100%" }}
+                      src={url}
+                      alt={recipeName}
+                    />
+                  </Dialog>
                 </StyledCommentSection>
               </StyledComment>
             )
@@ -115,27 +143,3 @@ export const DisplayComments = ({ recipeName }) => {
     </>
   );
 };
-
-{
-  /* <StyledCommentSection>
-                <StyledCommentText>{comment}</StyledCommentText>
-                {url.length > 0 ? (
-                  <div>
-                    <StyledImg src={url}  />
-                    {imgIsOpen && (
-                      <StyledDialog
-                        style={{ position: "absolute" }}
-                        
-                      >
-                        <img
-                          src={url}
-                          alt={recipeName}
-                          style={{ width: "400px" }}
-                          
-                        />
-                      </StyledDialog>
-                    )}
-                  </div>
-                ) : null}
-              </StyledCommentSection> */
-}
