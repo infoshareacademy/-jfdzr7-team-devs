@@ -7,7 +7,6 @@ import { PageTitle } from "../../../utils/styles/Global.styled";
 import styled from "styled-components";
 import { InputElement } from "./InputElement";
 import { Grid } from "@mui/material";
-import styled from "styled-components";
 
 const reducer = (currState, action) => {
   switch (action.type) {
