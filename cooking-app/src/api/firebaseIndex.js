@@ -1,9 +1,20 @@
-import { collection, doc } from "firebase/firestore";
+import { collection, doc, orderBy } from "firebase/firestore";
 import { db } from "./firebase";
 
-export const recipesCollection = collection(db, "recipes");
-export const collectionRecipesName = "recipes"; // jeśli będą inne kolekcje
+export const collectionRecipesName = "radekTesty";
+export const collectionCommentsName = "commentsList";
+export const collectionUsers = "users";
 export const folderStorage = "/images";
+
+export const recipesCollection = collection(db, collectionRecipesName);
+export const singleRecipeCollection = (docId) =>
+  doc(db, collectionRecipesName, docId);
+export const commentsRecipeCollection = (docId) =>
+  collection(db, collectionRecipesName, docId, collectionCommentsName);
+export const defaultQueryConstraint = orderBy("createdAt", "desc");
+
+export const singleUserCollection = (userId) =>
+  doc(db, collectionUsers, userId);
 
 export const urlStorage =
   "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/images%2F";
@@ -49,7 +60,6 @@ export const firestoreErrorsCodes = {
     "The request does not have valid authentication credentials for the operation.",
 };
 
-//'code=resource-exhausted'
 export const storageErrorsCodes = {
   "storage/unknown": "An unknown error occurred.",
   "storage/object-not-found": "No object exists at the desired reference.",
@@ -80,31 +90,4 @@ export const storageErrorsCodes = {
     "File on the client does not match the size of the file recieved by the server. Try uploading again.",
 };
 
-export const tags = ["Sweet", "Dinner", "Dessert", "Lunch", "Salt"];
-
-// export const tags = [
-//   {
-//     key: "salt",
-//     label: "Salt",
-//   },
-//   {
-//     key: "sweet",
-//     label: "Sweet",
-//   },
-//   {
-//     key: "dinner",
-//     label: "Dinner",
-//   },
-//   {
-//     key: "lunch",
-//     label: "Lunch",
-//   },
-//   {
-//     key: "dessert",
-//     label: "Dessert",
-//   },
-//   {
-//     key: "breakfast",
-//     label: "Breakfast",
-//   },
-// ];
+export const tags = ["Breakfast", "Mains", "Leftovers", "Vegetables", "Dinner"];

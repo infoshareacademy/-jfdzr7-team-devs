@@ -1,16 +1,13 @@
 import { Button, TextField } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, doc, setDoc } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
-import { auth, db, storage } from "../../../api/firebase";
+import { auth, db } from "../../../api/firebase";
 import { defaultRegisterForm } from "./defaultFormValues";
 import { StyledLogin } from "./Login.styled";
 
 const Register = () => {
   const [registerForm, setRegisterForm] = useState(defaultRegisterForm);
-
-  const usersCollection = collection(db, "users");
 
   const updateRegisterForm = (e) => {
     setRegisterForm({

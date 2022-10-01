@@ -4,7 +4,8 @@ import { NavLink, Link } from "react-router-dom";
 export const StyledHeader = styled.nav`
   display: flex;
   justify-content: space-between;
-  padding: 20px 0 20px 0;
+  padding: 25px;
+  margin-bottom: 40px;
 `;
 
 export const StyledHeaderContent = styled.div`

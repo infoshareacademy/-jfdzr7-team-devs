@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { GlobalStyle, Wrapper } from "./components/styles/Global.styled";
+import { GlobalStyle, Wrapper } from "./utils/styles/Global.styled";
 import { Header } from "./components/Header/Header";
 import { Content } from "./components/Content/Content";
 import { Footer } from "./components/Footer/Footer";
@@ -9,6 +9,7 @@ import { auth, db } from "./api/firebase";
 import { createContext } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { Loader } from "./utils/Loader";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 export const UserDataContext = createContext({
   firstName: "",
@@ -16,6 +17,28 @@ export const UserDataContext = createContext({
   email: "",
   role: "",
   uid: "",
+  favourites:[],
+  avatarUrl:"",
+});
+
+export const theme = createTheme({
+  palette: {
+    primary: {
+      light: "#fff263",
+      main: "#f9c02d",
+      dark: "#c29000",
+      contrastText: "#000000",
+    },
+    secondary: {
+      light: "#ffffff",
+      main: "#fafafa",
+      dark: "#c7c7c7",
+      contrastText: "#757575",
+    },
+    neutral: {
+      main: "#000000",
+    },
+  },
 });
 
 function App() {
@@ -35,6 +58,7 @@ function App() {
             role: tempData.role,
             uid: tempData.uid,
             avatarUrl: tempData.avatarUrl,
+            favourites: tempData.favourites,
           });
         });
       } else {
@@ -45,20 +69,22 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <UserDataContext.Provider value={userData}>
-        <Wrapper>
-          <Header isLoggedIn={isLoggedIn} />
-          {isLoggedIn === null ? (
-            <Loader />
-          ) : (
-            <Content isLoggedIn={isLoggedIn} />
-          )}
-          <Footer />
-        </Wrapper>
-      </UserDataContext.Provider>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <GlobalStyle />
+        <UserDataContext.Provider value={userData}>
+          <Wrapper>
+            <Header isLoggedIn={isLoggedIn} />
+            {isLoggedIn === null ? (
+              <Loader />
+            ) : (
+              <Content isLoggedIn={isLoggedIn} />
+            )}
+            <Footer />
+          </Wrapper>
+        </UserDataContext.Provider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

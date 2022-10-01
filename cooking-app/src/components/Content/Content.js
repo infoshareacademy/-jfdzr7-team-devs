@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import { Container } from "../styles/Global.styled";
+import { Container } from "../../utils/styles/Global.styled";
 import { HomePage } from "./HomePage/HomePage";
 import { ListRecipes } from "./ListRecipes/ListRecipes";
 import { Login } from "./Authorization/Login";
-import { Tips } from "./Tips/Tips";
+import { UserProfile} from "./Account/UserProfile/UserProfile";
 import { Ebook } from "./Ebook/Ebook";
 import { Search } from "./Search/Search";
 import { SingleRecipe } from "./SingleRecipe/SingleRecipe";
@@ -50,7 +50,6 @@ export const Content = ({ isLoggedIn }) => {
               </Redirect>
             }
           />
-          <Route path="/tips" element={<Tips />} />
           <Route path="/ebook" element={<Ebook />} />
           <Route path="/search" element={<Search />} />
           <Route
@@ -61,6 +60,8 @@ export const Content = ({ isLoggedIn }) => {
               </ProtectedRoute>
             }
           />
+          <Route path="/recipe/:id" element={<SingleRecipe isLoggedIn={isLoggedIn}/>} />
+          <Route path="/user/:id" element={<UserProfile />} />
           <Route
             path="/admin"
             element={
@@ -80,7 +81,6 @@ export const Content = ({ isLoggedIn }) => {
               </ProtectedRoute>
             }
           />
-          <Route path="/recipe/:id" element={<SingleRecipe />} />
           <Route path="/ListRecipes" element={<ListRecipes />} />
 
           <Route
@@ -92,5 +92,3 @@ export const Content = ({ isLoggedIn }) => {
     </StyledContent>
   );
 };
-
-//do wydzielenia do osobnego komponentu pozniej

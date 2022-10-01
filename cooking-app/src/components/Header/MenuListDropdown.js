@@ -3,10 +3,9 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
-import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
-import { NavButton, MenuLink } from "./Header.styled";
+import { NavButton } from "./Header.styled";
 import { useState, useRef } from "react";
 
 export const MenuListDropdown = () => {
