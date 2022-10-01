@@ -2,6 +2,7 @@ import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
+import { Button } from "@mui/material";
 
 export const SelectImageToUpload = ({ onChange, onClick, text }) => {
   return (
@@ -15,7 +16,7 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
           size="large"
         >
           <input
-            hidden
+            // hidden
             accept="image/*"
             type="file"
             name="file"
@@ -23,7 +24,9 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
           />
           <PhotoCamera />
         </IconButton>
-        <button onClick={onClick}>{text.buttonUpload}</button>
+        <Button onClick={onClick} variant="contained">
+          {text.buttonUpload} Upload photo
+        </Button>
       </Stack>
     </>
   );

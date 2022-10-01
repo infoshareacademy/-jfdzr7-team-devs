@@ -1,39 +1,62 @@
 import { Loader } from "../../../../utils/Loader";
-import { onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { recipesCollection } from "../../../../api/firebaseIndex";
-import { StyledBanner, BannerContent } from "../MainBanner/MainBanner.styled";
-import { StyledTitle, StyledLink } from "../../../styles/Global.styled";
+import { useState } from "react";
+import {
+  StyledSlider,
+  StyledBanner,
+  StyledDescription,
+  StyledTitle,
+  StyledParagraph,
+  StyledNavigation,
+} from "../MainBanner/MainBanner.styled";
+import { StyledLink } from "../../../../utils/styles/Global.styled";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { IconButton } from "@mui/material";
 
-export const MainBanner = () => {
-  const [data, setData] = useState([]);
+export const MainBanner = ({ slides }) => {
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  const getDataFromSnapshot = (data) => {
-    return data.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+  const goToNextSlide = () => {
+    if (currentSlideIndex === slides.length - 1) {
+      setCurrentSlideIndex(0);
+    } else {
+      setCurrentSlideIndex(currentSlideIndex + 1);
+    }
   };
 
-  useEffect(() => {
-    onSnapshot(recipesCollection, (singleRecipe) => {
-      setData(getDataFromSnapshot(singleRecipe));
-    });
-  }, []);
-
-  const dailyRecipe = data[Math.floor(Math.random() * data.length)];
+  const goToPreviousSlide = () => {
+    if (currentSlideIndex === 0) {
+      setCurrentSlideIndex(slides.length - 1);
+    } else {
+      setCurrentSlideIndex(currentSlideIndex - 1);
+    }
+  };
 
   return (
     <>
-      {dailyRecipe ? (
-        <StyledBanner url={dailyRecipe.url}>
-          <BannerContent>
-            <StyledTitle>{dailyRecipe.title}</StyledTitle>
-            <StyledLink to={`/recipe/${dailyRecipe.id}`}>
+      {slides ? (
+        <StyledSlider>
+          <StyledNavigation>
+            <IconButton aria-label="previous" onClick={goToPreviousSlide}>
+              <ArrowBackIosNewIcon fontSize="large" />
+            </IconButton>
+            <IconButton aria-label="next" onClick={goToNextSlide}>
+              <ArrowForwardIosIcon fontSize="large" />
+            </IconButton>
+          </StyledNavigation>
+
+          <StyledBanner url={slides[currentSlideIndex].image} />
+
+          <StyledDescription>
+            <StyledTitle>{slides[currentSlideIndex].name}</StyledTitle>
+            <StyledParagraph>
+              {slides[currentSlideIndex].metaDescription}
+            </StyledParagraph>
+            <StyledLink to={`/recipe/${slides[currentSlideIndex].id}`}>
               Get the recipe
             </StyledLink>
-          </BannerContent>
-        </StyledBanner>
+          </StyledDescription>
+        </StyledSlider>
       ) : (
         <Loader />
       )}

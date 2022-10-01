@@ -4,9 +4,11 @@ firebase.config.js
 AddRecipe copy.js
 StorageUpload.js
 DisplayRecipes.js
-RecipeForm.js
 InputAutocomplet.js
 RecipeForm copy.js
+AddRecipe.js
+RecipeForm copy 2.js
+RecipeForm.styled.js
 # dependencies
 /node_modules
 /.pnp
@@ -30,3 +32,6 @@ yarn-debug.log*
 yarn-error.log*
 
 /media
+
+cooking-app/src/components/Content/Account/recipes.js
+cooking-app/src/components/Content/Account/PopulateDB.js
