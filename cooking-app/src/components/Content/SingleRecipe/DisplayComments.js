@@ -14,7 +14,7 @@ import {
   StyledAvatar,
   StyledCommentSection,
   StyledCommentText,
-  StyledCommentAuthorLink
+  StyledCommentAuthorLink,
 } from "./SingleRecipe.styled";
 import {
   commentsRecipeCollection,
@@ -51,7 +51,7 @@ export const DisplayComments = ({ recipeName }) => {
       setLoad(true);
     });
     setLastDoc(singleComment[singleComment.length - 1]);
-  }, [id, load, singleComment]);
+  }, [id, load]);
 
   const handleMore = () => {
     const next = query(
@@ -74,49 +74,35 @@ export const DisplayComments = ({ recipeName }) => {
 
   const moreLoading = commentsList.length - singleComment.length;
 
-  const handleShowDialog = () => {
-    return setImgOpen(!imgIsOpen);
-  };
+  // const handleShowDialog = () => {
+  //   return setImgOpen(!imgIsOpen);
+  // };
 
   return (
     <>
       {singleComment.length > 0 ? (
         <StyledCommentItem>
-          {singleComment.map(({ id, author, comment, createdAt, url, authorId }) => (
-            <StyledComment key={id}>
-              <StyledCommentAuthorLink to={`/user/${authorId}`}>
-                <StyledAvatar />
-                <StyledCommentAuthor>
-                  <StyledAuthorName>{author}</StyledAuthorName>
-                  <StyledDate>
-                    {moment(createdAt.toDate()).calendar()}
-                  </StyledDate>
-                </StyledCommentAuthor>
-              </StyledCommentAuthorLink>
+          {singleComment.map(
+            ({ id, author, comment, createdAt, url, authorId }) => (
+              <StyledComment key={id}>
+                <StyledCommentAuthorLink to={`/user/${authorId}`}>
+                  <StyledAvatar />
+                  <StyledCommentAuthor>
+                    <StyledAuthorName>{author}</StyledAuthorName>
+                    <StyledDate>
+                      {moment(createdAt.toDate()).calendar()}
+                    </StyledDate>
+                  </StyledCommentAuthor>
+                </StyledCommentAuthorLink>
 
-              <StyledCommentSection>
-                <StyledCommentText>{comment}</StyledCommentText>
-                {url.length > 0 ? (
-                  <div>
-                    <StyledImg src={url} onClick={handleShowDialog} />
-                    {imgIsOpen && (
-                      <StyledDialog
-                        style={{ position: "absolute" }}
-                        onClick={handleShowDialog}
-                      >
-                        <img
-                          src={url}
-                          alt={recipeName}
-                          style={{ width: "400px" }}
-                          onClick={handleShowDialog}
-                        />
-                      </StyledDialog>
-                    )}
-                  </div>
-                ) : null}
-              </StyledCommentSection>
-            </StyledComment>
-          ))}
+                <StyledCommentSection>
+                  <StyledCommentText>{comment}</StyledCommentText>
+
+                  {url.length > 0 ? <StyledImg src={url} /> : null}
+                </StyledCommentSection>
+              </StyledComment>
+            )
+          )}
           {moreLoading ? (
             <Button onClick={handleMore} fullWidth variant="contained">
               Show more
@@ -129,3 +115,27 @@ export const DisplayComments = ({ recipeName }) => {
     </>
   );
 };
+
+{
+  /* <StyledCommentSection>
+                <StyledCommentText>{comment}</StyledCommentText>
+                {url.length > 0 ? (
+                  <div>
+                    <StyledImg src={url}  />
+                    {imgIsOpen && (
+                      <StyledDialog
+                        style={{ position: "absolute" }}
+                        
+                      >
+                        <img
+                          src={url}
+                          alt={recipeName}
+                          style={{ width: "400px" }}
+                          
+                        />
+                      </StyledDialog>
+                    )}
+                  </div>
+                ) : null}
+              </StyledCommentSection> */
+}

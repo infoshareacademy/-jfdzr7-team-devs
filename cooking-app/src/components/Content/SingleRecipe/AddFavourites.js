@@ -3,7 +3,6 @@ import { UserDataContext } from "../../../App";
 import { singleUserCollection } from "../../../api/firebaseIndex";
 import {
   arrayUnion,
-  onSnapshot,
   updateDoc,
   arrayRemove,
 } from "firebase/firestore";
@@ -13,7 +12,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export const AddFavourites = ({ id }) => {
   const userData = useContext(UserDataContext);
-  // const userId = userData.uid;
   const docRef = singleUserCollection(userData.uid);
 
   const [favourite, setFavourite] = useState(true);
