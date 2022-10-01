@@ -1,11 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { UserDataContext } from "../../../App";
 import { singleUserCollection } from "../../../api/firebaseIndex";
-import {
-  arrayUnion,
-  updateDoc,
-  arrayRemove,
-} from "firebase/firestore";
+import { arrayUnion, updateDoc, arrayRemove } from "firebase/firestore";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -16,19 +12,19 @@ export const AddFavourites = ({ id }) => {
 
   const [favourite, setFavourite] = useState(true);
 
-useEffect(() => {
-  const isChecked = userData.favourites.some((recipeId) => {
-    if (recipeId === id) {
-      return true;
-    } else return false;
-  });
+  useEffect(() => {
+    const isChecked = userData.favourites.some((recipeId) => {
+      if (recipeId === id) {
+        return true;
+      } else return false;
+    });
 
-  if (isChecked) {
-    setFavourite(true);
-  } else {
-    setFavourite(false);
-  }
-},[])
+    if (isChecked) {
+      setFavourite(true);
+    } else {
+      setFavourite(false);
+    }
+  }, []);
 
   const handleChange = (e) => {
     e.preventDefault();
