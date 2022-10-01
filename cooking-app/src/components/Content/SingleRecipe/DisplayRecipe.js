@@ -61,7 +61,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
     <>
       <StyledRecipeContainer>
         <StyledAsideRecipe>
-          <StyledImgMain src={recipe.image} alt={`${recipe.imageAlt}`} />
+          <StyledImgMain src={recipe.image} alt={recipe.name} />
         </StyledAsideRecipe>
 
         <StyledMainContent>

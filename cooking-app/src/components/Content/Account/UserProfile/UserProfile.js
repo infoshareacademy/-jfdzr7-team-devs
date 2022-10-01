@@ -13,8 +13,10 @@ import {
   StyledUserNavigation,
 } from "./UserProfileStyled";
 import { singleUserCollection } from "../../../../api/firebaseIndex";
-import { Loader } from "../../../../utils/Loader"
+import { Loader } from "../../../../utils/Loader";
 import { onSnapshot } from "firebase/firestore";
+import { UserRecipes } from "./UserRecipes";
+import { Outlet, Link } from "react-router-dom";
 
 export const UserProfile = () => {
   const [user, setUser] = useState({});
@@ -46,7 +48,9 @@ export const UserProfile = () => {
           </StyledUserCover>
           <StyledUserData>
             <StyledUserPhoto />
-            <StyledAuthorName>{user.firstName} {user.lastName}</StyledAuthorName>
+            <StyledAuthorName>
+              {user.firstName} {user.lastName}
+            </StyledAuthorName>
           </StyledUserData>
         </StyledUserIntro>
 
@@ -56,12 +60,14 @@ export const UserProfile = () => {
             variant="contained"
             aria-label="Disabled elevation buttons"
           >
-            <Button>User Recipes</Button>
-            <Button>Following</Button>
+            <Link to="added">User Recipes</Link>
+            <Link to="following">Following</Link>
           </ButtonGroup>
         </StyledUserNavigation>
 
-        <StyledContent></StyledContent>
+        <StyledContent>
+          <Outlet />
+        </StyledContent>
       </StyledLayout>
     </>
   );

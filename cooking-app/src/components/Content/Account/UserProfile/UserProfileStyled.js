@@ -70,7 +70,7 @@ export const StyledUserPanel = styled(StyledUserCover)`
 
 export const StyledContent = styled.div`
   background-color: lightgreen;
-  width: 900px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;

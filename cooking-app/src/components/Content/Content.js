@@ -17,6 +17,8 @@ import AddRecipePage from "./Account/AddRecipePage";
 import AdminPage from "./Account/AdminPage/AdminPage";
 import { useContext } from "react";
 import { UserDataContext } from "../../App";
+import { UserRecipes } from "./Account/UserProfile/UserRecipes";
+import { UserFollowing } from "./Account/UserProfile/UserFollowing";
 
 export const Content = ({ isLoggedIn }) => {
   const userData = useContext(UserDataContext);
@@ -50,7 +52,6 @@ export const Content = ({ isLoggedIn }) => {
               </Redirect>
             }
           />
-          <Route path="/ebook" element={<Ebook />} />
           <Route path="/search" element={<Search />} />
           <Route
             path="/account"
@@ -61,7 +62,12 @@ export const Content = ({ isLoggedIn }) => {
             }
           />
           <Route path="/recipe/:id" element={<SingleRecipe isLoggedIn={isLoggedIn}/>} />
-          <Route path="/user/:id" element={<UserProfile />} />
+
+          <Route path="/user/:id" element={<UserProfile />}>
+            <Route path="added" element={<UserRecipes />} />
+            <Route path="following" element={<UserFollowing />} />
+          </Route>
+
           <Route
             path="/admin"
             element={

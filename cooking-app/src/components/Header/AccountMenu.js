@@ -77,7 +77,7 @@ const AccountMenu = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem component={NavLink} to={`/user/${userData?.uid}`}>
           <Avatar /> Profile
         </MenuItem>
 

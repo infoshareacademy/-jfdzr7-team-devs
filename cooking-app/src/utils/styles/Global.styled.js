@@ -16,7 +16,6 @@ export const GlobalStyle = createGlobalStyle`
     --color-orange:  #f9c02d;
     --color-orange-dark:  #c29000;
     --font-family: 'Roboto', sans-serif;
-    --font-family-title: 'Roboto Serif', serif;
   }
 
   body{
