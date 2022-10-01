@@ -90,33 +90,4 @@ export const storageErrorsCodes = {
     "File on the client does not match the size of the file recieved by the server. Try uploading again.",
 };
 
-<<<<<<< HEAD
-export const tags = [
-  {
-    key: "salt",
-    label: "Salt",
-  },
-  {
-    key: "sweet",
-    label: "Sweet",
-  },
-  {
-    key: "dinner",
-    label: "Dinner",
-  },
-  {
-    key: "lunch",
-    label: "Lunch",
-  },
-  {
-    key: "dessert",
-    label: "Dessert",
-  },
-  {
-    key: "breakfast",
-    label: "Breakfast",
-  },
-];
-=======
 export const tags = ["Breakfast", "Mains", "Leftovers", "Vegetables", "Dinner"];
->>>>>>> sprint
