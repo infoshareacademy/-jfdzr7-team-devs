@@ -16,6 +16,7 @@ export const GetUser = ({ userId }) => {
 
   return (
     <>
+    {/* <Avatar alt={author} src={userData?.avatarUrl} /> */}
         By {user.firstName} {user.lastName}
     </>
   );

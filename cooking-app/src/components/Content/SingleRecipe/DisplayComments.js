@@ -23,12 +23,8 @@ import {
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { Loader } from "../../../utils/Loader";
 import { Button } from "@mui/material";
-
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import { GetUser } from "./GetUser";
 
 export const DisplayComments = ({ recipeName }) => {
   const [singleComment, setComment] = useState([]);
@@ -97,6 +93,8 @@ export const DisplayComments = ({ recipeName }) => {
               <StyledComment key={id}>
                 <StyledCommentAuthorLink to={`/user/${authorId}`}>
                   <StyledAvatar />
+                  {/* <Avatar alt={author} src={userData?.avatarUrl} /> */}
+                  {/* <GetUser userId={authorId} /> */}
                   <StyledCommentAuthor>
                     <StyledAuthorName>{author}</StyledAuthorName>
                     <StyledDate>
