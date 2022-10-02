@@ -20,7 +20,8 @@ export const StyledComment = styled.div`
 `;
 export const StyledAuthorLink = styled(Link)`
   display: flex;
-  display: inline-block;
+  flex-direction: row;
+  align-items: center;
   margin: 0;
   text-decoration: none;
   margin-bottom: 20px;
@@ -35,9 +36,8 @@ export const StyledCommentAuthorLink = styled(StyledAuthorLink)`
   display: flex;
 `;
 
-export const StyledCommentAuthor = styled.div`
+export const StyledAuthorContainer = styled.div`
   padding: 20px 0;
-  color: var(--color-black);
 `;
 
 export const StyledCommentSection = styled.div`
@@ -45,6 +45,7 @@ export const StyledCommentSection = styled.div`
 `;
 export const StyledAvatar = styled(Avatar)`
   margin: 20px;
+  margin-left: 0;
 `;
 export const StyledCommentText = styled.p`
   margin: 0 0 15px 0;

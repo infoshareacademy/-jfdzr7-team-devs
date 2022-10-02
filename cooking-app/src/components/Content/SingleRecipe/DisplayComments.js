@@ -1,20 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onSnapshot, query, limit, startAfter } from "firebase/firestore";
-import moment from "moment";
 import {
   StyledComment,
-  StyledAuthorName,
-  StyledDate,
   StyledImg,
   StyledCommentItem,
   StyledParagraph,
-  StyledDialog,
-  StyledCommentAuthor,
-  StyledAvatar,
   StyledCommentSection,
   StyledCommentText,
-  StyledCommentAuthorLink,
 } from "./SingleRecipe.styled";
 import {
   commentsRecipeCollection,
@@ -24,7 +17,7 @@ import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { Loader } from "../../../utils/Loader";
 import { Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
-import { GetUser } from "./GetUser";
+import { GetAuthor } from "./GetAuthor";
 
 export const DisplayComments = ({ recipeName }) => {
   const [singleComment, setComment] = useState([]);
@@ -33,7 +26,7 @@ export const DisplayComments = ({ recipeName }) => {
   const [commentsList, setCommentsList] = useState({});
   const [open, setOpen] = useState(false);
   const { id } = useParams();
-  const [ url, setUrl] = useState()
+  const [url, setUrl] = useState();
 
   useEffect(() => {
     const docRef = commentsRecipeCollection(id);
@@ -79,7 +72,7 @@ export const DisplayComments = ({ recipeName }) => {
 
   const handleClickOpen = (url) => {
     setOpen(true);
-    setUrl(url)
+    setUrl(url);
   };
 
   const handleClose = () => {
@@ -90,34 +83,21 @@ export const DisplayComments = ({ recipeName }) => {
     <>
       {singleComment.length > 0 ? (
         <StyledCommentItem>
-          {singleComment.map(
-            ({ id, author, comment, createdAt, url, authorId }) => (
-              <StyledComment key={id}>
-                <StyledCommentAuthorLink to={`/user/${authorId}/added`}>
-                  <StyledAvatar />
-                  {/* <Avatar alt={author} src={userData?.avatarUrl} /> */}
-                  {/* <GetUser userId={authorId} /> */}
-                  <StyledCommentAuthor>
-                    <StyledAuthorName>{author}</StyledAuthorName>
-                    <StyledDate>
-                      {moment(createdAt.toDate()).calendar()}
-                    </StyledDate>
-                  </StyledCommentAuthor>
-                </StyledCommentAuthorLink>
-
-                <StyledCommentSection>
-                  <StyledCommentText>{comment}</StyledCommentText>
-                  {url.length > 0 ? (
-                    <StyledImg
-                      src={url}
-                      alt={recipeName}
-                      onClick={() => handleClickOpen(url)}
-                    />
-                  ) : null}
-                </StyledCommentSection>
-              </StyledComment>
-            )
-          )}
+          {singleComment.map(({ id, comment, createdAt, url, authorId }) => (
+            <StyledComment key={id}>
+              <GetAuthor userId={authorId} createdAt={createdAt} />
+              <StyledCommentSection>
+                <StyledCommentText>{comment}</StyledCommentText>
+                {url.length > 0 ? (
+                  <StyledImg
+                    src={url}
+                    alt={recipeName}
+                    onClick={() => handleClickOpen(url)}
+                  />
+                ) : null}
+              </StyledCommentSection>
+            </StyledComment>
+          ))}
 
           <Dialog
             open={open}

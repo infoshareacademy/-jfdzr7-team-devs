@@ -76,7 +76,6 @@ export const AddComment = () => {
         setCommentForm({
           ...commentForm,
           [e.target.name]: e.target.value,
-          author: userData?.firstName,
           authorId: userData?.uid,
           createdAt: Timestamp.fromDate(new Date()).toDate(),
           url: [],

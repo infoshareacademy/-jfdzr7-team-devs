@@ -15,7 +15,6 @@ import {
 import { singleUserCollection } from "../../../../api/firebaseIndex";
 import { Loader } from "../../../../utils/Loader";
 import { onSnapshot } from "firebase/firestore";
-import { UserRecipes } from "./UserRecipes";
 import { Outlet, Link } from "react-router-dom";
 
 export const UserProfile = () => {
