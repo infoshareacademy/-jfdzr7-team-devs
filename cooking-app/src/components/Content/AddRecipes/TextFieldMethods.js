@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 import React from "react";
-import { variantType } from "../../styles/muiStyles";
+import { variantType } from "../../../utils/styles/muiStyles";
 
 export const TextFieldMethods = ({
   name,

@@ -21,32 +21,7 @@ const MenuProps = {
   },
 };
 
-// export const tags = [
-//   {
-//     key: "salt",
-//     label: "Salt",
-//   },
-//   {
-//     key: "sweet",
-//     label: "Sweet",
-//   },
-//   {
-//     key: "dinner",
-//     label: "Dinner",
-//   },
-//   {
-//     key: "lunch",
-//     label: "Lunch",
-//   },
-//   {
-//     key: "dessert",
-//     label: "Dessert",
-//   },
-//   {
-//     key: "breakfast",
-//     label: "Breakfast",
-//   },
-// ];
+// const tags = ["Sweet", "Dinner", "Dessert", "Lunch", "Salt"];
 
 function getStyles(tag, selectedTags, theme) {
   return {
@@ -86,13 +61,13 @@ export function MultipleSelectTags({ handlerTags, onChange }) {
           )}
           MenuProps={MenuProps}
         >
-          {tags.map((tag) => (
+          {tags.map((tag, index) => (
             <MenuItem
-              key={tag.key}
-              value={tag.label}
+              key={index}
+              value={tag}
               style={getStyles(tag, selectedTags, theme)}
             >
-              {tag.label}
+              {tag}
             </MenuItem>
           ))}
         </Select>

@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import { Container } from "../styles/Global.styled";
+import { Container } from "../../utils/styles/Global.styled";
 import { HomePage } from "./HomePage/HomePage";
 import { ListRecipes } from "./ListRecipes/ListRecipes";
 import { Login } from "./Authorization/Login";
-import { Tips } from "./Tips/Tips";
+import { UserProfile} from "./Account/UserProfile/UserProfile";
 import { Ebook } from "./Ebook/Ebook";
 import { Search } from "./Search/Search";
 import { SingleRecipe } from "./SingleRecipe/SingleRecipe";
@@ -13,8 +13,14 @@ import ForgotPassword from "./Authorization/ForgotPassword";
 import Redirect from "./Authorization/Redirect";
 import ProtectedRoute from "./Authorization/ProtectedRoute";
 import { StyledContent, StyledH2 } from "./Content.styled";
+import AddRecipePage from "./Account/AddRecipePage";
+import AdminPage from "./Account/AdminPage/AdminPage";
+import { useContext } from "react";
+import { UserDataContext } from "../../App";
 
 export const Content = ({ isLoggedIn }) => {
+  const userData = useContext(UserDataContext);
+
   return (
     <StyledContent>
       <Container>
@@ -44,7 +50,6 @@ export const Content = ({ isLoggedIn }) => {
               </Redirect>
             }
           />
-          <Route path="/tips" element={<Tips />} />
           <Route path="/ebook" element={<Ebook />} />
           <Route path="/search" element={<Search />} />
           <Route
@@ -55,7 +60,27 @@ export const Content = ({ isLoggedIn }) => {
               </ProtectedRoute>
             }
           />
-          <Route path="/recipe/:id" element={<SingleRecipe />} />
+          <Route path="/recipe/:id" element={<SingleRecipe isLoggedIn={isLoggedIn}/>} />
+          <Route path="/user/:id" element={<UserProfile />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn && userData?.role === "admin"}
+                redirect="/account"
+              >
+                <AdminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/addRecipe"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn} redirect="/login">
+                <AddRecipePage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/ListRecipes" element={<ListRecipes />} />
 
           <Route
@@ -67,5 +92,3 @@ export const Content = ({ isLoggedIn }) => {
     </StyledContent>
   );
 };
-
-//do wydzielenia do osobnego komponentu pozniej

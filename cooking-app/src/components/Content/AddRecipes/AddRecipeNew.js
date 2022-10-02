@@ -191,7 +191,7 @@ export const AddRecipeNew = () => {
             <RecipeForm2
               onChange={changeFormValues}
               onClick={uploadImage}
-              onSubmit={handleAddingRecipe}
+              handleSubmit={handleAddingRecipe}
               handlerTags={handleChangeTags}
               handlerIngredients={handleChangeIngredients}
               handlerAddInputIngredient={handleAddTextInput}

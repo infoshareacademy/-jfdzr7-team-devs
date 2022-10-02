@@ -1,4 +1,4 @@
-import { PageTitle } from "../../styles/Global.styled";
+import { PageTitle } from "../../../utils/styles/Global.styled";
 
 export const Search = () => {
   return (
