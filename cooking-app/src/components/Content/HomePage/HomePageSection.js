@@ -33,7 +33,7 @@ export const HomePageSection = ({ category }) => {
 
   return (
     <>
-      <Grid container justifyContent="center" direction="column" alignItems="center" spacing={1}>
+      <Grid container justifyContent="center" direction="column" alignItems="center">
       <h3>Your best ever {category}!</h3>
         <Paper
           sx={{

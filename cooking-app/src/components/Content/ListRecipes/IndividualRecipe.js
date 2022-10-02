@@ -7,7 +7,7 @@ export const IndividualRecipe = ({ singleRecipe }) => {
     <Card
       key={singleRecipe.id}
       sx={{
-        marginRight:1,
+        m: 4,
         width: "auto",
         maxWidth: "auto",
         height: 300,
@@ -19,7 +19,7 @@ export const IndividualRecipe = ({ singleRecipe }) => {
         to={`/recipe/${singleRecipe.id}`}
       >
         <CardMedia
-          sx={{ width: "auto", height: 250, borderRadius: 2, }}
+          sx={{ width: "100%", height: 250, borderRadius: 2, }}
           component="img"
           src={singleRecipe.image}
           alt={singleRecipe.imageAlt}
