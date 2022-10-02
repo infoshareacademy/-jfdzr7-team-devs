@@ -17,8 +17,8 @@ export const UserDataContext = createContext({
   email: "",
   role: "",
   uid: "",
-  favourites:[],
-  avatarUrl:"",
+  favourites: [],
+  avatarUrl: "",
 });
 
 export const theme = createTheme({
