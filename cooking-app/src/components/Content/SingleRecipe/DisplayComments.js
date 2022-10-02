@@ -33,6 +33,7 @@ export const DisplayComments = ({ recipeName }) => {
   const [commentsList, setCommentsList] = useState({});
   const [open, setOpen] = useState(false);
   const { id } = useParams();
+  const [ url, setUrl] = useState()
 
   useEffect(() => {
     const docRef = commentsRecipeCollection(id);
@@ -76,8 +77,9 @@ export const DisplayComments = ({ recipeName }) => {
 
   const moreLoading = commentsList.length - singleComment.length;
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (url) => {
     setOpen(true);
+    setUrl(url)
   };
 
   const handleClose = () => {
@@ -91,7 +93,7 @@ export const DisplayComments = ({ recipeName }) => {
           {singleComment.map(
             ({ id, author, comment, createdAt, url, authorId }) => (
               <StyledComment key={id}>
-                <StyledCommentAuthorLink to={`/user/${authorId}`}>
+                <StyledCommentAuthorLink to={`/user/${authorId}/added`}>
                   <StyledAvatar />
                   {/* <Avatar alt={author} src={userData?.avatarUrl} /> */}
                   {/* <GetUser userId={authorId} /> */}
@@ -109,26 +111,27 @@ export const DisplayComments = ({ recipeName }) => {
                     <StyledImg
                       src={url}
                       alt={recipeName}
-                      onClick={handleClickOpen}
+                      onClick={() => handleClickOpen(url)}
                     />
                   ) : null}
-
-                  <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    hasCloseButton
-                    style={{ maxWidth: "100%", maxHeight: "100%" }}
-                  >
-                    <img
-                      style={{ width: "auto", height: "100%" }}
-                      src={url}
-                      alt={recipeName}
-                    />
-                  </Dialog>
                 </StyledCommentSection>
               </StyledComment>
             )
           )}
+
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            hasCloseButton
+            style={{ maxWidth: "100%", maxHeight: "100%" }}
+          >
+            <img
+              style={{ width: "auto", height: "100%" }}
+              src={url}
+              alt={recipeName}
+            />
+          </Dialog>
+
           {moreLoading ? (
             <Button onClick={handleMore} fullWidth variant="contained">
               Show more

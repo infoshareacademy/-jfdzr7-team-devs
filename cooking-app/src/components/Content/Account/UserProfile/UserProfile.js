@@ -21,6 +21,7 @@ import { Outlet, Link } from "react-router-dom";
 export const UserProfile = () => {
   const [user, setUser] = useState({});
   const [load, setLoad] = useState(false);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -61,7 +62,7 @@ export const UserProfile = () => {
             aria-label="Disabled elevation buttons"
           >
             <Link to="added">User Recipes</Link>
-            <Link to="following">Following</Link>
+            <Link to="following">User Favourites</Link>
           </ButtonGroup>
         </StyledUserNavigation>
 

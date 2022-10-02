@@ -61,7 +61,7 @@ export const Content = ({ isLoggedIn }) => {
               </ProtectedRoute>
             }
           />
-          <Route path="/recipe/:id" element={<SingleRecipe isLoggedIn={isLoggedIn}/>} />
+          <Route path="/recipe/:id" element={<SingleRecipe />}/>
 
           <Route path="/user/:id" element={<UserProfile />}>
             <Route path="added" element={<UserRecipes />} />

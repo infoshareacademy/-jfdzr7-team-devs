@@ -33,8 +33,9 @@ const reducer = (currState, action) => {
 
 export const UserRecipes = () => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
-  const [visible, setVisible] = useState(4);
+  const [visible, setVisible] = useState(12);
   const { id } = useParams();
+
 
   const [state, dispatcher] = useReducer(reducer, {
     inputCategory: "",
@@ -67,7 +68,7 @@ export const UserRecipes = () => {
   }, []);
 
   const showMoreItems = () => {
-    setVisible((prev) => prev + 4);
+    setVisible((prev) => prev + 8);
   };
 
   const moreLoading = datafromFirebase.length - visible;

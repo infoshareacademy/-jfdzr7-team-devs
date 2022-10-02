@@ -38,7 +38,7 @@ import { UserDataContext } from "../../../App";
 
 import { AddFavourites } from "./AddFavourites"
 
-export const DisplayRecipe = ({ isLoggedIn }) => {
+export const DisplayRecipe = () => {
   const [recipe, setRecipe] = useState({});
   const [load, setLoad] = useState(false);
   const userData = useContext(UserDataContext);
@@ -70,7 +70,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
             {userData ? <AddFavourites id={id}/> : null }
           </StyledRecipeHeader>
 
-          <StyledAuthorLink to={`/user/${recipe.author}`}>
+          <StyledAuthorLink to={`/user/${recipe.author}/added`}>
             <GetUser userId={recipe.author} />
           </StyledAuthorLink>
 
@@ -153,7 +153,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
 
       <StyledCommentContainer>
         <SubHeadingBig>Comments</SubHeadingBig>
-        {isLoggedIn ? (
+        {!userData ? (
           <p>
             To add comments, please <Link to="/login">Log in</Link>
           </p>
