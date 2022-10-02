@@ -90,4 +90,4 @@ export const storageErrorsCodes = {
     "File on the client does not match the size of the file recieved by the server. Try uploading again.",
 };
 
-export const tags = ["Breakfast", "Mains", "Leftovers", "Vegetables", "Dinner"];
+export const tags = ["Breakfast", "Mains", "Snacks", "Desserts"];
