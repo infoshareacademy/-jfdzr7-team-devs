@@ -7,6 +7,7 @@ import { PageTitle } from "../../../utils/styles/Global.styled";
 import styled from "styled-components";
 import { InputElement } from "./InputElement";
 import { Button, Grid } from "@mui/material";
+import { useParams } from "react-router-dom";
 
 const reducer = (currState, action) => {
   switch (action.type) {
@@ -32,14 +33,21 @@ const reducer = (currState, action) => {
 };
 
 export const ListRecipes = () => {
+
+const {tag} = useParams()
+
+console.log(tag)
+
   const [datafromFirebase, setdatafromFirebase] = useState([]);
   const [visible, setVisible] = useState(12);
 
   const [state, dispatcher] = useReducer(reducer, {
-    inputCategory: "",
+    inputCategory: tag ? [tag] : "",
     textInput: "",
     inputState: false,
   });
+
+  console.log(state.inputCategory)
 
   const handelTextInput = (e) => {
     dispatcher({ type: "newTextInput", payload: e.target.value });
@@ -53,6 +61,7 @@ export const ListRecipes = () => {
       dispatcher({ type: "DELETE_ITEM", payload: e.target.name });
     }
   };
+
 
   useEffect(() => {
     onSnapshot(recipesCollection, (snapshot) => {
@@ -97,6 +106,7 @@ export const ListRecipes = () => {
         {tags.map((singleTag, index) => {
           return (
             <InputElement
+            isClicked={state.inputCategory.includes(singleTag)}
               key={index}
               tag={singleTag}
               handleInput={handleInput}
@@ -110,8 +120,7 @@ export const ListRecipes = () => {
         container
         spacing={3}
         sx={{
-          marginBottom: 2,
-          paddingRight: 2,
+          marginBottom: 2
         }}
         justifyContent="center"
       >

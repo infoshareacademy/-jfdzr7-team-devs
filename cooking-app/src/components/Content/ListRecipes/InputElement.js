@@ -1,7 +1,7 @@
 import React from 'react'
 import {Checkbox} from "@mui/material"
 
-export const InputElement = ({tag, handleInput}) => {
+export const InputElement = ({tag, handleInput, isClicked}) => {
   return (
     <>
     <label htmlFor={tag}>{tag}</label>
@@ -9,6 +9,7 @@ export const InputElement = ({tag, handleInput}) => {
         name={tag}
         type="checkbox"
         onChange={handleInput}
+        checked={isClicked}
       />
       </>
   )
