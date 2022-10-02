@@ -9,6 +9,7 @@ export const RecipeFormTextField = ({ name, label, onChange, value }) => {
       label={label} //"Title"
       multiline
       required
+      inputProps={{ maxLength: 500 }}
       variant={variantType.filled}
       name={name} //"name"
       // value={value}

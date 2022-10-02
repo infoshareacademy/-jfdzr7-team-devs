@@ -13,6 +13,7 @@ export const RecipeForm2 = ({
   onClick,
   handleSubmit,
   handlerTags,
+  handlerDiet,
   handlerIngredients,
   handlerMethods,
   handlerAddInputIngredient,
@@ -68,7 +69,11 @@ export const RecipeForm2 = ({
           Next step
         </Button>
       </div>
-      <MultipleSelectTags handlerTags={handlerTags} onChange={onChange} />
+      <MultipleSelectTags
+        handlerTags={handlerTags}
+        handlerDiet={handlerDiet}
+        onChange={onChange}
+      />
       <SelectImageToUpload
         onChange={onChange}
         onClick={onClick}

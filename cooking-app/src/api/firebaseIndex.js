@@ -91,3 +91,4 @@ export const storageErrorsCodes = {
 };
 
 export const tags = ["Breakfast", "Mains", "Leftovers", "Vegetables", "Dinner"];
+export const specialDiets = ["Dairy-free", "Vegetarian", "Gluten-free"];

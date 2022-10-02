@@ -19,6 +19,7 @@ import { RecipeForm2 } from "./RecipeForm";
 import { UserDataContext } from "../../../App";
 
 export const SelectedTagsContext = createContext([]);
+export const SelectedDietContext = createContext([]);
 export const IngredientsContext = createContext([]);
 export const PreparingContext = createContext([]);
 
@@ -28,10 +29,12 @@ const defaultRecipeValue = {
   description: "",
   ingredients: [],
   instructions: [],
-  comments: [],
+  // comments: [],
   tags: [],
-  time: "",
+  specialDiets: [],
+  time: { total: "" },
   servings: "",
+  difficulty: "",
   image: [],
   isApproved: false,
 };
@@ -97,6 +100,15 @@ export const AddRecipeNew = () => {
     );
   };
 
+  ///multiple select diet
+  const [selectedDiet, setSelectedDiet] = useState([]);
+  const handleChangeDiet = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedDiet(typeof value === "string" ? value.split(",") : value);
+  };
+
   // ingredients array
   const [ingredients, setIngredients] = useState([""]);
   const handleChangeIngredients = (e, index) => {
@@ -136,11 +148,18 @@ export const AddRecipeNew = () => {
     switch (e.target.name) {
       case "name":
       case "description":
-      case "time":
+
       case "servings":
+      case "difficulty":
         setFormValues({
           ...formValues,
           [e.target.name]: e.target.value,
+        });
+        break;
+      case "time":
+        setFormValues({
+          ...formValues,
+          time: { total: e.target.value },
         });
         break;
       case "ingredients":
@@ -160,6 +179,12 @@ export const AddRecipeNew = () => {
         setFormValues({
           ...formValues,
           tags: e.target.value,
+        });
+        break;
+      case "specialDiets":
+        setFormValues({
+          ...formValues,
+          specialDiets: e.target.value,
         });
         break;
       case "file":
@@ -185,22 +210,25 @@ export const AddRecipeNew = () => {
   return (
     <>
       <h2>Add Recipe</h2>
-      <PreparingContext.Provider value={methods}>
-        <IngredientsContext.Provider value={ingredients}>
-          <SelectedTagsContext.Provider value={selectedTags}>
-            <RecipeForm2
-              onChange={changeFormValues}
-              onClick={uploadImage}
-              handleSubmit={handleAddingRecipe}
-              handlerTags={handleChangeTags}
-              handlerIngredients={handleChangeIngredients}
-              handlerAddInputIngredient={handleAddTextInput}
-              handlerMethods={handleChangeMethods}
-              handlerAddInputMethod={handleMethodAddTextInput}
-            />
-          </SelectedTagsContext.Provider>
-        </IngredientsContext.Provider>
-      </PreparingContext.Provider>
+      <SelectedDietContext.Provider value={selectedDiet}>
+        <PreparingContext.Provider value={methods}>
+          <IngredientsContext.Provider value={ingredients}>
+            <SelectedTagsContext.Provider value={selectedTags}>
+              <RecipeForm2
+                onChange={changeFormValues}
+                onClick={uploadImage}
+                handleSubmit={handleAddingRecipe}
+                handlerTags={handleChangeTags}
+                handlerIngredients={handleChangeIngredients}
+                handlerAddInputIngredient={handleAddTextInput}
+                handlerMethods={handleChangeMethods}
+                handlerAddInputMethod={handleMethodAddTextInput}
+                handlerDiet={handleChangeDiet}
+              />
+            </SelectedTagsContext.Provider>
+          </IngredientsContext.Provider>
+        </PreparingContext.Provider>
+      </SelectedDietContext.Provider>
     </>
   );
 };
