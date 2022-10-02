@@ -14,6 +14,11 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 const usersCollection = collection(db, "users");
 
+// Funkcja działa na obiekcie:
+//// Firebase/users
+//  avatarUrl:{default:"http//:mmmmmmmm",
+//             custom: "http//:nnnnnnnn"}
+
 export const GetCurrentUserData = () => {
   const CurrentUser = useContext(UserDataContext);
   // console.log("-test useContext-", CurrentUser); // null
