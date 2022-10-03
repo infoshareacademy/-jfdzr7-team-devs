@@ -6,6 +6,7 @@ import {
   StyledAvatar,
   StyledDate,
   StyledAuthorContainer,
+  StyledAuthorSection
 } from "./SingleRecipe.styled";
 import moment from "moment";
 
@@ -20,14 +21,16 @@ export const GetAuthor = ({ userId, createdAt }) => {
   }, [userId]);
 
   return (
-    <StyledAuthorLink to={`/user/${user.uid}/added`}>
+    <StyledAuthorSection>
       <StyledAvatar alt={user.firstName} src={user.avatarUrl} />
       <StyledAuthorContainer>
+      <StyledAuthorLink to={`/user/${user.uid}/added`}>
         {user.firstName} {user.lastName}
+        </StyledAuthorLink>
         {createdAt && (
           <StyledDate>{moment(createdAt.toDate()).calendar()}</StyledDate>
         )}
       </StyledAuthorContainer>
-    </StyledAuthorLink>
+      </StyledAuthorSection>
   );
 };

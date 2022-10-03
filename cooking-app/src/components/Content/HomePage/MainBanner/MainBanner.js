@@ -8,7 +8,7 @@ import {
   StyledParagraph,
   StyledNavigation,
 } from "../MainBanner/MainBanner.styled";
-import { StyledLink } from "../../../../utils/styles/Global.styled";
+import { StyledLink, PageTitle } from "../../../../utils/styles/Global.styled";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { IconButton } from "@mui/material";
@@ -48,7 +48,7 @@ export const MainBanner = ({ slides }) => {
           <StyledBanner url={slides[currentSlideIndex].image} />
 
           <StyledDescription>
-            <StyledTitle>{slides[currentSlideIndex].name}</StyledTitle>
+            <PageTitle style= {{fontSize:"40px"}}>{slides[currentSlideIndex].name}</PageTitle>
             <StyledParagraph>
               {slides[currentSlideIndex].metaDescription}
             </StyledParagraph>

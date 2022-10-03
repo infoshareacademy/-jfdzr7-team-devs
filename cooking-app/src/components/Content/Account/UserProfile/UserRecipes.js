@@ -5,7 +5,7 @@ import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../../utils/GetDataFromSnapshot";
 import styled from "styled-components";
 import { InputElement } from "./InputElement";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, TextField, Checkbox } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 const reducer = (currState, action) => {
@@ -35,7 +35,6 @@ export const UserRecipes = () => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
   const [visible, setVisible] = useState(12);
   const { id } = useParams();
-
 
   const [state, dispatcher] = useReducer(reducer, {
     inputCategory: "",
@@ -93,13 +92,16 @@ export const UserRecipes = () => {
 
   return (
     <StyledDiv>
-      <StyledInputText
-        id="filter"
-        placeholder="please enter the recipe name..."
+      <TextField
+        multiline
+        placeholder="Find recipe"
+        variant="outlined"
         value={state.textInput}
         type="text"
         onChange={handelTextInput}
+        fullWidth
       />
+
       <br />
       <div>
         {tags.map((singleTag, index) => {
@@ -125,7 +127,7 @@ export const UserRecipes = () => {
       >
         {listofRecipe2}
       </Grid>
-      {(moreLoading >= 0) ? (
+      {moreLoading >= 0 ? (
         <Button onClick={showMoreItems} variant="contained">
           Show more
         </Button>

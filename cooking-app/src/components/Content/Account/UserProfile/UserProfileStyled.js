@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import Avatar from "@mui/material/Avatar";
+import Tab from "@mui/material/Tab";
+import { NavLink } from "react-router-dom";
 
 export const StyledLayout = styled.div`
-  background-color: lightsalmon;
+  /* background-color: lightgrey; */
   width: 100%;
   height: 100%;
   display: flex;
@@ -10,7 +12,11 @@ export const StyledLayout = styled.div`
 `;
 
 export const StyledUserCover = styled.div`
-  background-color: royalblue;
+  background: linear-gradient(
+    74deg,
+    rgba(227, 227, 227, 1) 0%,
+    rgba(191, 147, 49, 1) 96%
+  );
   height: 250px;
   width: 100%;
   padding: 25px;
@@ -20,7 +26,6 @@ export const StyledUserCover = styled.div`
 `;
 
 export const StyledUserData = styled.div`
-  background-color: lightgoldenrodyellow;
   display: flex;
   width: 100%;
   padding: 0 25px;
@@ -35,14 +40,13 @@ export const StyledAvatar = styled(Avatar)`
 `;
 
 export const StyledUserPhoto = styled.div`
-  background-color: lightpink;
   width: 200px;
   height: 100px;
   margin-left: 80px;
+  margin-bottom: 20px;
 `;
 
 export const StyledUserIntro = styled.div`
-  background-color: lightblue;
   display: flex;
   flex-direction: column;
   border-radius: 16px;
@@ -96,3 +100,5 @@ export const StyledAuthorName = styled.p`
   font-weight: 500;
   margin: 0px 20px;
 `;
+
+export const StyledTab = styled(NavLink)``;

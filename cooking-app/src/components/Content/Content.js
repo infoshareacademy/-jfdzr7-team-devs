@@ -4,7 +4,6 @@ import { HomePage } from "./HomePage/HomePage";
 import { ListRecipes } from "./ListRecipes/ListRecipes";
 import { Login } from "./Authorization/Login";
 import { UserProfile} from "./Account/UserProfile/UserProfile";
-import { Ebook } from "./Ebook/Ebook";
 import { Search } from "./Search/Search";
 import { SingleRecipe } from "./SingleRecipe/SingleRecipe";
 import Account from "./Account/Account";

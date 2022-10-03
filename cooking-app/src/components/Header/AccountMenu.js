@@ -31,7 +31,7 @@ const AccountMenu = () => {
   };
   return (
     <>
-      <Tooltip title="Account settings">
+      <Tooltip title="Account settings" >
         <IconButton
           onClick={handleClick}
           aria-controls={open ? "account-menu" : undefined}

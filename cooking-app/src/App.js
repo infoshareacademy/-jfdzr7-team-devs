@@ -10,6 +10,7 @@ import { createContext } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { Loader } from "./utils/Loader";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { NavBar } from "./components/Header/NavBar"
 
 export const UserDataContext = createContext({
   firstName: "",
@@ -74,7 +75,7 @@ function App() {
         <GlobalStyle />
         <UserDataContext.Provider value={userData}>
           <Wrapper>
-            <Header isLoggedIn={isLoggedIn} />
+            <NavBar isLoggedIn={isLoggedIn}/>
             {isLoggedIn === null ? (
               <Loader />
             ) : (

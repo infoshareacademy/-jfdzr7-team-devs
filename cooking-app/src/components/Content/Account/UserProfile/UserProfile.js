@@ -11,15 +11,21 @@ import {
   StyledContent,
   StyledUserData,
   StyledUserNavigation,
+  StyledTab,
 } from "./UserProfileStyled";
 import { singleUserCollection } from "../../../../api/firebaseIndex";
 import { Loader } from "../../../../utils/Loader";
 import { onSnapshot } from "firebase/firestore";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
+
+import Box from "@mui/material/Box";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 export const UserProfile = () => {
   const [user, setUser] = useState({});
   const [load, setLoad] = useState(false);
+  const [value, setValue] = useState(0);
 
   const { id } = useParams();
 
@@ -34,6 +40,11 @@ export const UserProfile = () => {
   if (load === false) {
     return <Loader />;
   }
+
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <>
@@ -54,16 +65,20 @@ export const UserProfile = () => {
           </StyledUserData>
         </StyledUserIntro>
 
-        <StyledUserNavigation>
-          <ButtonGroup
-            disableElevation
-            variant="contained"
-            aria-label="Disabled elevation buttons"
-          >
-            <Link to="added">User Recipes</Link>
-            <Link to="following">User Favourites</Link>
-          </ButtonGroup>
-        </StyledUserNavigation>
+
+
+
+          <Box sx={{ width: "100%", my:2 }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="nav tabs example"
+            >
+              <Tab label="User Recipes" component={NavLink} to="added" />
+              <Tab label="User Favourites" component={NavLink} to="following" />
+            </Tabs>
+          </Box>
+ 
 
         <StyledContent>
           <Outlet />
@@ -72,3 +87,10 @@ export const UserProfile = () => {
     </>
   );
 };
+
+{/* <MenuItem component={NavLink} to="/account">
+  <ListItemIcon>
+    <Settings fontSize="small" />
+  </ListItemIcon>
+  Settings
+</MenuItem>; */}

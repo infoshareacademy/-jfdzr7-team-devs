@@ -19,12 +19,7 @@ export const StyledComment = styled.div`
   padding: 20px 0;
 `;
 export const StyledAuthorLink = styled(Link)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 0;
   text-decoration: none;
-  margin-bottom: 20px;
   color: var(--color-black);
 
   &:hover {
@@ -32,8 +27,13 @@ export const StyledAuthorLink = styled(Link)`
   }
 `;
 
-export const StyledCommentAuthorLink = styled(StyledAuthorLink)`
+export const StyledAuthorSection = styled.div`
   display: flex;
+  /* display: inline-block; */
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  margin-bottom: 20px;
 `;
 
 export const StyledAuthorContainer = styled.div`
