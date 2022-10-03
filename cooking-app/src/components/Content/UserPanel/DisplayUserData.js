@@ -1,14 +1,16 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { UserDataContext } from "../../../App";
-import { IconButton, Button, Paper } from "@mui/material";
+import { IconButton, Button, Paper, Avatar } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import CloseIcon from "@mui/icons-material/Close";
 import { v4 } from "uuid";
 import { storageErrorsCodes } from "../../../api/firebaseIndex";
-import { ref, uploadBytes } from "firebase/storage";
+import { deleteObject, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../api/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../api/firebase";
+import { textAlign } from "@mui/system";
 
 const defaultAvatar =
   "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2Favatar%20default.jpg8d69a1ee-c52d-4004-83a4-d5efa733c5ab?alt=media&token=78be46ed-8666-41d2-b987-b8782d27da63";
@@ -25,12 +27,13 @@ export const DisplayUserData = () => {
 
   const [currentUserData, setCurrentUserData] = useState(null);
   useEffect(() => {
-    // console.log("--useEffect CurrentUser-", CurrentUser); //null
+    console.log("--useEffect CurrentUser-", CurrentUser); //null
     setCurrentUserData(CurrentUser);
   }, [CurrentUser]);
 
   const [imageUpload, setImageUpload] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState(null);
+  const [avatarUrlId, setAvatarUrlId] = useState("");
 
   const handlerImageUpload = (e) => {
     setImageUpload(e.target.files[0]);
@@ -45,6 +48,7 @@ export const DisplayUserData = () => {
         setAvatarUrl(
           `${urlStorageAvatars}${response.metadata.name}${urlStorageAvatarsCD}`
         );
+        setAvatarUrlId(response.metadata.name);
       })
       .catch((e) => {
         alert(storageErrorsCodes[e.code]);
@@ -57,7 +61,12 @@ export const DisplayUserData = () => {
   }, [currentUserData]);
 
   const UpdateUserAvatar = (e) => {
-    updateDoc(docRefUser, { avatarUrl: avatarUrl }).catch((e) => alert(e));
+    updateDoc(docRefUser, {
+      avatarUrl: avatarUrl,
+      avatarUrlId: avatarUrlId,
+    }).catch((e) => alert(e));
+    setAvatarUrl(null);
+    setImageUpload(null); // ostatnie
     alert("avatar updated");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
@@ -67,10 +76,29 @@ export const DisplayUserData = () => {
     });
   };
 
-  const deleteAvatar = () => {
+  // import { getStorage, ref, deleteObject } from "firebase/storage";
+
+  // const storage = getStorage();
+
+  // // Create a reference to the file to delete
+  // const desertRef = ref(storage, 'images/desert.jpg');
+
+  // // Delete the file
+  // deleteObject(desertRef).then(() => {
+  //   // File deleted successfully
+  // }).catch((error) => {
+  //   // Uh-oh, an error occurred!
+  // });
+
+  const userAvatarRef = ref(storage, `avatar/${currentUserData?.avatarUrlId}`);
+
+  const deleteAvatar = (e) => {
     updateDoc(docRefUser, {
-      avatarUrl: defaultAvatar,
+      avatarUrl: "", //defaultAvatar,
+      avatarUrlId: "",
     }).catch((e) => alert(e));
+    deleteObject(userAvatarRef).catch((e) => alert(e));
+
     alert("avatar deleted");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
@@ -92,27 +120,47 @@ export const DisplayUserData = () => {
         }}
       >
         {avatarUrl ? (
-          <img
-            src={avatarUrl}
-            alt="avatar"
-            style={{
-              width: "200px",
-              height: "200px",
-              borderRadius: "50%",
-              marginTop: "16px",
-            }}
-          />
+          <>
+            <CloseIcon
+              onClick={() => {
+                setAvatarUrl(null);
+                deleteObject(userAvatarRef);
+              }}
+            />
+            <img
+              src={avatarUrl}
+              alt="avatar"
+              style={{
+                width: "200px",
+                height: "200px",
+                borderRadius: "50%",
+                marginTop: "20px",
+                marginLeft: "20px",
+              }}
+            />
+          </>
         ) : (
-          <img
-            src={currentUserData?.avatarUrl}
-            alt="avatar"
-            style={{
-              width: "200px",
-              height: "200px",
-              borderRadius: "50%",
-              marginTop: "24px",
-            }}
-          />
+          <>
+            {/* <img
+              src={currentUserData?.avatarUrl}
+              alt="avatar"
+              style={{
+                width: "200px",
+                height: "200px",
+                borderRadius: "50%",
+                marginTop: "24px",
+              }}
+            /> */}
+            <Avatar
+              alt={currentUserData?.firstName}
+              src={currentUserData?.avatarUrl}
+              sx={{
+                width: 200,
+                height: 200,
+                m: 2.2,
+              }}
+            />
+          </>
         )}
 
         <div
@@ -140,15 +188,26 @@ export const DisplayUserData = () => {
               />
               <PhotoCamera />
             </IconButton>
-            <Button onClick={uploadImage} variant="contained">
+            <Button
+              onClick={uploadImage}
+              variant="contained"
+              disabled={!imageUpload}
+            >
               Take a look ;)
             </Button>
           </div>
-          <div style={{ marginTop: "40px", marginBottom: "24px" }}>
+          <div
+            style={{
+              marginTop: "40px",
+              marginBottom: "24px",
+              textAlign: "center",
+            }}
+          >
             <Button
               onClick={UpdateUserAvatar}
               variant="contained"
-              style={{ marginRight: "16px" }}
+              style={{ margin: "16px" }}
+              disabled={!avatarUrl}
             >
               Save Update
             </Button>
@@ -156,11 +215,15 @@ export const DisplayUserData = () => {
             <Button
               onClick={deleteAvatar}
               variant="contained"
-              style={{ marginRight: "16px" }}
+              style={{ margin: "16px" }}
             >
               Delete Avatar
             </Button>
-            <Button onClick={deleteAvatar} variant="contained">
+            <Button
+              onClick={deleteAvatar}
+              variant="contained"
+              style={{ margin: "16px" }}
+            >
               Delete Account
             </Button>
           </div>
