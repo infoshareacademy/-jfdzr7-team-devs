@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { UserDataContext } from "../../../App";
 import { IconButton, Button, Paper, Avatar } from "@mui/material";
@@ -10,7 +11,6 @@ import { deleteObject, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../api/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../api/firebase";
-import { textAlign } from "@mui/system";
 
 const defaultAvatar =
   "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2Favatar%20default.jpg8d69a1ee-c52d-4004-83a4-d5efa733c5ab?alt=media&token=78be46ed-8666-41d2-b987-b8782d27da63";
@@ -110,38 +110,40 @@ export const DisplayUserData = () => {
   return (
     <>
       <h3>Twoje dane {currentUserData?.firstName}</h3>
-      <Paper
-        elevation={6}
-        sx={{
-          m: 16,
-          display: "flex",
-          flexFlow: "row wrap",
-          justifyContent: "space-around",
-        }}
-      >
-        {avatarUrl ? (
-          <>
-            <CloseIcon
-              onClick={() => {
-                setAvatarUrl(null);
-                deleteObject(userAvatarRef);
-              }}
-            />
-            <img
-              src={avatarUrl}
-              alt="avatar"
-              style={{
-                width: "200px",
-                height: "200px",
-                borderRadius: "50%",
-                marginTop: "20px",
-                marginLeft: "20px",
-              }}
-            />
-          </>
-        ) : (
-          <>
-            {/* <img
+      <StyledDispalyUserData>
+        <Paper
+          className="paper"
+          elevation={6}
+          sx={{
+            m: 16,
+            display: "flex",
+            flexFlow: "row wrap",
+            justifyContent: "space-around",
+          }}
+        >
+          {avatarUrl ? (
+            <>
+              <CloseIcon
+                onClick={() => {
+                  setAvatarUrl(null);
+                  deleteObject(userAvatarRef);
+                }}
+              />
+              <img
+                src={avatarUrl}
+                alt="avatar"
+                style={{
+                  width: "200px",
+                  height: "200px",
+                  borderRadius: "50%",
+                  marginTop: "20px",
+                  marginLeft: "20px",
+                }}
+              />
+            </>
+          ) : (
+            <>
+              {/* <img
               src={currentUserData?.avatarUrl}
               alt="avatar"
               style={{
@@ -151,95 +153,95 @@ export const DisplayUserData = () => {
                 marginTop: "24px",
               }}
             /> */}
-            <Avatar
-              alt={currentUserData?.firstName}
-              src={currentUserData?.avatarUrl}
-              sx={{
-                width: 200,
-                height: 200,
-                m: 2.2,
-              }}
-            />
-          </>
-        )}
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <div style={{ textAlign: "center" }}>
-            <h2>{currentUserData?.firstName}</h2>
-            <p>{currentUserData?.email}</p>
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="label"
-            >
-              <input
-                hidden
-                accept="image/*"
-                type="file"
-                name="file"
-                onChange={handlerImageUpload}
-                // ref={imageInputRef}
+              <Avatar
+                alt={currentUserData?.firstName}
+                src={currentUserData?.avatarUrl}
+                sx={{
+                  width: 200,
+                  height: 200,
+                  m: 2.5,
+                }}
               />
-              <PhotoCamera />
-            </IconButton>
-            <Button
-              onClick={uploadImage}
-              variant="contained"
-              disabled={!imageUpload}
-            >
-              Take a look ;)
-            </Button>
-          </div>
+            </>
+          )}
+
           <div
             style={{
-              marginTop: "40px",
-              marginBottom: "24px",
-              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            <Button
-              onClick={UpdateUserAvatar}
-              variant="contained"
-              style={{ margin: "16px" }}
-              disabled={!avatarUrl}
+            <div style={{ textAlign: "center" }}>
+              <h2>{currentUserData?.firstName}</h2>
+              <p>{currentUserData?.email}</p>
+              <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="label"
+              >
+                <input
+                  hidden
+                  accept="image/*"
+                  type="file"
+                  name="file"
+                  onChange={handlerImageUpload}
+                  // ref={imageInputRef}
+                />
+                <PhotoCamera />
+              </IconButton>
+              <Button
+                onClick={uploadImage}
+                variant="contained"
+                disabled={!imageUpload}
+              >
+                Take a look ;)
+              </Button>
+            </div>
+            <div
+              style={{
+                marginTop: "40px",
+                marginBottom: "24px",
+                textAlign: "center",
+              }}
             >
-              Save Update
-            </Button>
+              <Button
+                onClick={UpdateUserAvatar}
+                variant="contained"
+                style={{ margin: "16px" }}
+                disabled={!avatarUrl}
+              >
+                Save Update
+              </Button>
 
-            <Button
-              onClick={deleteAvatar}
-              variant="contained"
-              style={{ margin: "16px" }}
-            >
-              Delete Avatar
-            </Button>
-            <Button
-              onClick={deleteAvatar}
-              variant="contained"
-              style={{ margin: "16px" }}
-            >
-              Delete Account
-            </Button>
+              <Button
+                onClick={deleteAvatar}
+                variant="contained"
+                style={{ margin: "16px" }}
+              >
+                Delete Avatar
+              </Button>
+              <Button
+                onClick={deleteAvatar}
+                variant="contained"
+                style={{ margin: "16px" }}
+              >
+                Delete Account
+              </Button>
+            </div>
           </div>
-        </div>
-      </Paper>
-      {/* <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          backgroundColor: "var(--color-little-light-gray)",
-          height: "360px",
-        }}
-      > */}
+        </Paper>
+      </StyledDispalyUserData>
 
       {/* </div> */}
     </>
   );
 };
+
+const StyledDispalyUserData = styled.div`
+  @media screen and (max-width: 500px) {
+    .paper {
+      margin: 4px;
+    }
+  }
+`;
