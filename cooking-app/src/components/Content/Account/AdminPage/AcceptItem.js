@@ -22,7 +22,12 @@ const AcceptItem = ({ item, children }) => {
     <ListItem>
       <Card raised sx={{ maxHeight: expanded ? null : 150, width: 1 }}>
         <Box
-          sx={{ display: "flex", flex: "1", justifyContent: "space-between" }}
+          sx={{
+            display: "flex",
+            flex: "1",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
           <CardMedia
             component="img"
@@ -51,9 +56,9 @@ const AcceptItem = ({ item, children }) => {
           <CardContent sx={{ display: "flex" }}>
             <List sx={{ flexBasis: "30%" }}>
               <Typography paragraph>Ingredients:</Typography>
-              {item.ingredients.map((ingredient) => {
-                return <ListItem>{ingredient}</ListItem>;
-              })}
+              {item.ingredients.map((ingredient) => (
+                <ListItem>{ingredient}</ListItem>
+              ))}
             </List>
             <List sx={{ flexBasis: "70%" }}>
               <Typography paragraph>Method:</Typography>

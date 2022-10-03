@@ -64,10 +64,7 @@ const AddToBanner = ({ id }) => {
   };
 
   return (
-    <IconButton
-      style={{ height: "51px", alignSelf: "start", marginTop: "14px" }}
-      onClick={handleChange}
-    >
+    <IconButton style={{ height: "51px" }} onClick={handleChange}>
       {banner ? (
         <BookmarkAddedIcon color="neutral" fontSize="large" />
       ) : (
