@@ -84,7 +84,7 @@ export const UserRecipes = () => {
     .slice(0, visible)
     .map((singleRecipe, index) => {
       return (
-        <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+        <Grid key={index} item xs={12} sm={12} md={4} lg={3} >
           <IndividualRecipe singleRecipe={singleRecipe} />
         </Grid>
       );
@@ -102,7 +102,7 @@ export const UserRecipes = () => {
         fullWidth
       />
 
-      <br />
+    
       <div>
         {tags.map((singleTag, index) => {
           return (
@@ -118,17 +118,13 @@ export const UserRecipes = () => {
       <Grid
         direction="row"
         container
-        spacing={3}
-        sx={{
-          marginBottom: 2,
-          paddingRight: 2,
-        }}
-        justifyContent="center"
+        spacing={4}
+        sx={{py:5}}
       >
         {listofRecipe2}
       </Grid>
       {moreLoading >= 0 ? (
-        <Button onClick={showMoreItems} variant="contained">
+        <Button onClick={showMoreItems} variant="contained" sx={{mb:10}}>
           Show more
         </Button>
       ) : null}

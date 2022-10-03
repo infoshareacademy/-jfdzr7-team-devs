@@ -126,7 +126,7 @@ export const StyledUpladImg = styled(StyledUpladContainer)`
 
 ////////////////////
 export const StyledCommentContainer = styled.div`
-  padding: 25px;
+  padding: 25px 0;
 `;
 
 export const StyledRecipeContainer = styled.div`
@@ -189,12 +189,12 @@ export const StyledRecipeDetails = styled.div`
 
 export const StyledAsideRecipe = styled.div`
   width: 40%;
-  padding: 0 25px;
+  padding-right: 24px;
 `;
 
 export const StyledMainContent = styled.div`
   width: 60%;
-  padding: 0 25px;
+  padding-left: 24px;
 `;
 
 export const SubHeading = styled.p`

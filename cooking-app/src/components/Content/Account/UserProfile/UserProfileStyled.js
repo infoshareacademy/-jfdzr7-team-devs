@@ -4,7 +4,6 @@ import Tab from "@mui/material/Tab";
 import { NavLink } from "react-router-dom";
 
 export const StyledLayout = styled.div`
-  /* background-color: lightgrey; */
   width: 100%;
   height: 100%;
   display: flex;

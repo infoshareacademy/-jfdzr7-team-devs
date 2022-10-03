@@ -1,17 +1,11 @@
-import {
-  onSnapshot,
-  getDoc,
-} from "firebase/firestore";
-import { useEffect, useReducer, useState, useRef } from "react";
-import {
-  singleUserCollection,
-  singleRecipeCollection,
-  tags,
-} from "../../../../api/firebaseIndex";
+import { onSnapshot, query, where } from "firebase/firestore";
+import { useEffect, useReducer, useState } from "react";
+import { recipesCollection, tags } from "../../../../api/firebaseIndex";
 import { IndividualRecipe } from "./IndividualRecipe";
+import { getDataFromSnapshot } from "../../../../utils/GetDataFromSnapshot";
 import styled from "styled-components";
 import { InputElement } from "./InputElement";
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, Checkbox } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 const reducer = (currState, action) => {
@@ -37,31 +31,10 @@ const reducer = (currState, action) => {
   }
 };
 
-export const UserFollowing = () => {
+export const UserRecipes = () => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
   const [visible, setVisible] = useState(12);
   const { id } = useParams();
-  const [user, setUser] = useState([]);
-  const preventUpdate = useRef(false);
-
-  useEffect(() => {
-    const userRef = singleUserCollection(id);
-    onSnapshot(userRef, (doc) => {
-      setUser(doc.data(), doc.id);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (user.favourites && !preventUpdate.current) {
-      preventUpdate.current = true;
-      user.favourites.forEach((recipeId) => {
-        getDoc(singleRecipeCollection(recipeId)).then((recipe) => {
-          setdatafromFirebase((current) => [...current, recipe.data()]);
-        });
-      });
-    }
-  }, [user]);
-
 
   const [state, dispatcher] = useReducer(reducer, {
     inputCategory: "",
@@ -82,6 +55,17 @@ export const UserFollowing = () => {
     }
   };
 
+  useEffect(() => {
+    const q = query(
+      recipesCollection,
+      where("isApproved", "==", true),
+      where("author", "==", id)
+    );
+    onSnapshot(q, (snapshot) => {
+      setdatafromFirebase(getDataFromSnapshot(snapshot));
+    });
+  }, []);
+
   const showMoreItems = () => {
     setVisible((prev) => prev + 8);
   };
@@ -100,16 +84,16 @@ export const UserFollowing = () => {
     .slice(0, visible)
     .map((singleRecipe, index) => {
       return (
-        <Grid key={index} item xs={12} sm={12} md={4} lg={3}>
+        <Grid key={index} item xs={12} sm={6} md={3} >
+          {/* <Grid key={index} item xs={12} sm={6} md={3} lg={3}> */}
           <IndividualRecipe singleRecipe={singleRecipe} />
         </Grid>
       );
     });
-  
 
   return (
     <StyledDiv>
- <TextField
+      <TextField
         multiline
         placeholder="Find recipe"
         variant="outlined"
@@ -118,7 +102,8 @@ export const UserFollowing = () => {
         onChange={handelTextInput}
         fullWidth
       />
-    
+
+      <br />
       <div>
         {tags.map((singleTag, index) => {
           return (
@@ -134,16 +119,20 @@ export const UserFollowing = () => {
       <Grid
         direction="row"
         container
-        spacing={4}
-        sx={{py:5}}
+        spacing={3}
+        sx={{
+          marginBottom: 2,
+          paddingRight: 2,
+        }}
+        justifyContent="center"
       >
         {listofRecipe2}
       </Grid>
       {moreLoading >= 0 ? (
-        <Button onClick={showMoreItems} variant="contained"  sx={{mb:10}}>
+        <Button onClick={showMoreItems} variant="contained">
           Show more
         </Button>
-      ) : null} 
+      ) : null}
     </StyledDiv>
   );
 };

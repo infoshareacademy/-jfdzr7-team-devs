@@ -36,12 +36,13 @@ export const Container = styled.div`
   max-width: 100%;
   width: 1200px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 24px;
+  /* background-color: var(--color-main-light-gray); */
 `;
 
 export const PageTitle = styled.h1`
   margin: 0;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 60px;
   padding: 0 0 16px 0;
 `;
