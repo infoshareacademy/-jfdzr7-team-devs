@@ -14,6 +14,7 @@ import { LibraryAdd, Logout, Settings } from "@mui/icons-material";
 import { signOut } from "firebase/auth";
 import { auth } from "../../api/firebase";
 import { NavLink } from "react-router-dom";
+import {CustomAvatar} from "./CustomAvatar";
 
 const AccountMenu = () => {
   const userData = useContext(UserDataContext);
@@ -38,7 +39,8 @@ const AccountMenu = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar alt={userData?.firstName} src={userData?.avatarUrl} />
+          {/*<Avatar alt={userData?.firstName} src={userData?.avatarUrl} />*/}
+          <CustomAvatar/>
           <KeyboardArrowDownIcon />
         </IconButton>
       </Tooltip>
