@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserDataContext } from "../../../App";
+import React, { useEffect, useState } from "react";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import {
@@ -16,7 +15,6 @@ import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { IconButton } from "@mui/material";
 
 const AddToBanner = ({ id }) => {
-  const userData = useContext(UserDataContext);
   const docRef = bannerArrayDocument("bannerArrayDocument");
 
   const [bannerArray, setBannerArray] = useState([]);
@@ -30,10 +28,11 @@ const AddToBanner = ({ id }) => {
 
   useEffect(() => {
     setBanner(
-      bannerArray?.some((recipeId) => {
+      bannerArray[0]?.bannerArray.some((recipeId) => {
         return recipeId === id;
       })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bannerArray]);
 
   const addToBanner = () => {
@@ -60,7 +59,7 @@ const AddToBanner = ({ id }) => {
       });
   };
 
-  const handleChange = (e) => {
+  const handleChange = () => {
     banner ? removeFromBanner() : addToBanner();
   };
 
