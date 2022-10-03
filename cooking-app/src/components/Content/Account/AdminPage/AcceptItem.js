@@ -12,7 +12,7 @@ import {
 import { Box } from "@mui/system";
 import { useState } from "react";
 
-const AcceptItem = ({ item }) => {
+const AcceptItem = ({ item, children }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -45,6 +45,7 @@ const AcceptItem = ({ item }) => {
               }}
             />
           </IconButton>
+          {children}
         </Box>
         <Collapse in={expanded} timeout={1000} unmountOnExit>
           <CardContent sx={{ display: "flex" }}>
@@ -56,7 +57,7 @@ const AcceptItem = ({ item }) => {
             </List>
             <List sx={{ flexBasis: "70%" }}>
               <Typography paragraph>Method:</Typography>
-              {item.instructions.map((instruction, index) => {
+              {item.instructions.map((instruction) => {
                 return <ListItem>{instruction}</ListItem>;
               })}
             </List>
