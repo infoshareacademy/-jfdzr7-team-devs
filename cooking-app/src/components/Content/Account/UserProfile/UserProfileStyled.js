@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import Avatar from "@mui/material/Avatar";
-import Tab from "@mui/material/Tab";
 import { NavLink } from "react-router-dom";
 import { Paper } from "@mui/material";
 
@@ -20,7 +18,7 @@ export const StyledUserCover = styled(Paper)`
   height: 250px;
   width: 100%;
   padding: 25px;
-  min-width:300px;
+  min-width: 300px;
 `;
 
 export const StyledAuthorName = styled.p`
@@ -67,7 +65,3 @@ export const StyledUserDetails = styled.div`
   align-content: center;
   top: 50%;
 `;
-
-
-
-export const StyledTab = styled(NavLink)``;

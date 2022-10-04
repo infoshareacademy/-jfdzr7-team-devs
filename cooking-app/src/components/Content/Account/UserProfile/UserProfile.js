@@ -1,27 +1,14 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { ButtonGroup, Button, Grid, Paper, Avatar } from "@mui/material";
+import { useState, useEffect, createContext } from "react";
+import { useParams, Outlet, NavLink } from "react-router-dom";
+import { Paper, Avatar, Box, Tabs, Tab } from "@mui/material";
 import {
   StyledUserCover,
   StyledLayout,
-  StyledUserPhoto,
   StyledAuthorName,
-  StyledUserIntro,
-  StyledAvatar,
-  StyledContent,
-  StyledUserData,
-  StyledUserNavigation,
-  StyledTab,
 } from "./UserProfileStyled";
 import { singleUserCollection } from "../../../../api/firebaseIndex";
 import { Loader } from "../../../../utils/Loader";
 import { onSnapshot } from "firebase/firestore";
-import { Outlet, NavLink } from "react-router-dom";
-import { createContext } from "react";
-import Box from "@mui/material/Box";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import { height } from "@mui/system";
 
 export const UserProfileContext = createContext({
   firstName: "",
@@ -61,7 +48,6 @@ export const UserProfile = () => {
       <StyledLayout>
         <Paper elevation={3} sx={{ minWidth: 300 }}>
           <StyledUserCover />
-
           <Box
             sx={{
               display: "flex",

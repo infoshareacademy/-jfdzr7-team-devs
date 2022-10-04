@@ -3,9 +3,8 @@ import { useEffect, useReducer, useState } from "react";
 import { recipesCollection, tags } from "../../../../api/firebaseIndex";
 import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../../utils/GetDataFromSnapshot";
-import styled from "styled-components";
 import { InputElement } from "./InputElement";
-import { Button, Grid, TextField, Checkbox, Box, Typography } from "@mui/material";
+import { Button, Grid, TextField, Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 const reducer = (currState, action) => {
@@ -93,9 +92,9 @@ export const UserRecipes = () => {
   return (
     <Box>
       {!datafromFirebase ? (
-        <Typography 
-        sx={{p:"16px"}}
-        >User has not added any recipes yet</Typography>
+        <Typography sx={{ p: "16px" }}>
+          User has not added any recipes yet
+        </Typography>
       ) : (
         <Box>
           <TextField
@@ -108,7 +107,7 @@ export const UserRecipes = () => {
             fullWidth
           />
 
-          <Box sx={{my:2}}>
+          <Box sx={{ my: 2 }}>
             {tags.map((singleTag, index) => {
               return (
                 <InputElement
@@ -124,10 +123,14 @@ export const UserRecipes = () => {
             {listofRecipe2}
           </Grid>
           {moreLoading >= 0 ? (
-            <Box sx={{display:'flex', justifyContent:"center"}}>
-            <Button onClick={showMoreItems} variant="contained" sx={{ mb: 10 }}>
-              Show more
-            </Button>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                onClick={showMoreItems}
+                variant="contained"
+                sx={{ mb: 10 }}
+              >
+                Show more
+              </Button>
             </Box>
           ) : null}
         </Box>

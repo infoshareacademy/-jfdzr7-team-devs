@@ -1,16 +1,9 @@
-import { onSnapshot, getDoc } from "firebase/firestore";
+import { getDoc } from "firebase/firestore";
 import { useEffect, useReducer, useState, useRef, useContext } from "react";
-import {
-  singleUserCollection,
-  singleRecipeCollection,
-  tags,
-} from "../../../../api/firebaseIndex";
+import { singleRecipeCollection, tags } from "../../../../api/firebaseIndex";
 import { IndividualRecipe } from "./IndividualRecipe";
-import styled from "styled-components";
 import { InputElement } from "./InputElement";
 import { Button, Grid, TextField, Box, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
-import { Loader } from "../../../../utils/Loader";
 import { UserProfileContext } from "./UserProfile";
 
 const reducer = (currState, action) => {
@@ -39,7 +32,7 @@ const reducer = (currState, action) => {
 export const UserFollowing = () => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
   const [visible, setVisible] = useState(12);
-  const { id } = useParams();
+  // const { id } = useParams();
   // const [user, setUser] = useState([]);
   const preventUpdate = useRef(false);
   const user = useContext(UserProfileContext);
@@ -107,7 +100,7 @@ export const UserFollowing = () => {
 
   return (
     <Box>
-      {(user.favourites==0) ? (
+      {user.favourites == 0 ? (
         <Typography sx={{ p: "16px" }}>
           User has not saved any recipes yet
         </Typography>
