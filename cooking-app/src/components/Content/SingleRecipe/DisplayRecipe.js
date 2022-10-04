@@ -27,16 +27,10 @@ import {
   StyledListItem,
   StyledRecipeDescriptionDetails,
   StyledTagsDiet,
-<<<<<<< HEAD
-=======
-  StyledAuthorLink,
->>>>>>> develop
   StyledRecipeHeader,
 } from "./SingleRecipe.styled";
 import { GetAuthor } from "./GetAuthor";
 import { UserDataContext } from "../../../App";
-import { AddFavourites } from "./AddFavourites";
-
 import { AddFavourites } from "./AddFavourites";
 import AddToBanner from "./AddToBanner";
 
