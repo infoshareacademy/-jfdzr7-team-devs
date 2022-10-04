@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Avatar from "@mui/material/Avatar";
 import Tab from "@mui/material/Tab";
 import { NavLink } from "react-router-dom";
+import { Paper } from "@mui/material";
 
 export const StyledLayout = styled.div`
   width: 100%;
@@ -10,7 +11,7 @@ export const StyledLayout = styled.div`
   flex-direction: column;
 `;
 
-export const StyledUserCover = styled.div`
+export const StyledUserCover = styled(Paper)`
   background: linear-gradient(
     74deg,
     rgba(227, 227, 227, 1) 0%,
@@ -19,39 +20,13 @@ export const StyledUserCover = styled.div`
   height: 250px;
   width: 100%;
   padding: 25px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
+  min-width:300px;
 `;
 
-export const StyledUserData = styled.div`
-  display: flex;
-  width: 100%;
-  padding: 0 25px;
-  align-items: center;
-`;
-
-export const StyledAvatar = styled(Avatar)`
-  position: absolute;
-  z-index: 1;
-  bottom: -125px;
-  margin-left: 80px;
-`;
-
-export const StyledUserPhoto = styled.div`
-  width: 200px;
-  height: 100px;
-  margin-left: 80px;
-  margin-bottom: 20px;
-`;
-
-export const StyledUserIntro = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-radius: 16px;
-  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-  contain: content;
+export const StyledAuthorName = styled.p`
+  color: var(--color-black);
+  font-weight: 500;
+  margin: 0px 20px;
 `;
 
 export const StyledUserNavigation = styled.div`
@@ -94,10 +69,6 @@ export const StyledUserDetails = styled.div`
   top: 50%;
 `;
 
-export const StyledAuthorName = styled.p`
-  color: var(--color-black);
-  font-weight: 500;
-  margin: 0px 20px;
-`;
+
 
 export const StyledTab = styled(NavLink)``;
