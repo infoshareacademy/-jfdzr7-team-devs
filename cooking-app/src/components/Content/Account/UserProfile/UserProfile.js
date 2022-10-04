@@ -17,11 +17,21 @@ import { singleUserCollection } from "../../../../api/firebaseIndex";
 import { Loader } from "../../../../utils/Loader";
 import { onSnapshot } from "firebase/firestore";
 import { Outlet, NavLink } from "react-router-dom";
-
+import { createContext } from "react";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { height } from "@mui/system";
+
+export const UserProfileContext = createContext({
+  firstName: "",
+  lastName: "",
+  email: "",
+  role: "",
+  uid: "",
+  favourites: [],
+  avatarUrl: "",
+});
 
 export const UserProfile = () => {
   const [user, setUser] = useState({});
@@ -49,29 +59,31 @@ export const UserProfile = () => {
   return (
     <>
       <StyledLayout>
-        <Paper elevation={3} sx={{minWidth:300}}>
+        <Paper elevation={3} sx={{ minWidth: 300 }}>
           <StyledUserCover />
 
-          <Box sx={{
-                display: "flex",
-                justifyContent: {xs:"center", md:"left"},
-                ml: {md:"150px"},
-                position: "relative",
-                height: {xs:125, sm:180 },
-              }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: { xs: "center", md: "left" },
+              ml: { md: "150px" },
+              position: "relative",
+              height: { xs: 125, sm: 180 },
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 position: "absolute",
-                zIndex:1,
+                zIndex: 1,
                 top: "-50px",
               }}
             >
               <Avatar
                 alt={user.firstName}
                 src={user.avatarUrl}
-                sx={{ width: {xs:150, sm:200 }, height: "auto" }}
+                sx={{ width: { xs: 150, sm: 200 }, height: "auto" }}
               />
               <StyledAuthorName>
                 {user.firstName} {user.lastName}
@@ -80,23 +92,23 @@ export const UserProfile = () => {
           </Box>
         </Paper>
 
+        <UserProfileContext.Provider value={user}>
+          <Box sx={{ width: "100%", my: 2 }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="nav tabs example"
+            >
+              <Tab label="User Recipes" component={NavLink} to="added" />
+              <Tab label="User Favourites" component={NavLink} to="following" />
+            </Tabs>
+          </Box>
 
-        <Box sx={{ width: "100%", my: 2 }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="nav tabs example"
-          >
-            <Tab label="User Recipes" component={NavLink} to="added"/>
-            <Tab label="User Favourites" component={NavLink} to="following" />
-          </Tabs>
-        </Box>
-
-        <StyledContent>
-          <Outlet />
-        </StyledContent>
+          <Box>
+            <Outlet />
+          </Box>
+        </UserProfileContext.Provider>
       </StyledLayout>
     </>
   );
 };
-

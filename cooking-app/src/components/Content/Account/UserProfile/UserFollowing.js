@@ -1,8 +1,5 @@
-import {
-  onSnapshot,
-  getDoc,
-} from "firebase/firestore";
-import { useEffect, useReducer, useState, useRef } from "react";
+import { onSnapshot, getDoc } from "firebase/firestore";
+import { useEffect, useReducer, useState, useRef, useContext } from "react";
 import {
   singleUserCollection,
   singleRecipeCollection,
@@ -11,8 +8,10 @@ import {
 import { IndividualRecipe } from "./IndividualRecipe";
 import styled from "styled-components";
 import { InputElement } from "./InputElement";
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { Loader } from "../../../../utils/Loader";
+import { UserProfileContext } from "./UserProfile";
 
 const reducer = (currState, action) => {
   switch (action.type) {
@@ -41,15 +40,16 @@ export const UserFollowing = () => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
   const [visible, setVisible] = useState(12);
   const { id } = useParams();
-  const [user, setUser] = useState([]);
+  // const [user, setUser] = useState([]);
   const preventUpdate = useRef(false);
+  const user = useContext(UserProfileContext);
 
-  useEffect(() => {
-    const userRef = singleUserCollection(id);
-    onSnapshot(userRef, (doc) => {
-      setUser(doc.data(), doc.id);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const userRef = singleUserCollection(id);
+  //   onSnapshot(userRef, (doc) => {
+  //     setUser(doc.data(), doc.id);
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (user.favourites && !preventUpdate.current) {
@@ -61,7 +61,6 @@ export const UserFollowing = () => {
       });
     }
   }, [user]);
-
 
   const [state, dispatcher] = useReducer(reducer, {
     inputCategory: "",
@@ -105,58 +104,47 @@ export const UserFollowing = () => {
         </Grid>
       );
     });
-  
 
   return (
-    <StyledDiv>
- <TextField
-        multiline
-        placeholder="Find recipe"
-        variant="outlined"
-        value={state.textInput}
-        type="text"
-        onChange={handelTextInput}
-        fullWidth
-      />
-    
-      <div>
-        {tags.map((singleTag, index) => {
-          return (
-            <InputElement
-              key={index}
-              tag={singleTag}
-              handleInput={handleInput}
-            />
-          );
-        })}
-      </div>
+    <Box>
+      {(user.favourites==0) ? (
+        <Typography sx={{ p: "16px" }}>
+          User has not saved any recipes yet
+        </Typography>
+      ) : (
+        <Box>
+          <TextField
+            multiline
+            placeholder="Find recipe"
+            variant="outlined"
+            value={state.textInput}
+            type="text"
+            onChange={handelTextInput}
+            fullWidth
+          />
 
-      <Grid
-        direction="row"
-        container
-        spacing={4}
-        sx={{py:5}}
-      >
-        {listofRecipe2}
-      </Grid>
-      {moreLoading >= 0 ? (
-        <Button onClick={showMoreItems} variant="contained"  sx={{mb:10}}>
-          Show more
-        </Button>
-      ) : null} 
-    </StyledDiv>
+          <Box sx={{ my: 2 }}>
+            {tags.map((singleTag, index) => {
+              return (
+                <InputElement
+                  key={index}
+                  tag={singleTag}
+                  handleInput={handleInput}
+                />
+              );
+            })}
+          </Box>
+
+          <Grid direction="row" container spacing={4} sx={{ py: 5 }}>
+            {listofRecipe2}
+          </Grid>
+          {moreLoading >= 0 ? (
+            <Button onClick={showMoreItems} variant="contained" sx={{ mb: 10 }}>
+              Show more
+            </Button>
+          ) : null}
+        </Box>
+      )}
+    </Box>
   );
 };
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  width: auto;
-`;
-
-const StyledInputText = styled.input`
-  width: 100%;
-  height: 50px;
-`;

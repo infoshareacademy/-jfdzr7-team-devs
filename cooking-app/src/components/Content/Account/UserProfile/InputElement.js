@@ -9,6 +9,7 @@ export const InputElement = ({tag, handleInput}) => {
         name={tag}
         type="checkbox"
         onChange={handleInput}
+        sx={{mr:3}}
       />
       </>
   )
