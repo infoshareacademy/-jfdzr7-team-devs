@@ -14,9 +14,10 @@ import {
 import { deleteObject, ref, uploadBytes } from "firebase/storage";
 import { storage, db } from "../../../api/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+//import { CustomAvatar } from "../../Header/CustomAvatar";
 
-const defaultAvatar =
-  "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2Favatar%20default.jpg8d69a1ee-c52d-4004-83a4-d5efa733c5ab?alt=media&token=78be46ed-8666-41d2-b987-b8782d27da63";
+// const defaultAvatar =
+// "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2Favatar%20default.jpg8d69a1ee-c52d-4004-83a4-d5efa733c5ab?alt=media&token=78be46ed-8666-41d2-b987-b8782d27da63";
 
 // const urlStorageAvatars =
 //   "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2F";
@@ -25,18 +26,16 @@ const defaultAvatar =
 
 export const DisplayUserData = () => {
   const CurrentUser = useContext(UserDataContext);
-  // console.log("-test useContext-", CurrentUser); // null
-  // console.log("-test 2 useContext-", CurrentUser?.uid); // undefined
-
   const [currentUserData, setCurrentUserData] = useState(null);
-  useEffect(() => {
-    console.log("--useEffect CurrentUser-", CurrentUser); //null
-    setCurrentUserData(CurrentUser);
-  }, [CurrentUser]);
-
   const [imageUpload, setImageUpload] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [avatarUrlId, setAvatarUrlId] = useState("");
+  const [docRefUser, setDocRefUser] = useState(null);
+
+  useEffect(() => {
+    //console.log("--useEffect CurrentUser-", CurrentUser);
+    setCurrentUserData(CurrentUser);
+  }, [CurrentUser]);
 
   const handlerImageUpload = (e) => {
     setImageUpload(e.target.files[0]);
@@ -58,7 +57,6 @@ export const DisplayUserData = () => {
       });
   };
 
-  const [docRefUser, setDocRefUser] = useState(null);
   useEffect(() => {
     setDocRefUser(doc(db, "users", `${currentUserData?.uid}`)); //  "B3pOmEurN6QdAhSogtO2XEQvo9s1"  avatar test avatar@avatar.pl
   }, [currentUserData]);
@@ -69,29 +67,14 @@ export const DisplayUserData = () => {
       avatarUrlId: avatarUrlId,
     }).catch((e) => alert(e));
     setAvatarUrl(null);
-    setImageUpload(null); // ostatnie
+    setImageUpload(null);
     alert("avatar updated");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
-      console.log(userDataFromDB);
+      // console.log(userDataFromDB);
       setCurrentUserData(userDataFromDB);
-      // setIsCustomAvatar(true);
     });
   };
-
-  // import { getStorage, ref, deleteObject } from "firebase/storage";
-
-  // const storage = getStorage();
-
-  // // Create a reference to the file to delete
-  // const desertRef = ref(storage, 'images/desert.jpg');
-
-  // // Delete the file
-  // deleteObject(desertRef).then(() => {
-  //   // File deleted successfully
-  // }).catch((error) => {
-  //   // Uh-oh, an error occurred!
-  // });
 
   const userAvatarRef = ref(storage, `avatar/${currentUserData?.avatarUrlId}`);
 
@@ -105,13 +88,13 @@ export const DisplayUserData = () => {
     alert("avatar deleted");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
-      console.log(userDataFromDB);
+      // console.log(userDataFromDB);
       setCurrentUserData(userDataFromDB);
     });
   };
 
   return (
-    <>
+    <StyledUserPanel>
       <h3>Twoje dane {currentUserData?.firstName}</h3>
       <StyledDispalyUserData>
         <Paper
@@ -150,16 +133,6 @@ export const DisplayUserData = () => {
             </div>
           ) : (
             <>
-              {/* <img
-              src={currentUserData?.avatarUrl}
-              alt="avatar"
-              style={{
-                width: "200px",
-                height: "200px",
-                borderRadius: "50%",
-                marginTop: "24px",
-              }}
-            /> */}
               <Avatar
                 alt={currentUserData?.firstName}
                 src={currentUserData?.avatarUrl}
@@ -168,10 +141,14 @@ export const DisplayUserData = () => {
                   height: 200,
                   m: 2.5,
                 }}
-              />
+              >
+                {`${currentUserData?.firstName.at(
+                  0
+                )}${currentUserData?.lastName.at(0)}`}
+              </Avatar>
             </>
+            // <CustomAvatar style={{ width: "200px", height: "200px" }} />
           )}
-
           <div
             style={{
               display: "flex",
@@ -239,12 +216,11 @@ export const DisplayUserData = () => {
           </div>
         </Paper>
       </StyledDispalyUserData>
-
-      {/* </div> */}
-    </>
+    </StyledUserPanel>
   );
 };
 
+/// do pliku styled
 const StyledDispalyUserData = styled.div`
   @media screen and (max-width: 500px) {
     .paper {
@@ -262,4 +238,10 @@ const StyledDispalyUserData = styled.div`
       justify-content: center;
     }
   }
+`;
+
+const StyledUserPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
