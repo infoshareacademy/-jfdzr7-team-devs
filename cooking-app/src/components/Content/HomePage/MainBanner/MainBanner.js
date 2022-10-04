@@ -62,7 +62,7 @@ export const MainBanner = () => {
   return (
     <>
       {datafromFirebase != 0 ? (
-        <Paper>
+        <Paper sx={{mb:5}}>
           <Paper
             sx={{
               display: "flex",
