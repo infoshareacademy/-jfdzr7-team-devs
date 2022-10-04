@@ -1,4 +1,6 @@
 import { MainBanner } from "./MainBanner/MainBanner";
+import styled from "styled-components";
+import { HomePageSection } from "./HomePageSection";
 
 const slides = [
   {
@@ -19,11 +21,25 @@ const slides = [
     name: "Arnold Bennett frittata",
     metaDescription:
       "Jamie's turkey tonnato recipe is a brilliant twist on the Italian classic served with a tuna spiked mayo it is simply delicious.",
-    image:
-      "https://cdn.jamieoliver.com/recipe-database/medium/134798615.jpg",
+    image: "https://cdn.jamieoliver.com/recipe-database/medium/134798615.jpg",
   },
 ];
 
+const arr = ["Breakfast", "Mains", "Snacks", "Desserts"];
+
 export const HomePage = () => {
-  return <MainBanner slides={slides} />;
+  return (
+    <StyledMain>
+      <MainBanner slides={slides} />
+
+      {arr.map((category, index) => {
+        return <HomePageSection key={index} category={category} />;
+      })}
+    </StyledMain>
+  );
 };
+
+const StyledMain = styled.main`
+  display: flex;
+  flex-direction: column;
+`;

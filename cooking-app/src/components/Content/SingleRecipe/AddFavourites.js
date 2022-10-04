@@ -13,10 +13,10 @@ export const AddFavourites = ({ id }) => {
   const [favourite, setFavourite] = useState(true);
 
   useEffect(() => {
+
     const isChecked = userData.favourites.some((recipeId) => {
-      if (recipeId === id) {
-        return true;
-      } else return false;
+      return recipeId === id;
+
     });
 
     if (isChecked) {
@@ -24,6 +24,7 @@ export const AddFavourites = ({ id }) => {
     } else {
       setFavourite(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e) => {
@@ -55,7 +56,7 @@ export const AddFavourites = ({ id }) => {
     <>
       <IconButton
         aria-label="favourites"
-        style={{ height: "51px", alignSelf: "start", marginTop: "14px" }}
+        style={{ height: "51px" }}
         onClick={handleChange}
       >
         {favourite ? (

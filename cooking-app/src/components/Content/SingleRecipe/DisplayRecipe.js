@@ -27,13 +27,20 @@ import {
   StyledListItem,
   StyledRecipeDescriptionDetails,
   StyledTagsDiet,
+<<<<<<< HEAD
+=======
+  StyledAuthorLink,
+>>>>>>> develop
   StyledRecipeHeader,
 } from "./SingleRecipe.styled";
 import { GetAuthor } from "./GetAuthor";
 import { UserDataContext } from "../../../App";
 import { AddFavourites } from "./AddFavourites";
 
-export const DisplayRecipe = () => {
+import { AddFavourites } from "./AddFavourites";
+import AddToBanner from "./AddToBanner";
+
+export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
   const [load, setLoad] = useState(false);
   const userData = useContext(UserDataContext);
@@ -62,6 +69,7 @@ export const DisplayRecipe = () => {
           <StyledRecipeHeader>
             <PageTitle>{recipe.name}</PageTitle>
             {userData ? <AddFavourites id={id} /> : null}
+            {userData.role === "admin" ? <AddToBanner id={id} /> : null}
           </StyledRecipeHeader>
 
           <GetAuthor userId={recipe.author} />

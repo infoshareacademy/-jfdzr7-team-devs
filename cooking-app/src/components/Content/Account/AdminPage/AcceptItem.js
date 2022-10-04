@@ -12,7 +12,7 @@ import {
 import { Box } from "@mui/system";
 import { useState } from "react";
 
-const AcceptItem = ({ item }) => {
+const AcceptItem = ({ item, children }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -22,7 +22,12 @@ const AcceptItem = ({ item }) => {
     <ListItem>
       <Card raised sx={{ maxHeight: expanded ? null : 150, width: 1 }}>
         <Box
-          sx={{ display: "flex", flex: "1", justifyContent: "space-between" }}
+          sx={{
+            display: "flex",
+            flex: "1",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
           <CardMedia
             component="img"
@@ -45,18 +50,19 @@ const AcceptItem = ({ item }) => {
               }}
             />
           </IconButton>
+          {children}
         </Box>
         <Collapse in={expanded} timeout={1000} unmountOnExit>
           <CardContent sx={{ display: "flex" }}>
             <List sx={{ flexBasis: "30%" }}>
               <Typography paragraph>Ingredients:</Typography>
-              {item.ingredients.map((ingredient) => {
-                return <ListItem>{ingredient}</ListItem>;
-              })}
+              {item.ingredients.map((ingredient) => (
+                <ListItem>{ingredient}</ListItem>
+              ))}
             </List>
             <List sx={{ flexBasis: "70%" }}>
               <Typography paragraph>Method:</Typography>
-              {item.instructions.map((instruction, index) => {
+              {item.instructions.map((instruction) => {
                 return <ListItem>{instruction}</ListItem>;
               })}
             </List>

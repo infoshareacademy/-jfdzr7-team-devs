@@ -86,7 +86,9 @@ export const Content = ({ isLoggedIn }) => {
               </ProtectedRoute>
             }
           />
-          <Route path="/ListRecipes" element={<ListRecipes />} />
+          <Route path="/ListRecipes" element={<ListRecipes />}>
+            <Route path=":tag" element={<ListRecipes />} />
+          </Route>
 
           <Route
             path="*"
