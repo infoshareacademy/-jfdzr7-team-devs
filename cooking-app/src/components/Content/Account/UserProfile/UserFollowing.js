@@ -49,7 +49,10 @@ export const UserFollowing = () => {
       preventUpdate.current = true;
       user.favourites.forEach((recipeId) => {
         getDoc(singleRecipeCollection(recipeId)).then((recipe) => {
-          setdatafromFirebase((current) => [...current, recipe.data()]);
+          setdatafromFirebase((current) => [...current, 
+            {...recipe.data(), id: recipeId },
+          ]);
+          // setdatafromFirebase((current) => [...current, recipe.data()]);
         });
       });
     }

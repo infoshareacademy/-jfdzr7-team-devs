@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { CardActionArea, Paper, Box, Card, Typography } from "@mui/material";
 
 export const IndividualRecipe = ({ singleRecipe }) => {
-
   return (
     <Card
       key={singleRecipe.id}
@@ -37,7 +36,7 @@ export const IndividualRecipe = ({ singleRecipe }) => {
           }}
         >
           <Typography gutterBottom variant="h6" component="div">
-            {singleRecipe.name} {singleRecipe.id}
+            {singleRecipe.name}
           </Typography>
         </Box>
       </CardActionArea>
