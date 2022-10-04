@@ -1,6 +1,7 @@
 import { MainBanner } from "./MainBanner/MainBanner";
 import styled from "styled-components";
 import { HomePageSection } from "./HomePageSection";
+import {Box} from '@mui/material';
 
 const slides = [
   {
@@ -29,13 +30,13 @@ const arr = ["Breakfast", "Mains", "Snacks", "Desserts"];
 
 export const HomePage = () => {
   return (
-    <StyledMain>
+    <Box>
       <MainBanner slides={slides} />
 
-      {arr.map((category, index) => {
+      {/* {arr.map((category, index) => {
         return <HomePageSection key={index} category={category} />;
-      })}
-    </StyledMain>
+      })} */}
+    </Box>
   );
 };
 
