@@ -18,7 +18,7 @@ import { Loader } from "../../../../utils/Loader";
 export const MainBanner = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [datafromFirebase, setdatafromFirebase] = useState([]);
-  const [load, setLoad] = useState(false);
+  
   const preventUpdate = useRef(false);
 
   useEffect(() => {
@@ -37,15 +37,11 @@ export const MainBanner = () => {
             });
           });
         });
-        setLoad(true);
         preventUpdate.current = true;
       });
     }
-  }, [load]);
+  }, []);
 
-  if (load === false) {
-    return <Loader />;
-  }
 
   const goToNextSlide = () => {
     if (currentSlideIndex === datafromFirebase.length - 1) {
