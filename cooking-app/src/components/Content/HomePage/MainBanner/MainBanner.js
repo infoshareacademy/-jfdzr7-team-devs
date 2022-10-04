@@ -91,7 +91,8 @@ export const MainBanner = () => {
               elevation={0}
               sx={{
                 width: { xs: "100%", md: "40%" },
-                textAlign: { xs: "center", md: "left" },
+                textAlign: { xs: "center", md: "left"},
+                backgroundColor:"secondary.main"
               }}
             >
               <PageTitle style={{ fontSize: "40px", padding: "0" }}>

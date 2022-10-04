@@ -13,6 +13,7 @@ export const StyledDescription = styled(Paper)`
   flex-direction: column;
   justify-content: center;
   background-color: var(--color-main-light-gray);
+  background-color: var(--color-light-gray);
 `;
 
 export const StyledNavigation = styled(Box)`
