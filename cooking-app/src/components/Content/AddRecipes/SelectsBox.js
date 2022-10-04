@@ -3,22 +3,23 @@ import React from "react";
 
 export const SelectsBox = ({ onChange }) => {
   return (
-    <Box
-      component="form"
-      sx={{
-        "& > :not(style)": { m: 1, width: "25ch" },
-      }}
-      gap={30}
-      noValidate
-      autoComplete="off"
-    >
+    <>
+      {/* // <Box
+    //   component="form"
+    //   sx={{
+    //     "& > :not(style)": { m: 1, width: "25ch" },
+    //   }}
+    //   gap={30}
+    //   noValidate
+    //   autoComplete="off"
+    // > */}
       <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="servings">Servings:</InputLabel>
         <Select
           labelId="servings"
           id="servings"
           name="servings"
-          velue=""
+          // velue=""
           onChange={onChange}
         >
           {/* <MenuItem value={" "}>
@@ -36,7 +37,7 @@ export const SelectsBox = ({ onChange }) => {
           labelId="time"
           id="time"
           name="time"
-          value=""
+          // value=""
           onChange={onChange}
         >
           {/* <MenuItem value={" "}>
@@ -55,7 +56,7 @@ export const SelectsBox = ({ onChange }) => {
           labelId="difficulty"
           id="difficulty"
           name="difficulty"
-          value=""
+          // value=""
           onChange={onChange}
         >
           {/* <MenuItem value={""}>
@@ -66,7 +67,8 @@ export const SelectsBox = ({ onChange }) => {
           <MenuItem value={"Showing off"}>Showing off</MenuItem>
         </Select>
       </FormControl>
-    </Box>
+      {/* // </Box> */}
+    </>
   );
 };
 
