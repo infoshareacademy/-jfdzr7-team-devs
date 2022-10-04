@@ -1,5 +1,10 @@
-import { Loader } from "../../../../utils/Loader";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { getDoc, onSnapshot, query } from "firebase/firestore";
+import {
+  bannerCollection,
+  singleRecipeCollection,
+} from "../../../../api/firebaseIndex";
 import {
   StyledDescription,
   StyledNavigation,
@@ -8,13 +13,42 @@ import { PageTitle } from "../../../../utils/styles/Global.styled";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { IconButton, Paper, Button, Box, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Loader } from "../../../../utils/Loader";
 
-export const MainBanner = ({ slides }) => {
+export const MainBanner = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [datafromFirebase, setdatafromFirebase] = useState([]);
+  const [load, setLoad] = useState(false);
+  const preventUpdate = useRef(false);
+
+  useEffect(() => {
+    if (!preventUpdate.current) {
+      const q = query(bannerCollection);
+
+      onSnapshot(q, (snapshot) => {
+        snapshot.forEach((doc) => {
+          setdatafromFirebase([]);
+          doc.data().bannerArray.forEach((id) => {
+            getDoc(singleRecipeCollection(id)).then((recipe) => {
+              setdatafromFirebase((current) => [
+                ...current,
+                { ...recipe.data(), id: id },
+              ]);
+            });
+          });
+        });
+        setLoad(true);
+        preventUpdate.current = true;
+      });
+    }
+  }, [load]);
+
+  if (load === false) {
+    return <Loader />;
+  }
 
   const goToNextSlide = () => {
-    if (currentSlideIndex === slides.length - 1) {
+    if (currentSlideIndex === datafromFirebase.length - 1) {
       setCurrentSlideIndex(0);
     } else {
       setCurrentSlideIndex(currentSlideIndex + 1);
@@ -23,7 +57,7 @@ export const MainBanner = ({ slides }) => {
 
   const goToPreviousSlide = () => {
     if (currentSlideIndex === 0) {
-      setCurrentSlideIndex(slides.length - 1);
+      setCurrentSlideIndex(datafromFirebase.length - 1);
     } else {
       setCurrentSlideIndex(currentSlideIndex - 1);
     }
@@ -31,7 +65,7 @@ export const MainBanner = ({ slides }) => {
 
   return (
     <>
-      {slides ? (
+      {datafromFirebase != 0 ? (
         <Paper>
           <Paper
             sx={{
@@ -46,7 +80,7 @@ export const MainBanner = ({ slides }) => {
             <Paper
               sx={{
                 flex: 1,
-                backgroundImage: `url(${slides[currentSlideIndex].image})`,
+                backgroundImage: `url(${datafromFirebase[currentSlideIndex].image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 width: { xs: "100%", md: "60%" },
@@ -61,10 +95,10 @@ export const MainBanner = ({ slides }) => {
               }}
             >
               <PageTitle style={{ fontSize: "40px", padding: "0" }}>
-                {slides[currentSlideIndex].name}
+                {datafromFirebase[currentSlideIndex].name}
               </PageTitle>
-              <Typography variant="body1" sx={{my:2}}>
-                {slides[currentSlideIndex].metaDescription}
+              <Typography variant="body1" sx={{ my: 2 }}>
+                {datafromFirebase[currentSlideIndex].metaDescription}
               </Typography>
               <Box
                 sx={{
@@ -74,7 +108,7 @@ export const MainBanner = ({ slides }) => {
                 <Button
                   variant="contained"
                   component={Link}
-                  to={`/recipe/${slides[currentSlideIndex].id}`}
+                  to={`/recipe/${datafromFirebase[currentSlideIndex].id}`}
                 >
                   Get the recipe
                 </Button>
@@ -82,13 +116,13 @@ export const MainBanner = ({ slides }) => {
             </StyledDescription>
 
             <StyledNavigation>
-            <IconButton aria-label="previous" onClick={goToPreviousSlide}>
-              <ArrowBackIosNewIcon fontSize="large" />
-            </IconButton>
-            <IconButton aria-label="next" onClick={goToNextSlide}>
-              <ArrowForwardIosIcon fontSize="large" />
-            </IconButton>
-          </StyledNavigation>
+              <IconButton aria-label="previous" onClick={goToPreviousSlide}>
+                <ArrowBackIosNewIcon fontSize="large" />
+              </IconButton>
+              <IconButton aria-label="next" onClick={goToNextSlide}>
+                <ArrowForwardIosIcon fontSize="large" />
+              </IconButton>
+            </StyledNavigation>
           </Paper>
         </Paper>
       ) : (
