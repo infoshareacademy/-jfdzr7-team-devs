@@ -3,7 +3,7 @@ import { Container } from "../../utils/styles/Global.styled";
 import { HomePage } from "./HomePage/HomePage";
 import { ListRecipes } from "./ListRecipes/ListRecipes";
 import { Login } from "./Authorization/Login";
-import { UserProfile} from "./Account/UserProfile/UserProfile";
+import { UserProfile } from "./Account/UserProfile/UserProfile";
 import { Ebook } from "./Ebook/Ebook";
 import { Search } from "./Search/Search";
 import { SingleRecipe } from "./SingleRecipe/SingleRecipe";
@@ -60,7 +60,10 @@ export const Content = ({ isLoggedIn }) => {
               </ProtectedRoute>
             }
           />
-          <Route path="/recipe/:id" element={<SingleRecipe isLoggedIn={isLoggedIn}/>} />
+          <Route
+            path="/recipe/:id"
+            element={<SingleRecipe isLoggedIn={isLoggedIn} />}
+          />
           <Route path="/user/:id" element={<UserProfile />} />
           <Route
             path="/admin"
@@ -81,7 +84,9 @@ export const Content = ({ isLoggedIn }) => {
               </ProtectedRoute>
             }
           />
-          <Route path="/ListRecipes" element={<ListRecipes />} />
+          <Route path="/ListRecipes" element={<ListRecipes />}>
+            <Route path=":tag" element={<ListRecipes />} />
+          </Route>
 
           <Route
             path="*"
