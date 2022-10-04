@@ -13,8 +13,10 @@ export const AddFavourites = ({ id }) => {
   const [favourite, setFavourite] = useState(true);
 
   useEffect(() => {
+
     const isChecked = userData.favourites.some((recipeId) => {
       return recipeId === id;
+
     });
 
     if (isChecked) {
