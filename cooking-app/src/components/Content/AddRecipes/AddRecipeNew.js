@@ -22,6 +22,7 @@ export const SelectedTagsContext = createContext([]);
 export const SelectedDietContext = createContext([]);
 export const IngredientsContext = createContext([]);
 export const PreparingContext = createContext([]);
+export const ImageUrlContext = createContext(""); //  !!! nowe
 
 const defaultRecipeValue = {
   author: {},
@@ -64,6 +65,7 @@ export const AddRecipeNew = () => {
     setImageRef(ref(storage, `${folderStorage}/${imageUpload?.name + v4()}`));
   }, [imageUpload]);
 
+  const [imageUrl, setImageUrl] = useState(null); ///// !!!! nowe
   // onClick
   const uploadImage = (e) => {
     e.preventDefault();
@@ -79,6 +81,7 @@ export const AddRecipeNew = () => {
             `${urlStorage}${response.metadata.name}${urlStorageCD}`,
           ],
         });
+        setImageUrl(`${urlStorage}${response.metadata.name}${urlStorageCD}`); /// nowe
       })
       .catch((e) => {
         alert(e);
@@ -204,31 +207,34 @@ export const AddRecipeNew = () => {
       });
     alert("Recipe saved");
     setFormValues(defaultRecipeValue);
+    setImageUrl(null);
     e.target.reset();
   };
 
   return (
     <>
       <h2>Add Recipe</h2>
-      <SelectedDietContext.Provider value={selectedDiet}>
-        <PreparingContext.Provider value={methods}>
-          <IngredientsContext.Provider value={ingredients}>
-            <SelectedTagsContext.Provider value={selectedTags}>
-              <RecipeForm2
-                onChange={changeFormValues}
-                onClick={uploadImage}
-                handleSubmit={handleAddingRecipe}
-                handlerTags={handleChangeTags}
-                handlerIngredients={handleChangeIngredients}
-                handlerAddInputIngredient={handleAddTextInput}
-                handlerMethods={handleChangeMethods}
-                handlerAddInputMethod={handleMethodAddTextInput}
-                handlerDiet={handleChangeDiet}
-              />
-            </SelectedTagsContext.Provider>
-          </IngredientsContext.Provider>
-        </PreparingContext.Provider>
-      </SelectedDietContext.Provider>
+      <ImageUrlContext.Provider value={imageUrl}>
+        <SelectedDietContext.Provider value={selectedDiet}>
+          <PreparingContext.Provider value={methods}>
+            <IngredientsContext.Provider value={ingredients}>
+              <SelectedTagsContext.Provider value={selectedTags}>
+                <RecipeForm2
+                  onChange={changeFormValues}
+                  onClick={uploadImage}
+                  handleSubmit={handleAddingRecipe}
+                  handlerTags={handleChangeTags}
+                  handlerIngredients={handleChangeIngredients}
+                  handlerAddInputIngredient={handleAddTextInput}
+                  handlerMethods={handleChangeMethods}
+                  handlerAddInputMethod={handleMethodAddTextInput}
+                  handlerDiet={handleChangeDiet}
+                />
+              </SelectedTagsContext.Provider>
+            </IngredientsContext.Provider>
+          </PreparingContext.Provider>
+        </SelectedDietContext.Provider>
+      </ImageUrlContext.Provider>
     </>
   );
 };

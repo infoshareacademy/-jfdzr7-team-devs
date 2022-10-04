@@ -31,6 +31,7 @@ export const RecipeForm2 = ({
       <RecipeFormTextField
         label="Short description"
         name="description"
+        placeholder="enter up to 500 characters..."
         onChange={onChange}
       />
       <SelectsBox onChange={onChange} />
@@ -79,7 +80,12 @@ export const RecipeForm2 = ({
         onClick={onClick}
         text="textsAddRecipe"
       />
-      <Button onClick={handleSubmit} variant="contained">
+      <Button
+        onClick={handleSubmit}
+        variant="contained"
+        fullWidth
+        sx={{ marginBottom: 2 }}
+      >
         Save recipe
       </Button>
     </form>
