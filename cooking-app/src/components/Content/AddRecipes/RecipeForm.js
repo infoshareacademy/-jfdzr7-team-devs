@@ -41,6 +41,7 @@ export const RecipeForm2 = ({
         {ingredients.map((ingred, i) => {
           return (
             <TextFieldIngredients
+              key={i}
               label="Enter one ingredient:" // ? nie może być labelki//  TO DO dostawić nagłówek
               name="ingredients"
               // value={ingred}
@@ -59,6 +60,7 @@ export const RecipeForm2 = ({
         {methods.map((method, i) => {
           return (
             <TextFieldMethods
+              key={i}
               label="Enter one step:"
               name="instructions"
               onChange={onChange}

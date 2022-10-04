@@ -12,36 +12,36 @@ export const SelectsBox = ({ onChange }) => {
       noValidate
       autoComplete="off"
     >
-      <FormControl required variant="filled" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="servings">Servings:</InputLabel>
         <Select
           labelId="servings"
           id="servings"
           name="servings"
-          // value={age}
+          velue=""
           onChange={onChange}
         >
-          <MenuItem value={""}>
+          {/* <MenuItem value={" "}>
             <em>None</em>{" "}
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem value={1}>1 portion</MenuItem>
           <MenuItem value={2}>2 portions</MenuItem>
           <MenuItem value={4}>4 portions</MenuItem>
           <MenuItem value={6}>more than 5 portions</MenuItem>
         </Select>
       </FormControl>
-      <FormControl required variant="filled" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="time">Total Time:</InputLabel>
         <Select
           labelId="time"
           id="time"
           name="time"
-          // value={age}
+          value=""
           onChange={onChange}
         >
-          <MenuItem value={""}>
+          {/* <MenuItem value={" "}>
             <em>None</em>
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem value={30}>30 minutes</MenuItem>
           <MenuItem value={60}>60 minutes</MenuItem>
           <MenuItem value={90}>90 minutes</MenuItem>
@@ -49,18 +49,18 @@ export const SelectsBox = ({ onChange }) => {
           <MenuItem value={181}> more than 180 minutes</MenuItem>
         </Select>
       </FormControl>
-      <FormControl required variant="filled" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="difficulty">Difficulty:</InputLabel>
         <Select
           labelId="difficulty"
           id="difficulty"
           name="difficulty"
-          // value={age}
+          value=""
           onChange={onChange}
         >
-          <MenuItem value={""}>
+          {/* <MenuItem value={""}>
             <em>None</em>
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem value={"Super easy"}>Super easy</MenuItem>
           <MenuItem value={"Not too tricky"}>Not too tricky</MenuItem>
           <MenuItem value={"Showing off"}>Showing off</MenuItem>
@@ -69,3 +69,5 @@ export const SelectsBox = ({ onChange }) => {
     </Box>
   );
 };
+
+//required

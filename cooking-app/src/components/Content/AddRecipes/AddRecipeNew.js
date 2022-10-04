@@ -1,5 +1,4 @@
 import { addDoc } from "firebase/firestore";
-// import { RecipeForm } from "./RecipeForm copy 2";
 import { createContext, useContext, useEffect, useState } from "react";
 import { storage } from "../../../api/firebase";
 import { ref, uploadBytes } from "firebase/storage";
@@ -22,7 +21,7 @@ export const SelectedTagsContext = createContext([]);
 export const SelectedDietContext = createContext([]);
 export const IngredientsContext = createContext([]);
 export const PreparingContext = createContext([]);
-export const ImageUrlContext = createContext(""); //  !!! nowe
+export const ImageUrlContext = createContext("");
 
 const defaultRecipeValue = {
   author: {},
@@ -30,7 +29,6 @@ const defaultRecipeValue = {
   description: "",
   ingredients: [],
   instructions: [],
-  // comments: [],
   tags: [],
   specialDiets: [],
   time: { total: "" },
@@ -65,7 +63,7 @@ export const AddRecipeNew = () => {
     setImageRef(ref(storage, `${folderStorage}/${imageUpload?.name + v4()}`));
   }, [imageUpload]);
 
-  const [imageUrl, setImageUrl] = useState(null); ///// !!!! nowe
+  const [imageUrl, setImageUrl] = useState(null);
   // onClick
   const uploadImage = (e) => {
     e.preventDefault();
@@ -87,20 +85,14 @@ export const AddRecipeNew = () => {
         alert(e);
       });
   };
+
   // multiselect tags
   const [selectedTags, setSelectedTags] = useState([]);
-  // useEffect(() => {
-  //   console.log(selectedTags);
-  // }, [selectedTags]);
-
   const handleChangeTags = (event) => {
     const {
       target: { value },
     } = event;
-    setSelectedTags(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setSelectedTags(typeof value === "string" ? value.split(",") : value);
   };
 
   ///multiple select diet
@@ -116,14 +108,9 @@ export const AddRecipeNew = () => {
   const [ingredients, setIngredients] = useState([""]);
   const handleChangeIngredients = (e, index) => {
     const inputList = [...ingredients];
-    // console.log(inputList);
     inputList[index] = e.target.value;
     setIngredients(inputList);
   };
-
-  // useEffect(() => {
-  //   console.log(ingredients);
-  // }, [ingredients]);
 
   const handleAddTextInput = (e) => {
     e.preventDefault();
@@ -134,7 +121,6 @@ export const AddRecipeNew = () => {
   const [methods, setMethods] = useState(["1 krok"]);
   const handleChangeMethods = (e, index) => {
     const inputList = [...methods];
-    // console.log("methods-----", inputList);
     inputList[index] = e.target.value;
     setMethods(inputList);
   };
@@ -142,16 +128,12 @@ export const AddRecipeNew = () => {
     e.preventDefault();
     setMethods([...methods, ""]);
   };
-  // useEffect(() => {
-  //   console.log("useEffect methods ------", methods);
-  // }, [methods]);
 
   // onChange
   const changeFormValues = (e) => {
     switch (e.target.name) {
       case "name":
       case "description":
-
       case "servings":
       case "difficulty":
         setFormValues({
@@ -208,7 +190,7 @@ export const AddRecipeNew = () => {
     alert("Recipe saved");
     setFormValues(defaultRecipeValue);
     setImageUrl(null);
-    e.target.reset();
+    //e.target.reset();
   };
 
   return (

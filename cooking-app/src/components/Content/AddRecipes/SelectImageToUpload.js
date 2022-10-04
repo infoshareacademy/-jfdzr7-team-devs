@@ -29,29 +29,32 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
             name="file"
             onChange={onChange}
           />
-          {imageUrl ? (
-            <img
-              src={imageUrl}
-              style={{
-                width: "100px",
-                height: "120px",
-                background: "pink",
-                marginRight: "8px",
-              }}
-            ></img>
-          ) : null
-          // <>
-          //   {/* // <p style={{ marginRight: "12px" }}> nie ma url</p> */}
-          //   <ImageIcon />
-          //   <InsertPhotoIcon />
-          // </>
+          {
+            imageUrl ? (
+              <img
+                src={imageUrl}
+                style={{
+                  width: "100px",
+                  height: "120px",
+                  background: "pink",
+                  marginRight: "8px",
+                }}
+              ></img>
+            ) : null
+            // <>
+            //   {/* // <p style={{ marginRight: "12px" }}> nie ma url</p> */}
+            //   <ImageIcon />
+            //   <InsertPhotoIcon />
+            // </>
           }
           <PhotoCamera sx={{ fontSize: "24px" }} />
         </IconButton>
-        <Button onClick={onClick} variant="contained" disabled={imageUrl}>
+        <Button onClick={onClick} variant="contained">
           {text.buttonUpload} Upload photo
         </Button>
       </Stack>
     </>
   );
 };
+
+// disabled={imageUrl}
