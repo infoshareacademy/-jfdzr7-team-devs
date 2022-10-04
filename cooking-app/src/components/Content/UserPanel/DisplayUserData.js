@@ -6,19 +6,22 @@ import { IconButton, Button, Paper, Avatar } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import CloseIcon from "@mui/icons-material/Close";
 import { v4 } from "uuid";
-import { storageErrorsCodes } from "../../../api/firebaseIndex";
+import {
+  storageErrorsCodes,
+  urlStorageAvatars,
+  urlStorageAvatarsCD,
+} from "../../../api/firebaseIndex";
 import { deleteObject, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../../api/firebase";
+import { storage, db } from "../../../api/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../../api/firebase";
 
 const defaultAvatar =
   "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2Favatar%20default.jpg8d69a1ee-c52d-4004-83a4-d5efa733c5ab?alt=media&token=78be46ed-8666-41d2-b987-b8782d27da63";
 
-const urlStorageAvatars =
-  "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2F";
-const urlStorageAvatarsCD =
-  "?alt=media&token=447796ed-bf03-404d-902f-ab81082e8c0d";
+// const urlStorageAvatars =
+//   "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2F";
+// const urlStorageAvatarsCD =
+//   "?alt=media&token=447796ed-bf03-404d-902f-ab81082e8c0d";
 
 export const DisplayUserData = () => {
   const CurrentUser = useContext(UserDataContext);
@@ -122,8 +125,12 @@ export const DisplayUserData = () => {
           }}
         >
           {avatarUrl ? (
-            <>
+            <div className="new_avatar">
               <CloseIcon
+                sx={{
+                  border: "1px solid black",
+                  backgroundColor: "var(--color-orange)",
+                }}
                 onClick={() => {
                   setAvatarUrl(null);
                   deleteObject(userAvatarRef);
@@ -140,7 +147,7 @@ export const DisplayUserData = () => {
                   marginLeft: "20px",
                 }}
               />
-            </>
+            </div>
           ) : (
             <>
               {/* <img
@@ -241,7 +248,18 @@ export const DisplayUserData = () => {
 const StyledDispalyUserData = styled.div`
   @media screen and (max-width: 500px) {
     .paper {
+      margin: 0px;
+    }
+
+    img {
       margin: 4px;
+      margin-top: 0;
+      margin-left: 0;
+    }
+
+    .new_avatar {
+      display: flex;
+      justify-content: center;
     }
   }
 `;
