@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { UserDataContext } from "../../../App";
-import { IconButton, Button, Paper, Avatar, Alert } from "@mui/material";
+import { IconButton, Button, Paper, Avatar } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import CloseIcon from "@mui/icons-material/Close";
 import { v4 } from "uuid";
@@ -15,7 +15,7 @@ import { deleteObject, ref, uploadBytes } from "firebase/storage";
 import { storage, db } from "../../../api/firebase";
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth } from "../../../api/firebase";
-import { getAuth, deleteUser, signOut } from "firebase/auth";
+import { deleteUser, signOut } from "firebase/auth";
 import { ErrorAccount } from "./ErrorAccount";
 //import { CustomAvatar } from "../../Header/CustomAvatar";
 
@@ -43,9 +43,9 @@ export const DisplayUserData = () => {
     setIsUser(true);
   }, [CurrentUser]);
 
-  useEffect(() => {
-    console.log(isUser);
-  }, [isUser]);
+  // useEffect(() => {
+  //   console.log(isUser);
+  // }, [isUser]);
 
   const handlerImageUpload = (e) => {
     setImageUpload(e.target.files[0]);
