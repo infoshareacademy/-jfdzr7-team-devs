@@ -34,7 +34,7 @@ export const DisplayUserData = () => {
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [avatarUrlId, setAvatarUrlId] = useState("");
   const [docRefUser, setDocRefUser] = useState(null);
-  const [isUser, setIsUser] = useState(false);
+  const [isUser, setIsUser] = useState(true);
   const user = auth.currentUser;
 
   useEffect(() => {
@@ -104,7 +104,11 @@ export const DisplayUserData = () => {
   };
 
   const handlerDeleteUser = () => {
+    if (currentUserData?.avatarUrlId) {
+      deleteObject(userAvatarRef).catch((e) => alert(e));
+    }
     setIsUser(false);
+
     deleteDoc(doc(db, "users", currentUserData?.uid));
 
     // signOut(auth);
