@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
 
-export const NavBar = () => {
+export const NavBar = ({ isLoggedIn }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -27,7 +27,7 @@ export const NavBar = () => {
     <AppBar
       position="static"
       elevation={1}
-      sx={{ bgcolor: "background.paper", mb: 5, minWidth:"300px" }}
+      sx={{ bgcolor: "background.paper", mb: 5 }}
     >
       <Container maxWidth="lg">
         <Toolbar disableGutters>
@@ -148,7 +148,27 @@ export const NavBar = () => {
           </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
-            <AccountMenu />
+          {isLoggedIn ? (
+            <>
+              <AccountMenu />
+            </>
+          ) : (
+            <Button 
+            component={NavLink}
+            to="/login"
+            sx={{
+              my: 2,
+              color: "primary.contrastText",
+              display: "block",
+              "&:hover": {
+                color: "primary.main",
+              },
+              "&:active": {
+                color: "primary.main",
+                fontWeight: 700,
+              },
+            }}>Login</Button>
+          )}
           </Box>
         </Toolbar>
       </Container>
