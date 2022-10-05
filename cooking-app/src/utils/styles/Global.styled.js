@@ -43,7 +43,7 @@ export const Container = styled.div`
 export const PageTitle = styled.h1`
   margin: 0;
   font-family: "Playfair Display", serif;
-  font-size: 60px;
+  font-size: 55px;
   padding: 0 0 16px 0;
 `;
 

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 import { Paper } from "@mui/material";
 
 export const StyledLayout = styled.div`

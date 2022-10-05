@@ -2,7 +2,6 @@ import { useState, useContext, useRef } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import SendIcon from "@mui/icons-material/Send";
 import { TextField, Button, IconButton, Fab } from "@mui/material";
-
 import { LoadingButton } from "@mui/lab";
 import { useParams } from "react-router-dom";
 import { Timestamp, addDoc } from "firebase/firestore";
@@ -126,6 +125,7 @@ export const AddComment = () => {
             color="primary"
             aria-label="upload picture"
             component="label"
+            disabled={!imageChoosen}
           >
             <input
               hidden
@@ -147,7 +147,6 @@ export const AddComment = () => {
                 aria-label="delate"
                 size="small"
                 style={{ float: "right" }}
-                // onClick={handleStopUpload}
                 disabled={imageChoosen}
               >
                 <CloseIcon onClick={handleStopUpload} />

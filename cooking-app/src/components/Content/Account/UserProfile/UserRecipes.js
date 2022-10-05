@@ -63,7 +63,7 @@ export const UserRecipes = () => {
     onSnapshot(q, (snapshot) => {
       setdatafromFirebase(getDataFromSnapshot(snapshot));
     });
-  }, []);
+  }, [id]);
 
   const showMoreItems = () => {
     setVisible((prev) => prev + 8);
@@ -91,7 +91,7 @@ export const UserRecipes = () => {
 
   return (
     <Box>
-      {datafromFirebase == 0  ? (
+      {datafromFirebase == 0 ? (
         <Typography sx={{ p: "16px" }}>
           User has not added any recipes yet
         </Typography>

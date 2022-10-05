@@ -1,6 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
 import { GlobalStyle, Wrapper } from "./utils/styles/Global.styled";
-import { Header } from "./components/Header/Header";
 import { Content } from "./components/Content/Content";
 import { Footer } from "./components/Footer/Footer";
 import { useEffect, useState } from "react";
@@ -26,8 +25,8 @@ export const theme = createTheme({
   palette: {
     primary: {
       light: "#fff263",
-      main: "#f9c02d",
-      dark: "#c29000",
+      main: "#fbc02d",
+      dark: "#c49000",
       contrastText: "#000000",
     },
     secondary: {
@@ -40,6 +39,16 @@ export const theme = createTheme({
       main: "#000000",
     },
   },
+  typography: {
+    mainTitle:{
+      fontFamily: "Playfair Display", 
+      fontSize: "55px",
+    },
+    subTitle:{
+      fontFamily: "Playfair Display", 
+      fontSize: "35px",
+    }
+  }
 });
 
 function App() {

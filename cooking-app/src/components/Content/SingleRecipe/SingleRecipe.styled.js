@@ -19,6 +19,7 @@ export const StyledComment = styled.div`
   border-bottom: 1px solid lightgray;
   padding: 20px 0;
 `;
+
 export const StyledAuthorLink = styled(Link)`
   text-decoration: none;
   color: var(--color-black);
@@ -30,7 +31,6 @@ export const StyledAuthorLink = styled(Link)`
 
 export const StyledAuthorSection = styled.div`
   display: flex;
-  /* display: inline-block; */
   flex-direction: row;
   align-items: center;
   margin: 0;
@@ -42,7 +42,7 @@ export const StyledAuthorContainer = styled.div`
 `;
 
 export const StyledCommentSection = styled.div`
-  margin-left: 80px;
+  margin-left: 60px;
 `;
 export const StyledAvatar = styled(Avatar)`
   margin: 20px;

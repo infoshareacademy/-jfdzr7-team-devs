@@ -8,36 +8,28 @@ import { DisplayComments } from "./DisplayComments";
 import { singleRecipeCollection } from "../../../api/firebaseIndex";
 import {
   StyledImgMain,
-  StyledCommentContainer,
-  StyledRecipeContainer,
-  StyledAsideRecipe,
-  StyledMainContent,
-  SubHeading,
-  StyledTags,
-  StyledRecipeDescription,
   StyledRecipeDetails,
-  SubHeadingSmall,
-  SubHeadingMedium,
-  StyledParagraph,
-  SubHeadingBig,
-  StyledDetailedInfo,
-  StyledRecipeDescriptionQuote,
   StyledList,
   StyledListItemNumber,
-  StyledListItem,
-  StyledRecipeDescriptionDetails,
-  StyledTagsDiet,
-  StyledRecipeHeader,
 } from "./SingleRecipe.styled";
 import { GetAuthor } from "./GetAuthor";
 import { UserDataContext } from "../../../App";
 import { AddFavourites } from "./AddFavourites";
 import AddToBanner from "./AddToBanner";
-import { Box, Paper, Typography, Grid, Item, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Button,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
+import styled from "styled-components";
 
 export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
   const [load, setLoad] = useState(false);
+  const [checked, setChecked] = useState([]);
   const userData = useContext(UserDataContext);
   const { id } = useParams();
 
@@ -52,6 +44,18 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
   if (load === false) {
     return <Loader />;
   }
+
+  const handleCheck = (event) => {
+    var updatedList = [...checked];
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(event.target.value), 1);
+    }
+    setChecked(updatedList);
+  };
+
+  const isChecked = (item) => (checked.includes(item) ? "yes" : "no");
 
   return (
     <>
@@ -68,14 +72,14 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
               <Box sx={{ flexGrow: 1 }}>
                 <PageTitle>{recipe.name}</PageTitle>
               </Box>
-              <Box sx={{ display: "flex"}}>
+              <Box sx={{ display: "flex" }}>
                 {userData ? <AddFavourites id={id} /> : null}
                 {userData?.role === "admin" ? <AddToBanner id={id} /> : null}
               </Box>
             </Box>
-            <GetAuthor userId={recipe.author} />
             <Box>
               <Typography variant="h6">{recipe.subName}</Typography>
+              <GetAuthor userId={recipe.author} />
               <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
                 {recipe.specialDiets
                   ? recipe.specialDiets.map((specialDietItem, index) => (
@@ -118,7 +122,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
                 {recipe.tags
                   ? recipe.tags.map((tags, index) => (
                       <Button
-                        sx={{ my: 1, mr: 2 }}
+                        sx={{ my: 1, mr: 2, color: "#c29000" }}
                         variant="outlined"
                         component={Link}
                         key={index}
@@ -133,38 +137,52 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
           </Grid>
         </Grid>
       </Box>
-
-      <Box sx={{ flexGrow: 1, mt:5 }}>
+      <Box sx={{ flexGrow: 1, mt: 5 }}>
         <Grid container spacing={3}>
           <Grid xs={12} md={5} item={true}>
             <Box>
-              <PageTitle style={{ fontSize: "35px", padding: "20px 0 " }}>
-                Ingredients
-              </PageTitle>
-              {recipe.ingredients ? (
-                recipe.ingredients.map((ingredients, index) =>
-                  ingredients === ingredients.toUpperCase() ? (
-                    <SubHeadingMedium key={index} to="/">
-                      {ingredients}
-                    </SubHeadingMedium>
-                  ) : (
-                    <StyledListItem key={index} to="/">
-                      {ingredients}
-                    </StyledListItem>
+              <Box sx={{ my: 3 }}>
+                <Typography variant="subTitle">Ingredients</Typography>
+              </Box>
+              <Box>
+                {recipe.ingredients ? (
+                  recipe.ingredients.map((ingredients, index) =>
+                    ingredients === ingredients.toUpperCase() ? (
+                      <Box sx={{ ml: 1.5, mt: 2 }}>
+                        <Typography variant="h6" key={index}>
+                          {ingredients}
+                        </Typography>
+                      </Box>
+                    ) : (
+                      <Box
+                        key={index}
+                        sx={{
+                          textDecoration:
+                            isChecked(ingredients) == "yes"
+                              ? "line-through"
+                              : "",
+                        }}
+                      >
+                        <Checkbox
+                          id={`checkbox${index}`}
+                          value={ingredients}
+                          onChange={handleCheck}
+                        />
+                        <label for={`checkbox${index}`}>{ingredients}</label>
+                      </Box>
+                    )
                   )
-                )
-              ) : (
-                <StyledParagraph>List is empty</StyledParagraph>
-              )}
+                ) : (
+                  <Typography>List is empty</Typography>
+                )}
+              </Box>
             </Box>
           </Grid>
-
           <Grid xs={12} md={7} item={true}>
             <Box>
-              <PageTitle style={{ fontSize: "35px", padding: "20px 0 " }}>
-                Instructions
-              </PageTitle>
-
+              <Box sx={{ my: 3 }}>
+                <Typography variant="subTitle">Instructions</Typography>
+              </Box>
               <StyledList>
                 {recipe.instructions
                   ? recipe.instructions.map((instruction, index) => (
@@ -178,11 +196,10 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
           </Grid>
         </Grid>
       </Box>
-
       <Box sx={{ my: 8 }}>
-        <PageTitle style={{ fontSize: "35px", padding: "20px 0 " }}>
-          Comments
-        </PageTitle>
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="subTitle">Comments</Typography>
+        </Box>
         {!userData ? (
           <Typography>
             To add comments, please <Link to="/login">Log in</Link>
