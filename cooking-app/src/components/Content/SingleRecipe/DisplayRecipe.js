@@ -56,7 +56,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={3}>
+        <Grid container spacing={5}>
           <Grid xs={12} md={5} item={true}>
             <Box>
               <StyledImgMain src={recipe.image} alt={recipe.name} />
@@ -134,7 +134,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         </Grid>
       </Box>
 
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, mt:5 }}>
         <Grid container spacing={3}>
           <Grid xs={12} md={5} item={true}>
             <Box>
@@ -192,54 +192,6 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         )}
         <DisplayComments recipeName={recipe.name} />
       </Box>
-
-      {/* 
-      <StyledRecipeContainer>
-        <StyledAsideRecipe>
-          <SubHeadingBig>Ingredients</SubHeadingBig>
-
-          {recipe.ingredients ? (
-            recipe.ingredients.map((ingredients, index) =>
-              ingredients === ingredients.toUpperCase() ? (
-                <SubHeadingMedium key={index} to="/">
-                  {ingredients}
-                </SubHeadingMedium>
-              ) : (
-                <StyledListItem key={index} to="/">
-                  {ingredients}
-                </StyledListItem>
-              )
-            )
-          ) : (
-            <StyledParagraph>List is empty</StyledParagraph>
-          )}
-        </StyledAsideRecipe>
-
-        <StyledMainContent>
-          <SubHeadingBig>Instructions</SubHeadingBig>
-          <StyledList>
-            {recipe.instructions
-              ? recipe.instructions.map((instruction, index) => (
-                  <StyledListItemNumber key={index} to="/">
-                    {instruction}
-                  </StyledListItemNumber>
-                ))
-              : null}
-          </StyledList>
-        </StyledMainContent>
-      </StyledRecipeContainer>
-
-      <StyledCommentContainer>
-        <SubHeadingBig>Comments</SubHeadingBig>
-        {!userData ? (
-          <p>
-            To add comments, please <Link to="/login">Log in</Link>
-          </p>
-        ) : (
-          <AddComment />
-        )}
-        <DisplayComments recipeName={recipe.name} />
-      </StyledCommentContainer> */}
     </>
   );
 };
