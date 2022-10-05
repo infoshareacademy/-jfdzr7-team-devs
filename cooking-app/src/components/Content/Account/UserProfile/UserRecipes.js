@@ -91,7 +91,7 @@ export const UserRecipes = () => {
 
   return (
     <Box>
-      {!datafromFirebase ? (
+      {datafromFirebase == 0  ? (
         <Typography sx={{ p: "16px" }}>
           User has not added any recipes yet
         </Typography>

@@ -68,7 +68,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
               <Box sx={{ flexGrow: 1 }}>
                 <PageTitle>{recipe.name}</PageTitle>
               </Box>
-              <Box sx={{ display: "flex", backgroundColor: "lightgreen" }}>
+              <Box sx={{ display: "flex"}}>
                 {userData ? <AddFavourites id={id} /> : null}
                 {userData?.role === "admin" ? <AddToBanner id={id} /> : null}
               </Box>
