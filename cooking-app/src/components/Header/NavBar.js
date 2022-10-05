@@ -27,7 +27,7 @@ export const NavBar = () => {
     <AppBar
       position="static"
       elevation={1}
-      sx={{ bgcolor: "background.paper", mb: 5 }}
+      sx={{ bgcolor: "background.paper", mb: 5, minWidth:"300px" }}
     >
       <Container maxWidth="lg">
         <Toolbar disableGutters>
