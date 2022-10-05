@@ -33,6 +33,7 @@ import { GetAuthor } from "./GetAuthor";
 import { UserDataContext } from "../../../App";
 import { AddFavourites } from "./AddFavourites";
 import AddToBanner from "./AddToBanner";
+import { Box, Paper, Typography, Grid, Item, Button } from "@mui/material";
 
 export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
@@ -54,62 +55,145 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
 
   return (
     <>
-      <StyledRecipeContainer>
-        <StyledAsideRecipe>
-          <StyledImgMain src={recipe.image} alt={recipe.name} />
-        </StyledAsideRecipe>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={3}>
+          <Grid xs={12} md={5} item={true}>
+            <Box>
+              <StyledImgMain src={recipe.image} alt={recipe.name} />
+            </Box>
+          </Grid>
 
-        <StyledMainContent>
-          <StyledRecipeHeader>
-            <PageTitle>{recipe.name}</PageTitle>
-            {userData ? <AddFavourites id={id} /> : null}
-            {userData.role === "admin" ? <AddToBanner id={id} /> : null}
-          </StyledRecipeHeader>
+          <Grid xs={12} md={7} item={true}>
+            <Box sx={{ display: "flex" }}>
+              <Box sx={{ flexGrow: 1 }}>
+                <PageTitle>{recipe.name}</PageTitle>
+              </Box>
+              <Box sx={{ display: "flex", backgroundColor: "lightgreen" }}>
+                {userData ? <AddFavourites id={id} /> : null}
+                {userData?.role === "admin" ? <AddToBanner id={id} /> : null}
+              </Box>
+            </Box>
+            <GetAuthor userId={recipe.author} />
+            <Box>
+              <Typography variant="h6">{recipe.subName}</Typography>
+              <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
+                {recipe.specialDiets
+                  ? recipe.specialDiets.map((specialDietItem, index) => (
+                      <Button
+                        sx={{ my: 1, mr: 2 }}
+                        variant="contained"
+                        component={Link}
+                        key={index}
+                        to={`/ListRecipes/${recipe.specialDiets}`}
+                      >
+                        {specialDietItem}
+                      </Button>
+                    ))
+                  : null}
+              </Box>
+              <Typography sx={{ my: 3 }}>{recipe.description}</Typography>
+              <Box sx={{ display: "flex", my: 3 }}>
+                <StyledRecipeDetails>
+                  <Typography sx={{ fontWeight: "medium" }}>Serves</Typography>
+                  <Typography variant="overline" sx={{ lineHeight: "normal" }}>
+                    {recipe.servings} people
+                  </Typography>
+                </StyledRecipeDetails>
+                <StyledRecipeDetails>
+                  <Typography sx={{ fontWeight: "medium" }}>Time</Typography>
+                  <Typography variant="overline" sx={{ lineHeight: "normal" }}>
+                    {recipe.time.total}
+                  </Typography>
+                </StyledRecipeDetails>
+                <StyledRecipeDetails>
+                  <Typography sx={{ fontWeight: "medium" }}>
+                    Difficulty
+                  </Typography>
+                  <Typography variant="overline" sx={{ lineHeight: "normal" }}>
+                    {recipe.difficulty}
+                  </Typography>
+                </StyledRecipeDetails>
+              </Box>
+              <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
+                {recipe.tags
+                  ? recipe.tags.map((tags, index) => (
+                      <Button
+                        sx={{ my: 1, mr: 2 }}
+                        variant="outlined"
+                        component={Link}
+                        key={index}
+                        to={`/ListRecipes/${recipe.specialDiets}`}
+                      >
+                        {tags}
+                      </Button>
+                    ))
+                  : null}
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
 
-          <GetAuthor userId={recipe.author} />
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={3}>
+          <Grid xs={12} md={5} item={true}>
+            <Box>
+              <PageTitle style={{ fontSize: "35px", padding: "20px 0 " }}>
+                Ingredients
+              </PageTitle>
+              {recipe.ingredients ? (
+                recipe.ingredients.map((ingredients, index) =>
+                  ingredients === ingredients.toUpperCase() ? (
+                    <SubHeadingMedium key={index} to="/">
+                      {ingredients}
+                    </SubHeadingMedium>
+                  ) : (
+                    <StyledListItem key={index} to="/">
+                      {ingredients}
+                    </StyledListItem>
+                  )
+                )
+              ) : (
+                <StyledParagraph>List is empty</StyledParagraph>
+              )}
+            </Box>
+          </Grid>
 
-          <SubHeading>{recipe.subName}</SubHeading>
-          <StyledRecipeDescription>
-            {recipe.specialDiets
-              ? recipe.specialDiets.map((specialDietItem, index) => (
-                  <StyledTagsDiet key={index} to="/">
-                    {specialDietItem}
-                  </StyledTagsDiet>
-                ))
-              : null}
-          </StyledRecipeDescription>
+          <Grid xs={12} md={7} item={true}>
+            <Box>
+              <PageTitle style={{ fontSize: "35px", padding: "20px 0 " }}>
+                Instructions
+              </PageTitle>
 
-          <StyledRecipeDescriptionQuote>
-            {recipe.description}
-          </StyledRecipeDescriptionQuote>
+              <StyledList>
+                {recipe.instructions
+                  ? recipe.instructions.map((instruction, index) => (
+                      <StyledListItemNumber key={index} to="/">
+                        {instruction}
+                      </StyledListItemNumber>
+                    ))
+                  : null}
+              </StyledList>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
 
-          <StyledRecipeDescriptionDetails>
-            <StyledRecipeDetails>
-              <SubHeadingSmall>Serves</SubHeadingSmall>
-              <StyledDetailedInfo>{recipe.servings} people</StyledDetailedInfo>
-            </StyledRecipeDetails>
-            <StyledRecipeDetails>
-              <SubHeadingSmall>Cooks in</SubHeadingSmall>
-              <StyledDetailedInfo>{recipe.time.total}</StyledDetailedInfo>
-            </StyledRecipeDetails>
-            <StyledRecipeDetails>
-              <SubHeadingSmall>Difficulty</SubHeadingSmall>
-              <StyledDetailedInfo>{recipe.difficulty}</StyledDetailedInfo>
-            </StyledRecipeDetails>
-          </StyledRecipeDescriptionDetails>
+      <Box sx={{ my: 8 }}>
+        <PageTitle style={{ fontSize: "35px", padding: "20px 0 " }}>
+          Comments
+        </PageTitle>
+        {!userData ? (
+          <Typography>
+            To add comments, please <Link to="/login">Log in</Link>
+          </Typography>
+        ) : (
+          <AddComment />
+        )}
+        <DisplayComments recipeName={recipe.name} />
+      </Box>
 
-          <StyledRecipeDescription>
-            {recipe.tags
-              ? recipe.tags.map((tags, index) => (
-                  <StyledTags key={index} to="/">
-                    {tags}
-                  </StyledTags>
-                ))
-              : null}
-          </StyledRecipeDescription>
-        </StyledMainContent>
-      </StyledRecipeContainer>
-
+      {/* 
       <StyledRecipeContainer>
         <StyledAsideRecipe>
           <SubHeadingBig>Ingredients</SubHeadingBig>
@@ -155,7 +239,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
           <AddComment />
         )}
         <DisplayComments recipeName={recipe.name} />
-      </StyledCommentContainer>
+      </StyledCommentContainer> */}
     </>
   );
 };

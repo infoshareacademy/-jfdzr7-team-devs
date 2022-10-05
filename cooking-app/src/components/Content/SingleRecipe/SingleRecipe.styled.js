@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { StyledLink } from "../../../utils/styles/Global.styled";
 import Avatar from "@mui/material/Avatar";
 import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 export const StyledCommentItem = styled.div`
   margin-bottom: 20px;
@@ -132,6 +133,7 @@ export const StyledCommentContainer = styled.div`
 export const StyledRecipeContainer = styled.div`
   display: flex;
   margin-bottom: 48px;
+  background-color:lightblue;
 `;
 
 export const StyledRecipeDescription = styled.div`
@@ -179,7 +181,7 @@ export const StyledNutritions = styled.div`
 `;
 
 export const StyledRecipeDetails = styled.div`
-  padding: 0px 20px;
+  padding: 0px 10px;
   text-align: center;
   border-right: 0.5px solid var(--color-light-gray);
   border-left: 0.5px solid var(--color-light-gray);
@@ -213,11 +215,12 @@ export const SubHeadingMedium = styled(SubHeading)`
   margin: 40px 0 0 0;
 `;
 
-export const SubHeadingSmall = styled(SubHeading)`
+export const SubHeadingSmall = styled(Typography)`
+
   padding: 5px;
   margin: 0;
 `;
-export const StyledDetailedInfo = styled.p`
+export const StyledDetailedInfo = styled(Typography)`
   padding: 0;
   margin: 0;
   color: var(--color-gray);
