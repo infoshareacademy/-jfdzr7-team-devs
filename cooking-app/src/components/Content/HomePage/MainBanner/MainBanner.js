@@ -18,7 +18,7 @@ import { Loader } from "../../../../utils/Loader";
 export const MainBanner = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [datafromFirebase, setdatafromFirebase] = useState([]);
-  
+
   const preventUpdate = useRef(false);
 
   useEffect(() => {
@@ -42,7 +42,6 @@ export const MainBanner = () => {
     }
   }, []);
 
-
   const goToNextSlide = () => {
     if (currentSlideIndex === datafromFirebase.length - 1) {
       setCurrentSlideIndex(0);
@@ -62,7 +61,7 @@ export const MainBanner = () => {
   return (
     <>
       {datafromFirebase != 0 ? (
-        <Paper sx={{mb:5,}}>
+        <Paper sx={{ mb: 5 }}>
           <Paper
             sx={{
               display: "flex",
@@ -76,38 +75,50 @@ export const MainBanner = () => {
             <Paper
               sx={{
                 flex: 1,
-                backgroundImage: `url(${datafromFirebase[currentSlideIndex].image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
                 width: { xs: "100%", md: "60%" },
+                maxHeight: { xs: "700px", md: "450px" },
               }}
-            />
+            >
+              <img
+                src={datafromFirebase[currentSlideIndex].image}
+                alt={datafromFirebase[currentSlideIndex].name}
+                style={{
+                  width: "100%",
+                  objectFit: "cover",
+                  height: "100%",
+                  objectPosition: "center",
+                }}
+              />
+            </Paper>
 
             <StyledDescription
               elevation={0}
               sx={{
                 width: { xs: "100%", md: "40%" },
-                textAlign: { xs: "center", md: "left"},
-                backgroundColor:"secondary.main"
+                textAlign: { xs: "center", md: "left" },
+                backgroundColor: "secondary.main",
               }}
             >
-              <PageTitle style={{ fontSize: "40px", padding: "0" }}>
-                {datafromFirebase[currentSlideIndex].name}
-              </PageTitle>
-              <Typography variant="body1" sx={{ my: 2 }}>
-                {datafromFirebase[currentSlideIndex].metaDescription}
-              </Typography>
+              <Box sx={{display: "flex", flexDirection:"column", justifyContent:"center", flex: 1}}>
+                <PageTitle style={{ fontSize: "40px", padding: "0" }}>
+                  {datafromFirebase[currentSlideIndex].name}
+                </PageTitle>
+                <Typography variant="body1" sx={{ my: 2 }}>
+                  {datafromFirebase[currentSlideIndex].metaDescription}
+                </Typography>
+              </Box>
               <Box
                 sx={{
-                  textAlign: { xs: "center", md: "left" },
+                  textAlign: { xs: "center", md: "right" },
                 }}
               >
                 <Button
                   variant="contained"
                   component={Link}
                   to={`/recipe/${datafromFirebase[currentSlideIndex].id}`}
+                  sx={{whiteSpace:"nowrap"}}
                 >
-                  Get the recipe
+                  Check it!
                 </Button>
               </Box>
             </StyledDescription>

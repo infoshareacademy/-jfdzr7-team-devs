@@ -11,7 +11,7 @@ export const StyledDescription = styled(Paper)`
   padding: 55px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   background-color: var(--color-main-light-gray);
   background-color: var(--color-light-gray);
 `;

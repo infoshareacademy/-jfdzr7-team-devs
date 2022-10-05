@@ -19,11 +19,14 @@ export const IndividualRecipe = ({ singleRecipe }) => {
         <Paper
           sx={{
             height: { xs: "300px", sm: "400px", md: "250px" },
-            backgroundImage: `url(${singleRecipe.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
           }}
-        />
+        >
+          <img
+            src={singleRecipe.image}
+            alt={singleRecipe.name}
+            style={{ width: "100%", objectFit: "cover", height: "100%" }}
+          />
+        </Paper>
 
         <Box
           sx={{
