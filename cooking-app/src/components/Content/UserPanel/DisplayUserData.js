@@ -17,6 +17,7 @@ import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth } from "../../../api/firebase";
 import { deleteUser, signOut } from "firebase/auth";
 import { ErrorAccount } from "./ErrorAccount";
+
 //import { CustomAvatar } from "../../Header/CustomAvatar";
 
 // const defaultAvatar =
@@ -119,20 +120,23 @@ export const DisplayUserData = () => {
   };
 
   // {
-  //   isUser ? UserPanel : <p>brak konta</p>;
+  //   isUser ? UserPanel : <AccountError>;
   // }
 
   return (
     <>
       {isUser ? (
         <StyledUserPanel>
-          <h3>Twoje dane {currentUserData?.firstName}</h3>
+          <StyledUserPanelTitle>
+            Twoje dane {currentUserData?.firstName}
+          </StyledUserPanelTitle>
           <StyledDispalyUserData>
             <Paper
               className="paper"
               elevation={6}
               sx={{
                 m: 16,
+                marginTop: "20px",
                 display: "flex",
                 flexFlow: "row wrap",
                 justifyContent: "space-around",
@@ -279,4 +283,12 @@ const StyledUserPanel = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const StyledUserPanelTitle = styled.h2`
+  text-align: center;
+  font-family: "Playfair Display", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 0;
 `;
