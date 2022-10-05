@@ -10,8 +10,8 @@ export const TextFieldIngredients = ({
 }) => {
   return (
     <TextField
-      sx={{ width: 900 }}
-      label={label} //"Title"
+      fullWidth
+      label={label}
       required
       multiline
       variant={variantType.filled}

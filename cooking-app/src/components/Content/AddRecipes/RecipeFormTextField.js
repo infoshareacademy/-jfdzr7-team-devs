@@ -12,7 +12,7 @@ export const RecipeFormTextField = ({
   return (
     <TextField
       placeholder={placeholder ? placeholder : null}
-      sx={{ width: 900 }}
+      fullWidth
       label={label} //"Title"
       multiline
       required

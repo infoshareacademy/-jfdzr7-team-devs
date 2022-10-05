@@ -7,7 +7,7 @@ import {
   urlStorage,
   urlStorageCD,
   folderStorage,
-  recipesCollection,
+  recipesCollectionMain,
 } from "../../../api/firebaseIndex";
 // import { textsRecipe, defaultRecipe } from "./RecipeHelper";
 import {
@@ -16,6 +16,9 @@ import {
 } from "../../../api/firebaseIndex";
 import { RecipeForm2 } from "./RecipeForm";
 import { UserDataContext } from "../../../App";
+import { PageTitle } from "../../../utils/styles/Global.styled";
+import styled from "styled-components";
+import { StyledPageTitle } from "./StyledAddRecipe.styled";
 
 export const SelectedTagsContext = createContext([]);
 export const SelectedDietContext = createContext([]);
@@ -44,6 +47,7 @@ export const AddRecipeNew = () => {
   const [imageRef, setImageRef] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
   const [formValues, setFormValues] = useState(defaultRecipeValue);
+  const [isRecipeSent, setIsRecipeSent] = useState(false);
 
   useEffect(() => {
     // console.log(userData);
@@ -55,9 +59,9 @@ export const AddRecipeNew = () => {
   //   console.log(user);
   // }, [user]);
 
-  useEffect(() => {
-    console.log(formValues);
-  }, [formValues]);
+  // useEffect(() => {
+  //   console.log(formValues);
+  // }, [formValues]);
 
   useEffect(() => {
     setImageRef(ref(storage, `${folderStorage}/${imageUpload?.name + v4()}`));
@@ -182,7 +186,7 @@ export const AddRecipeNew = () => {
   //onSubmit
   const handleAddingRecipe = (e) => {
     e.preventDefault();
-    addDoc(recipesCollection, formValues)
+    addDoc(recipesCollectionMain, formValues)
       .then((response) => console.log(response))
       .catch((e) => {
         alert(firestoreErrorsCodes[e.code]);
@@ -190,12 +194,13 @@ export const AddRecipeNew = () => {
     alert("Recipe saved");
     setFormValues(defaultRecipeValue);
     setImageUrl(null);
-    //e.target.reset();
+    e.target.reset();
+    setIsRecipeSent(true);
   };
 
   return (
     <>
-      <h2>Add Recipe</h2>
+      <StyledPageTitle>Add Recipe</StyledPageTitle>
       <ImageUrlContext.Provider value={imageUrl}>
         <SelectedDietContext.Provider value={selectedDiet}>
           <PreparingContext.Provider value={methods}>
@@ -211,6 +216,7 @@ export const AddRecipeNew = () => {
                   handlerMethods={handleChangeMethods}
                   handlerAddInputMethod={handleMethodAddTextInput}
                   handlerDiet={handleChangeDiet}
+                  isRecipeSent={isRecipeSent}
                 />
               </SelectedTagsContext.Provider>
             </IngredientsContext.Provider>
