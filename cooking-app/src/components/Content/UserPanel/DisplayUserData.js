@@ -109,10 +109,9 @@ export const DisplayUserData = () => {
       deleteObject(userAvatarRef).catch((e) => alert(e));
     }
     setIsUser(false);
+    signOut(auth);
 
     deleteDoc(doc(db, "users", currentUserData?.uid));
-
-    // signOut(auth);
 
     deleteUser(user).catch((e) => {
       alert(e);
