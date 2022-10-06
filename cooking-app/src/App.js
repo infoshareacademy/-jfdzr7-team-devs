@@ -39,16 +39,6 @@ export const theme = createTheme({
       main: "#000000",
     },
   },
-  typography: {
-    mainTitle:{
-      fontFamily: "Playfair Display", 
-      fontSize: "55px",
-    },
-    subTitle:{
-      fontFamily: "Playfair Display", 
-      fontSize: "35px",
-    }
-  }
 });
 
 function App() {

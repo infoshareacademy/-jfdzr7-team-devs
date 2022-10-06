@@ -47,6 +47,11 @@ export const PageTitle = styled.h1`
   padding: 0 0 16px 0;
 `;
 
+export const SubTitle = styled(PageTitle)`
+  font-size: 35px;
+  padding: 20px 0;
+`;
+
 export const StyledTitle = styled.h2`
   margin: 0px 0 20px;
   font-size: 38px;
