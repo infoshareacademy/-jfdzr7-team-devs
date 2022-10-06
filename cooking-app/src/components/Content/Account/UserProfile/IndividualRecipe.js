@@ -53,12 +53,3 @@ const StyledName = styled(Box)`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-
-// sx={{
-//   p: 2,
-//   textOverflow: "ellipsis",
-//   overflow: "hidden",
-//   height: "100px",
-//   width: "100%",
-//   whiteSpace: "normal",
-// }}

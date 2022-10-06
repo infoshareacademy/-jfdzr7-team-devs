@@ -74,7 +74,7 @@ export const StyledDetailedInfo = styled(Typography)`
 
 export const StyledRecipeContent = styled(Box)`
   && {
-    margin: 20px 30px 0 0;
+    margin: 20px 30px 0 42px;
   }
 `;
 

@@ -155,6 +155,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
                       <Box
                         key={index}
                         sx={{
+                          display: "flex",
                           textDecoration:
                             isChecked(ingredients) == "yes"
                               ? "line-through"
@@ -166,9 +167,11 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
                           value={ingredients}
                           onChange={handleCheck}
                         />
-                        <label htmlFor={`checkbox${index}`}>
-                          {ingredients}
-                        </label>
+                        <Box sx={{ mt: 1.5 }}>
+                          <label htmlFor={`checkbox${index}`}>
+                            {ingredients}
+                          </label>
+                        </Box>
                       </Box>
                     )
                   )
