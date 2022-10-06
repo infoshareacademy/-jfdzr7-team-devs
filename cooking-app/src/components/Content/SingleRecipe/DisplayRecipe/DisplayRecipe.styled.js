@@ -77,3 +77,11 @@ export const StyledRecipeContent = styled(Box)`
     margin: 20px 30px 0 0;
   }
 `;
+
+export const StyledDetail = styled(Box)`
+  && {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 30px 0px;
+  }
+`;

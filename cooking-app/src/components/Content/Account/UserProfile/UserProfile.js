@@ -52,7 +52,7 @@ export const UserProfile = () => {
             sx={{
               display: "flex",
               justifyContent: { xs: "center", md: "left" },
-              ml: { md: "150px" },
+              ml: { xs:"20px", md: "150px" },
               position: "relative",
               height: { xs: 125, sm: 180 },
             }}

@@ -20,6 +20,7 @@ import {
   StyledInfo,
   StyledDetailedInfo,
   StyledRecipeContent,
+  StyledDetail,
 } from "./DisplayRecipe.styled";
 import { GetAuthor } from "../GetAuthor/GetAuthor";
 import { UserDataContext } from "../../../../App";
@@ -96,7 +97,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
                   : null}
               </StyledSpecialTags>
               <StyledQuote>{recipe.description}</StyledQuote>
-              <StyledSpecialTags>
+              <StyledDetail>
                 <StyledRecipeDetails>
                   <StyledInfo>Serves</StyledInfo>
                   <StyledDetailedInfo variant="overline">
@@ -115,7 +116,8 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
                     {recipe.difficulty}
                   </StyledDetailedInfo>
                 </StyledRecipeDetails>
-              </StyledSpecialTags>
+              </StyledDetail>
+
               <StyledSpecialTags>
                 {recipe.tags
                   ? recipe.tags.map((tags, index) => (
@@ -164,7 +166,9 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
                           value={ingredients}
                           onChange={handleCheck}
                         />
-                        <label for={`checkbox${index}`}>{ingredients}</label>
+                        <label htmlFor={`checkbox${index}`}>
+                          {ingredients}
+                        </label>
                       </Box>
                     )
                   )
