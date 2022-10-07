@@ -9,15 +9,12 @@ import {
   folderStorage,
   recipesCollectionMain,
 } from "../../../api/firebaseIndex";
-// import { textsRecipe, defaultRecipe } from "./RecipeHelper";
 import {
   firestoreErrorsCodes,
   storageErrorsCodes,
 } from "../../../api/firebaseIndex";
 import { RecipeForm2 } from "./RecipeForm";
 import { UserDataContext } from "../../../App";
-import { PageTitle } from "../../../utils/styles/Global.styled";
-import styled from "styled-components";
 import { StyledPageTitle } from "./StyledAddRecipe.styled";
 
 export const SelectedTagsContext = createContext([]);
@@ -27,7 +24,7 @@ export const PreparingContext = createContext([]);
 export const ImageUrlContext = createContext("");
 
 const defaultRecipeValue = {
-  author: {},
+  author: "",
   name: "",
   description: "",
   ingredients: [],
@@ -50,14 +47,8 @@ export const AddRecipeNew = () => {
   const [isRecipeSent, setIsRecipeSent] = useState(false);
 
   useEffect(() => {
-    // console.log(userData);
     setUser(userData);
-    setFormValues({ ...formValues, author: { user } });
   }, [userData]);
-
-  // useEffect(() => {
-  //   console.log(user);
-  // }, [user]);
 
   // useEffect(() => {
   //   console.log(formValues);
@@ -74,10 +65,8 @@ export const AddRecipeNew = () => {
     if (!imageUpload) return;
     uploadBytes(imageRef, imageUpload)
       .then((response) => {
-        alert("Image uploaded");
         setFormValues({
           ...formValues,
-          // author: { ...user },
           image: [
             ...formValues.image,
             `${urlStorage}${response.metadata.name}${urlStorageCD}`,
@@ -155,7 +144,7 @@ export const AddRecipeNew = () => {
         setFormValues({
           ...formValues,
           ingredients: [...ingredients],
-          author: { ...user },
+          author: user?.uid, //{ ...user },
         });
         break;
       case "instructions":

@@ -74,7 +74,7 @@ export function MultipleSelectTags({ handlerTags, handlerDiet, onChange }) {
           ))}
         </Select>
       </FormControl>
-      <FormControl required sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="specialDiets">Special Diets</InputLabel>
         <Select
           name="specialDiets"
