@@ -56,13 +56,13 @@ const AcceptItem = ({ item, children }) => {
           <CardContent sx={{ display: "flex" }}>
             <List sx={{ flexBasis: "30%" }}>
               <Typography paragraph>Ingredients:</Typography>
-              {item.ingredients.map((ingredient) => (
+              {item.ingredients?.map((ingredient) => (
                 <ListItem>{ingredient}</ListItem>
               ))}
             </List>
             <List sx={{ flexBasis: "70%" }}>
               <Typography paragraph>Method:</Typography>
-              {item.instructions.map((instruction) => {
+              {item.instructions?.map((instruction) => {
                 return <ListItem>{instruction}</ListItem>;
               })}
             </List>
