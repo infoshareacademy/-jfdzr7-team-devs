@@ -1,4 +1,4 @@
-import { singleUserCollection } from "../../../api/firebaseIndex";
+import { singleUserCollection } from "../../../../api/firebaseIndex";
 import { onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import {
@@ -6,8 +6,8 @@ import {
   StyledAvatar,
   StyledDate,
   StyledAuthorContainer,
-  StyledAuthorSection
-} from "./SingleRecipe.styled";
+  StyledAuthorSection,
+} from "./GetAuthor.styled";
 import moment from "moment";
 
 export const GetAuthor = ({ userId, createdAt }) => {
@@ -24,13 +24,13 @@ export const GetAuthor = ({ userId, createdAt }) => {
     <StyledAuthorSection>
       <StyledAvatar alt={user.firstName} src={user.avatarUrl} />
       <StyledAuthorContainer>
-      <StyledAuthorLink to={`/user/${user.uid}/added`}>
-        {user.firstName} {user.lastName}
+        <StyledAuthorLink to={`/user/${user.uid}/added`}>
+          {user.firstName} {user.lastName}
         </StyledAuthorLink>
         {createdAt && (
           <StyledDate>{moment(createdAt.toDate()).calendar()}</StyledDate>
         )}
       </StyledAuthorContainer>
-      </StyledAuthorSection>
+    </StyledAuthorSection>
   );
 };
