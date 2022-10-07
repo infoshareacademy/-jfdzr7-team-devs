@@ -49,8 +49,9 @@ export const UserFollowing = () => {
       preventUpdate.current = true;
       user.favourites.forEach((recipeId) => {
         getDoc(singleRecipeCollection(recipeId)).then((recipe) => {
-          setdatafromFirebase((current) => [...current, 
-            {...recipe.data(), id: recipeId },
+          setdatafromFirebase((current) => [
+            ...current,
+            { ...recipe.data(), id: recipeId },
           ]);
           // setdatafromFirebase((current) => [...current, recipe.data()]);
         });
@@ -119,7 +120,7 @@ export const UserFollowing = () => {
             fullWidth
           />
 
-          <Box sx={{ my: 2 }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
             {tags.map((singleTag, index) => {
               return (
                 <InputElement

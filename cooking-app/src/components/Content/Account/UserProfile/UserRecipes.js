@@ -107,7 +107,7 @@ export const UserRecipes = () => {
             fullWidth
           />
 
-          <Box sx={{ my: 2 }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
             {tags.map((singleTag, index) => {
               return (
                 <InputElement
