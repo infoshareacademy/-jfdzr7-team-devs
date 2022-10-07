@@ -1,4 +1,4 @@
-import { onSnapshot } from "firebase/firestore";
+import { onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
 import { recipesCollection, tags } from "../../../api/firebaseIndex";
 import { IndividualRecipe } from "./IndividualRecipe";
@@ -61,7 +61,11 @@ const {tag} = useParams()
 
 
   useEffect(() => {
-    onSnapshot(recipesCollection, (snapshot) => {
+    const q = query(
+      recipesCollection,
+      where("isApproved", "==", true),
+    );
+    onSnapshot(q, (snapshot) => {
       setdatafromFirebase(getDataFromSnapshot(snapshot));
     });
   }, []);
