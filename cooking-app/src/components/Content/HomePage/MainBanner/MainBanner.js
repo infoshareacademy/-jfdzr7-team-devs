@@ -8,8 +8,11 @@ import {
 import {
   StyledDescription,
   StyledNavigation,
+  StyledSlider,
+  StyledImg,
+  StyledDescriptionText,
+  BannerTitle,
 } from "../MainBanner/MainBanner.styled";
-import { PageTitle } from "../../../../utils/styles/Global.styled";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { IconButton, Paper, Button, Box, Typography } from "@mui/material";
@@ -18,7 +21,7 @@ import { Loader } from "../../../../utils/Loader";
 export const MainBanner = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [datafromFirebase, setdatafromFirebase] = useState([]);
-  
+
   const preventUpdate = useRef(false);
 
   useEffect(() => {
@@ -42,7 +45,6 @@ export const MainBanner = () => {
     }
   }, []);
 
-
   const goToNextSlide = () => {
     if (currentSlideIndex === datafromFirebase.length - 1) {
       setCurrentSlideIndex(0);
@@ -62,52 +64,55 @@ export const MainBanner = () => {
   return (
     <>
       {datafromFirebase != 0 ? (
-        <Paper sx={{mb:5,}}>
-          <Paper
+        <Paper sx={{ mb: 5 }}>
+          <StyledSlider
             sx={{
-              display: "flex",
               flexDirection: { xs: "column", md: "row" },
               height: { md: "450px" },
               minHeight: { xs: "600px", md: "450px" },
-              contain: "content",
-              minWidth: "250px",
             }}
           >
             <Paper
               sx={{
                 flex: 1,
-                backgroundImage: `url(${datafromFirebase[currentSlideIndex].image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
                 width: { xs: "100%", md: "60%" },
+                maxHeight: { xs: "700px", md: "450px" },
               }}
-            />
+            >
+              <StyledImg
+                src={datafromFirebase[currentSlideIndex].image}
+                alt={datafromFirebase[currentSlideIndex].name}
+              />
+            </Paper>
 
             <StyledDescription
               elevation={0}
               sx={{
                 width: { xs: "100%", md: "40%" },
-                textAlign: { xs: "center", md: "left"},
-                backgroundColor:"secondary.main"
+                textAlign: { xs: "center", md: "left" },
+                backgroundColor: "secondary.main",
               }}
             >
-              <PageTitle style={{ fontSize: "40px", padding: "0" }}>
-                {datafromFirebase[currentSlideIndex].name}
-              </PageTitle>
-              <Typography variant="body1" sx={{ my: 2 }}>
-                {datafromFirebase[currentSlideIndex].metaDescription}
-              </Typography>
+              <StyledDescriptionText>
+                <BannerTitle>
+                  {datafromFirebase[currentSlideIndex].name}
+                </BannerTitle>
+                <Typography variant="body1" sx={{ my: 2 }}>
+                  {datafromFirebase[currentSlideIndex].metaDescription}
+                </Typography>
+              </StyledDescriptionText>
               <Box
                 sx={{
-                  textAlign: { xs: "center", md: "left" },
+                  textAlign: { xs: "center", md: "right" },
                 }}
               >
                 <Button
                   variant="contained"
                   component={Link}
                   to={`/recipe/${datafromFirebase[currentSlideIndex].id}`}
+                  sx={{ whiteSpace: "nowrap" }}
                 >
-                  Get the recipe
+                  Check it!
                 </Button>
               </Box>
             </StyledDescription>
@@ -120,7 +125,7 @@ export const MainBanner = () => {
                 <ArrowForwardIosIcon fontSize="large" />
               </IconButton>
             </StyledNavigation>
-          </Paper>
+          </StyledSlider>
         </Paper>
       ) : (
         <Loader />

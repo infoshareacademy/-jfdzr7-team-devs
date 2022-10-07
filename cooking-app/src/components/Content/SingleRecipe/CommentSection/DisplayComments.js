@@ -8,16 +8,16 @@ import {
   StyledParagraph,
   StyledCommentSection,
   StyledCommentText,
-} from "./SingleRecipe.styled";
+} from "./DisplayComments.styled";
 import {
   commentsRecipeCollection,
   defaultQueryConstraint,
-} from "../../../api/firebaseIndex";
-import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
-import { Loader } from "../../../utils/Loader";
+} from "../../../../api/firebaseIndex";
+import { getDataFromSnapshot } from "../../../../utils/GetDataFromSnapshot";
+import { Loader } from "../../../../utils/Loader";
 import { Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
-import { GetAuthor } from "./GetAuthor";
+import { GetAuthor } from "../GetAuthor/GetAuthor";
 
 export const DisplayComments = ({ recipeName }) => {
   const [singleComment, setComment] = useState([]);

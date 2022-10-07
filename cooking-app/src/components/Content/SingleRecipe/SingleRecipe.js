@@ -7,7 +7,7 @@ import { ERROR_MESSAGE } from "../../../utils/ErrorMessageTexts";
 import { Alert } from "@mui/material";
 import { Loader } from "../../../utils/Loader";
 import { variantType } from "../../../utils/styles/muiStyles";
-import { DisplayRecipe } from "./DisplayRecipe";
+import { DisplayRecipe } from "./DisplayRecipe/DisplayRecipe";
 
 export const SingleRecipe = () => {
   const [recipes, setRecipes] = useState([]);

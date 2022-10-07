@@ -1,11 +1,11 @@
 import { onSnapshot } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { recipesCollection } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { IndividualRecipe } from "../Account/UserProfile/IndividualRecipe";
 import { Button, Grid, Box } from "@mui/material";
 import { Link } from "react-router-dom";
-import { PageTitle } from "../../../utils/styles/Global.styled";
+import { SubTitle } from "../../../utils/styles/Global.styled";
 
 export const HomePageSection = ({ category }) => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
@@ -34,10 +34,7 @@ export const HomePageSection = ({ category }) => {
   return (
     <>
       <Grid container direction="column">
-        <PageTitle style={{ fontSize: "35px", padding: "20px 0 " }}>
-          {category}
-        </PageTitle>
-
+        <SubTitle>{category}</SubTitle>
         <Grid direction="row" container spacing={4}>
           {listofRecipe2}
         </Grid>

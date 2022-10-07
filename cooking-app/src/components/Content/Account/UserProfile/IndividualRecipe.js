@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { CardActionArea, Paper, Box, Card, Typography } from "@mui/material";
+import styled from "styled-components";
 
 export const IndividualRecipe = ({ singleRecipe }) => {
   return (
@@ -19,27 +20,36 @@ export const IndividualRecipe = ({ singleRecipe }) => {
         <Paper
           sx={{
             height: { xs: "300px", sm: "400px", md: "250px" },
-            backgroundImage: `url(${singleRecipe.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-
-        <Box
-          sx={{
-            p: 2,
-            textOverflow: "ellipsis",
-            overflow: "hidden",
-            height: "100px",
-            width: "100%",
-            whiteSpace: "normal",
           }}
         >
+          <img
+            src={singleRecipe.image}
+            alt={singleRecipe.name}
+            style={{ width: "100%", objectFit: "cover", height: "100%" }}
+          />
+        </Paper>
+
+        <StyledName>
           <Typography gutterBottom variant="h6" component="div">
             {singleRecipe.name}
           </Typography>
-        </Box>
+        </StyledName>
       </CardActionArea>
     </Card>
   );
 };
+
+const StyledName = styled(Box)`
+  display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  height: 90px;
+  padding: 20px 10px;
+  margin: 0 auto;
+  font-size: 20px;
+  line-height: 1;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;

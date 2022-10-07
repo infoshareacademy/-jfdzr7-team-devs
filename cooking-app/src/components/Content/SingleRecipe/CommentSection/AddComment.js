@@ -2,13 +2,12 @@ import { useState, useContext, useRef } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import SendIcon from "@mui/icons-material/Send";
 import { TextField, Button, IconButton, Fab } from "@mui/material";
-
 import { LoadingButton } from "@mui/lab";
 import { useParams } from "react-router-dom";
 import { Timestamp, addDoc } from "firebase/firestore";
-import { storageErrorsCodes } from "../../../api/firebaseIndex";
-import { variantType } from "../../../utils/styles/muiStyles";
-import { UserDataContext } from "../../../App";
+import { storageErrorsCodes } from "../../../../api/firebaseIndex";
+import { variantType } from "../../../../utils/styles/muiStyles";
+import { UserDataContext } from "../../../../App";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import CloseIcon from "@mui/icons-material/Close";
 import {
@@ -17,8 +16,8 @@ import {
   StyledForm,
   StyledUpladImg,
   StyledUpladContainer,
-} from "./SingleRecipe.styled";
-import { storage } from "../../../api/firebase";
+} from "./AdcComment.styled";
+import { storage } from "../../../../api/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import {
@@ -26,7 +25,7 @@ import {
   urlStorageCD,
   folderStorage,
   commentsRecipeCollection,
-} from "../../../api/firebaseIndex";
+} from "../../../../api/firebaseIndex";
 
 const defaultCommentForm = {
   author: "",
@@ -126,6 +125,7 @@ export const AddComment = () => {
             color="primary"
             aria-label="upload picture"
             component="label"
+            disabled={!imageChoosen}
           >
             <input
               hidden
@@ -147,7 +147,6 @@ export const AddComment = () => {
                 aria-label="delate"
                 size="small"
                 style={{ float: "right" }}
-                // onClick={handleStopUpload}
                 disabled={imageChoosen}
               >
                 <CloseIcon onClick={handleStopUpload} />
