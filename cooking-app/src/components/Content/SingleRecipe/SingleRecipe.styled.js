@@ -19,11 +19,7 @@ export const StyledComment = styled.div`
   padding: 20px 0;
 `;
 export const StyledAuthorLink = styled(Link)`
-  display: flex;
-  display: inline-block;
-  margin: 0;
   text-decoration: none;
-  margin-bottom: 20px;
   color: var(--color-black);
 
   &:hover {
@@ -31,13 +27,17 @@ export const StyledAuthorLink = styled(Link)`
   }
 `;
 
-export const StyledCommentAuthorLink = styled(StyledAuthorLink)`
+export const StyledAuthorSection = styled.div`
   display: flex;
+  /* display: inline-block; */
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  margin-bottom: 20px;
 `;
 
-export const StyledCommentAuthor = styled.div`
+export const StyledAuthorContainer = styled.div`
   padding: 20px 0;
-  color: var(--color-black);
 `;
 
 export const StyledCommentSection = styled.div`
@@ -45,6 +45,7 @@ export const StyledCommentSection = styled.div`
 `;
 export const StyledAvatar = styled(Avatar)`
   margin: 20px;
+  margin-left: 0;
 `;
 export const StyledCommentText = styled.p`
   margin: 0 0 15px 0;
@@ -125,7 +126,7 @@ export const StyledUpladImg = styled(StyledUpladContainer)`
 
 ////////////////////
 export const StyledCommentContainer = styled.div`
-  padding: 25px;
+  padding: 25px 0;
 `;
 
 export const StyledRecipeContainer = styled.div`
@@ -188,12 +189,12 @@ export const StyledRecipeDetails = styled.div`
 
 export const StyledAsideRecipe = styled.div`
   width: 40%;
-  padding: 0 25px;
+  padding-right: 24px;
 `;
 
 export const StyledMainContent = styled.div`
   width: 60%;
-  padding: 0 25px;
+  padding-left: 24px;
 `;
 
 export const SubHeading = styled.p`

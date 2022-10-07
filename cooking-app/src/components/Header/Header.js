@@ -16,7 +16,6 @@ export const Header = ({ isLoggedIn }) => {
       <StyledHeader>
         <StyledHeaderContent>
           <MenuListDropdown />
-          <NavButton to="/ebook">EBook</NavButton>
         </StyledHeaderContent>
         <NavButtonLogo to="/">CookingApp</NavButtonLogo>
         <StyledHeaderContent>

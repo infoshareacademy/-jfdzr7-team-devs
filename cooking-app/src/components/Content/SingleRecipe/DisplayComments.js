@@ -1,20 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onSnapshot, query, limit, startAfter } from "firebase/firestore";
-import moment from "moment";
 import {
   StyledComment,
-  StyledAuthorName,
-  StyledDate,
   StyledImg,
   StyledCommentItem,
   StyledParagraph,
-  StyledDialog,
-  StyledCommentAuthor,
-  StyledAvatar,
   StyledCommentSection,
   StyledCommentText,
-  StyledCommentAuthorLink,
 } from "./SingleRecipe.styled";
 import {
   commentsRecipeCollection,
@@ -24,7 +17,7 @@ import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { Loader } from "../../../utils/Loader";
 import { Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
-import { GetUser } from "./GetUser";
+import { GetAuthor } from "./GetAuthor";
 
 export const DisplayComments = ({ recipeName }) => {
   const [singleComment, setComment] = useState([]);
@@ -33,6 +26,7 @@ export const DisplayComments = ({ recipeName }) => {
   const [commentsList, setCommentsList] = useState({});
   const [open, setOpen] = useState(false);
   const { id } = useParams();
+  const [url, setUrl] = useState();
 
   useEffect(() => {
     const docRef = commentsRecipeCollection(id);
@@ -76,8 +70,9 @@ export const DisplayComments = ({ recipeName }) => {
 
   const moreLoading = commentsList.length - singleComment.length;
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (url) => {
     setOpen(true);
+    setUrl(url);
   };
 
   const handleClose = () => {
@@ -88,47 +83,35 @@ export const DisplayComments = ({ recipeName }) => {
     <>
       {singleComment.length > 0 ? (
         <StyledCommentItem>
-          {singleComment.map(
-            ({ id, author, comment, createdAt, url, authorId }) => (
-              <StyledComment key={id}>
-                <StyledCommentAuthorLink to={`/user/${authorId}`}>
-                  <StyledAvatar />
-                  {/* <Avatar alt={author} src={userData?.avatarUrl} /> */}
-                  {/* <GetUser userId={authorId} /> */}
-                  <StyledCommentAuthor>
-                    <StyledAuthorName>{author}</StyledAuthorName>
-                    <StyledDate>
-                      {moment(createdAt.toDate()).calendar()}
-                    </StyledDate>
-                  </StyledCommentAuthor>
-                </StyledCommentAuthorLink>
+          {singleComment.map(({ id, comment, createdAt, url, authorId }) => (
+            <StyledComment key={id}>
+              <GetAuthor userId={authorId} createdAt={createdAt} />
+              <StyledCommentSection>
+                <StyledCommentText>{comment}</StyledCommentText>
+                {url.length > 0 ? (
+                  <StyledImg
+                    src={url}
+                    alt={recipeName}
+                    onClick={() => handleClickOpen(url)}
+                  />
+                ) : null}
+              </StyledCommentSection>
+            </StyledComment>
+          ))}
 
-                <StyledCommentSection>
-                  <StyledCommentText>{comment}</StyledCommentText>
-                  {url.length > 0 ? (
-                    <StyledImg
-                      src={url}
-                      alt={recipeName}
-                      onClick={handleClickOpen}
-                    />
-                  ) : null}
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            hasCloseButton
+            style={{ maxWidth: "100%", maxHeight: "100%" }}
+          >
+            <img
+              style={{ width: "auto", height: "100%" }}
+              src={url}
+              alt={recipeName}
+            />
+          </Dialog>
 
-                  <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    hasCloseButton
-                    style={{ maxWidth: "100%", maxHeight: "100%" }}
-                  >
-                    <img
-                      style={{ width: "auto", height: "100%" }}
-                      src={url}
-                      alt={recipeName}
-                    />
-                  </Dialog>
-                </StyledCommentSection>
-              </StyledComment>
-            )
-          )}
           {moreLoading ? (
             <Button onClick={handleMore} fullWidth variant="contained">
               Show more
