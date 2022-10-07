@@ -2,7 +2,7 @@ import { useState, useEffect, createContext } from "react";
 import { useParams, Outlet, NavLink } from "react-router-dom";
 import { Paper, Avatar, Box, Tabs, Tab } from "@mui/material";
 import {
-  StyledUserCover,
+  StyledAutorSection,
   StyledLayout,
   StyledAuthorName,
 } from "./UserProfileStyled";
@@ -61,13 +61,15 @@ export const UserProfile = () => {
           }}
         >
             <Avatar
-            sx={{ height:"100%", width:"auto"}}
+                  sx={{ height:"100%", width:{ xs: 77, sm: 132 }}}
               alt={user.firstName}
               src={user.avatarUrl}
             />
+            <StyledAutorSection>
             <StyledAuthorName>
               {user.firstName} {user.lastName}
             </StyledAuthorName>
+            </StyledAutorSection>
         </Paper>
 
         <UserProfileContext.Provider value={user}>

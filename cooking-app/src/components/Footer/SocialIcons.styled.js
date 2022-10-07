@@ -6,12 +6,11 @@ export const StyledSocialIcons = styled.div`
 
   li {
     list-style: none;
+    margin: 10px;
   }
 
   a {
     text-decoration: none;
-    padding: 0.3em;
-    color: #353536;
     font-size: 2.5em;
   }
 `;

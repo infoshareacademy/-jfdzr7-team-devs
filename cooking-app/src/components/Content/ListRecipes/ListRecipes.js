@@ -36,8 +36,6 @@ export const ListRecipes = () => {
 
 const {tag} = useParams()
 
-console.log(tag)
-
   const [datafromFirebase, setdatafromFirebase] = useState([]);
   const [visible, setVisible] = useState(12);
 
@@ -47,7 +45,6 @@ console.log(tag)
     inputState: false,
   });
 
-  console.log(state.inputCategory)
 
   const handelTextInput = (e) => {
     dispatcher({ type: "newTextInput", payload: e.target.value });

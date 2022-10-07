@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Paper, Typography } from "@mui/material";
+import { Paper, Typography, Box } from "@mui/material";
 
 export const StyledLayout = styled.div`
   width: 100%;
@@ -23,8 +23,27 @@ export const StyledUserCover = styled(Paper)`
 export const StyledAuthorName = styled.h2`
   color: var(--color-black);
   font-weight: 500;
-  margin: 0px 20px;
-  
+  /* margin: 10px 20px; */
+  padding: 0;
+  margin: 0;
+  font-size: 24px;
+`;
+
+export const StyledAutorSection = styled(Box)`
+  display: block;
+  display: flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow: hidden;
+  margin: 10px 20px;
+  height: 87px;
+  /* display: -webkit-box;
+  max-width: 100%;
+  line-height: 1;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; */
 `;
 
 export const StyledUserNavigation = styled.div`
