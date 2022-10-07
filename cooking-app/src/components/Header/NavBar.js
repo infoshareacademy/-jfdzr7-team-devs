@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
+import { StyledButton, StyledLogo } from "./NavBar.styled";
 
 export const NavBar = ({ isLoggedIn }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -90,42 +91,20 @@ export const NavBar = ({ isLoggedIn }) => {
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
+            <StyledButton
               component={NavLink}
               to="/"
-              sx={{
-                my: 2,
-                color: "primary.contrastText",
-                display: "block",
-                "&:hover": {
-                  color: "primary.main",
-                },
-                "&:active": {
-                  color: "primary.main",
-                  fontWeight: 700,
-                },
-              }}
+              sx={{color:"primary.contrastText"}}
             >
               Home
-            </Button>
-            <Button
+            </StyledButton>
+            <StyledButton
               component={NavLink}
               to="/ListRecipes"
-              sx={{
-                my: 2,
-                color: "primary.contrastText",
-                display: "block",
-                "&:hover": {
-                  color: "primary.main",
-                },
-                "&:active": {
-                  color: "primary.main",
-                  fontWeight: 700,
-                },
-              }}
+              sx={{color:"primary.contrastText"}}
             >
               Recipes
-            </Button>
+            </StyledButton>
           </Box>
 
           <Typography
@@ -148,27 +127,19 @@ export const NavBar = ({ isLoggedIn }) => {
           </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
-          {isLoggedIn ? (
-            <>
-              <AccountMenu />
-            </>
-          ) : (
-            <Button 
-            component={NavLink}
-            to="/login"
-            sx={{
-              my: 2,
-              color: "primary.contrastText",
-              display: "block",
-              "&:hover": {
-                color: "primary.main",
-              },
-              "&:active": {
-                color: "primary.main",
-                fontWeight: 700,
-              },
-            }}>Login</Button>
-          )}
+            {isLoggedIn ? (
+              <>
+                <AccountMenu />
+              </>
+            ) : (
+              <StyledButton
+                component={NavLink}
+                to="/login"
+                sx={{color:"primary.contrastText"}}
+              >
+                Login
+              </StyledButton>
+            )}
           </Box>
         </Toolbar>
       </Container>

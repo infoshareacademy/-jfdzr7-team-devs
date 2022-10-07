@@ -28,6 +28,7 @@ export const GlobalStyle = createGlobalStyle`
 export const Wrapper = styled.div`
   margin: 0 auto;
   height: 100vh;
+  min-height: calc(100vh - 293px);
   display: flex;
   flex-direction: column;
 `;
@@ -37,7 +38,7 @@ export const Container = styled.div`
   width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
-  /* background-color: var(--color-main-light-gray); */
+  
 `;
 
 export const PageTitle = styled.h1`
