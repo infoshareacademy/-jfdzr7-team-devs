@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 
 export const StyledLayout = styled.div`
   width: 100%;
@@ -20,10 +20,11 @@ export const StyledUserCover = styled(Paper)`
   min-width: 300px;
 `;
 
-export const StyledAuthorName = styled.p`
+export const StyledAuthorName = styled.h2`
   color: var(--color-black);
   font-weight: 500;
   margin: 0px 20px;
+  
 `;
 
 export const StyledUserNavigation = styled.div`
