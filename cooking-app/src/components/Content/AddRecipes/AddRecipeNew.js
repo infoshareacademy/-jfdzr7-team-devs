@@ -50,9 +50,9 @@ export const AddRecipeNew = () => {
     setUser(userData);
   }, [userData]);
 
-  // useEffect(() => {
-  //   console.log(formValues);
-  // }, [formValues]);
+  useEffect(() => {
+    console.log(formValues);
+  }, [formValues]);
 
   useEffect(() => {
     setImageRef(ref(storage, `${folderStorage}/${imageUpload?.name + v4()}`));
@@ -122,6 +122,13 @@ export const AddRecipeNew = () => {
     setMethods([...methods, ""]);
   };
 
+  const handleDeleteInputMethod = (e, index) => {
+    e.preventDefault();
+    const inputList = [...methods];
+    inputList.pop();
+    setMethods(inputList);
+  };
+
   // onChange
   const changeFormValues = (e) => {
     switch (e.target.name) {
@@ -157,12 +164,14 @@ export const AddRecipeNew = () => {
         setFormValues({
           ...formValues,
           tags: e.target.value,
+          instructions: [...methods],
         });
         break;
       case "specialDiets":
         setFormValues({
           ...formValues,
           specialDiets: e.target.value,
+          instructions: [...methods],
         });
         break;
       case "file":
@@ -206,6 +215,7 @@ export const AddRecipeNew = () => {
                   handlerAddInputMethod={handleMethodAddTextInput}
                   handlerDiet={handleChangeDiet}
                   isRecipeSent={isRecipeSent}
+                  handlerDeleteInputMethod={handleDeleteInputMethod}
                 />
               </SelectedTagsContext.Provider>
             </IngredientsContext.Provider>

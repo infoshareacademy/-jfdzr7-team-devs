@@ -20,6 +20,7 @@ export const RecipeForm2 = ({
   handlerAddInputIngredient,
   handlerAddInputMethod,
   isRecipeSent,
+  handlerDeleteInputMethod,
 }) => {
   const ingredients = useContext(IngredientsContext);
   const methods = useContext(PreparingContext);
@@ -51,23 +52,37 @@ export const RecipeForm2 = ({
           <Button onClick={handlerAddInputIngredient} variant="contained">
             Next ingredient{" "}
           </Button>
+          <Button
+            onClick={(e) => handlerDeleteInputMethod(e)}
+            variant="contained"
+          >
+            Delete line
+          </Button>
         </div>
         <div>
           <h3>How to prepare</h3>
           <p>Enter step by step:</p>
           {methods.map((method, i) => {
             return (
-              <TextFieldMethods
-                key={i}
-                label="Enter one step:"
-                name="instructions"
-                onChange={onChange}
-                handlerMethods={(e) => handlerMethods(e, i)}
-              />
+              <>
+                <TextFieldMethods
+                  key={i}
+                  label="Enter one step:"
+                  name="instructions"
+                  onChange={onChange}
+                  handlerMethods={(e) => handlerMethods(e, i)}
+                />
+              </>
             );
           })}
           <Button onClick={handlerAddInputMethod} variant="contained">
             Next step
+          </Button>
+          <Button
+            onClick={(e) => handlerDeleteInputMethod(e)}
+            variant="contained"
+          >
+            Delete line
           </Button>
         </div>
         <MultipleSelectTags
