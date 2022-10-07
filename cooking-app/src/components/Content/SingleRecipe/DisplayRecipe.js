@@ -27,12 +27,10 @@ import {
   StyledListItem,
   StyledRecipeDescriptionDetails,
   StyledTagsDiet,
-  StyledAuthorLink,
   StyledRecipeHeader,
 } from "./SingleRecipe.styled";
-import { GetUser } from "./GetUser";
+import { GetAuthor } from "./GetAuthor";
 import { UserDataContext } from "../../../App";
-
 import { AddFavourites } from "./AddFavourites";
 import AddToBanner from "./AddToBanner";
 
@@ -58,7 +56,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
     <>
       <StyledRecipeContainer>
         <StyledAsideRecipe>
-          <StyledImgMain src={recipe.image} alt={`${recipe.imageAlt}`} />
+          <StyledImgMain src={recipe.image} alt={recipe.name} />
         </StyledAsideRecipe>
 
         <StyledMainContent>
@@ -68,9 +66,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
             {userData.role === "admin" ? <AddToBanner id={id} /> : null}
           </StyledRecipeHeader>
 
-          <StyledAuthorLink to={`/user/${recipe.author}`}>
-            <GetUser userId={recipe.author} />
-          </StyledAuthorLink>
+          <GetAuthor userId={recipe.author} />
 
           <SubHeading>{recipe.subName}</SubHeading>
           <StyledRecipeDescription>
@@ -151,7 +147,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
 
       <StyledCommentContainer>
         <SubHeadingBig>Comments</SubHeadingBig>
-        {isLoggedIn ? (
+        {!userData ? (
           <p>
             To add comments, please <Link to="/login">Log in</Link>
           </p>
