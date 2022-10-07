@@ -2,8 +2,8 @@ import { onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { recipesCollection } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
-import { IndividualRecipe } from "../Account/UserProfile/IndividualRecipe";
-import { Button, Grid, Box } from "@mui/material";
+import { SingleCard } from "../../../utils/SingleCard/SingleCard"
+import { Button, Grid, Box, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import { SubTitle } from "../../../utils/styles/Global.styled";
 
@@ -30,7 +30,7 @@ export const HomePageSection = ({ category }) => {
     .map((singleRecipe, index) => {
       return (
         <Grid key={index} item xs={12} sm={6} md={6} lg={3}>
-          <IndividualRecipe singleRecipe={singleRecipe} />
+          <SingleCard singleRecipe={singleRecipe} />
         </Grid>
       );
     });
@@ -42,7 +42,7 @@ export const HomePageSection = ({ category }) => {
         <Grid direction="row" container spacing={4}>
           {listofRecipe2}
         </Grid>
-        <Box textAlign="right" sx={{ my: 2 }}>
+        <Box textAlign="right" sx={{ mt: 1, mb:3}}>
           <Button
             variant="contained"
             component={Link}
@@ -52,6 +52,7 @@ export const HomePageSection = ({ category }) => {
           </Button>
         </Box>
       </Grid>
+      <Divider />
     </>
   );
 };
