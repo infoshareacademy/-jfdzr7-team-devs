@@ -2,11 +2,17 @@ import { Button, Divider, ListItemText, Paper } from "@mui/material";
 import Ajv from "ajv";
 import { addDoc, collection } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import { db } from "../../../../api/firebase";
+import { db, storage } from "../../../../api/firebase";
 import { UserDataContext } from "../../../../App";
 import CustomizedSnackbar from "../../../../utils/CustomizedSnackbar";
 import LinearProgressWithLabel from "../../../../utils/LinearProgressWithLabel";
 import { JSONSchema } from "./JSONSchema";
+import { ref, uploadBytes } from "firebase/storage";
+import {
+  folderStorage,
+  urlStorage,
+  urlStorageCD,
+} from "../../../../api/firebaseIndex";
 
 const DatabaseControls = () => {
   const userData = useContext(UserDataContext);
@@ -23,7 +29,6 @@ const DatabaseControls = () => {
 
   useEffect(() => {
     const valid = validate(jsonData);
-    console.log(valid);
   }, [jsonData]);
 
   const handleFileUpload = (e) => {
@@ -55,7 +60,8 @@ const DatabaseControls = () => {
         isApproved: true,
         author: userData.uid,
       })
-        .then(() => {
+        .then(async () => {
+          console.log(await saveFile(value.image));
           setProgress(
             parseInt((index / Object.keys(jsonData).length) * 100, 10)
           );
@@ -74,6 +80,32 @@ const DatabaseControls = () => {
       severity: "success",
     });
     setShowSnackbar(true);
+  };
+
+  const remoteUrl = "https://httpstat.us/403";
+  const filename = "images/photo.jpg";
+
+  const saveFile = async (url) => {
+    await fetch(url)
+      .then((res) => {
+        if (res.status === 200) {
+          return res.blob();
+        } else {
+          throw `http error: ${res.status}`;
+        }
+      })
+      .then(async (blob) => {
+        const storageRef = ref(
+          storage,
+          `${folderStorage}/${url.split("/").pop().split("?").shift()}`
+        );
+        await uploadBytes(storageRef, blob).then((response) => {
+          console.log(`${urlStorage}${response.metadata.name}${urlStorageCD}`);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -101,6 +133,9 @@ const DatabaseControls = () => {
       <Button variant="outlined" component="label" onChange={handleFileUpload}>
         Load recipes (JSON)
         <input hidden type="file" accept=".json" />
+      </Button>
+      <Button variant="outlined" onClick={() => saveFile(remoteUrl)}>
+        save img
       </Button>
 
       {jsonData !== null ? (
