@@ -17,6 +17,11 @@ import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth } from "../../../api/firebase";
 import { deleteUser, signOut } from "firebase/auth";
 import { ErrorAccount } from "./ErrorAccount";
+import {
+  StyledDispalyUserData,
+  StyledUserPanel,
+  StyledUserPanelTitle,
+} from "./DisplayUserData.styled";
 
 //import { CustomAvatar } from "../../Header/CustomAvatar";
 
@@ -204,7 +209,6 @@ export const DisplayUserData = () => {
                       type="file"
                       name="file"
                       onChange={handlerImageUpload}
-                      // ref={imageInputRef}
                     />
                     <PhotoCamera />
                   </IconButton>
@@ -259,35 +263,35 @@ export const DisplayUserData = () => {
 };
 
 /// do pliku styled
-const StyledDispalyUserData = styled.div`
-  @media screen and (max-width: 500px) {
-    .paper {
-      margin: 0px;
-    }
+// const StyledDispalyUserData = styled.div`
+//   @media screen and (max-width: 500px) {
+//     .paper {
+//       margin: 0px;
+//     }
 
-    img {
-      margin: 4px;
-      margin-top: 0;
-      margin-left: 0;
-    }
+//     img {
+//       margin: 4px;
+//       margin-top: 0;
+//       margin-left: 0;
+//     }
 
-    .new_avatar {
-      display: flex;
-      justify-content: center;
-    }
-  }
-`;
+//     .new_avatar {
+//       display: flex;
+//       justify-content: center;
+//     }
+//   }
+// `;
 
-const StyledUserPanel = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+// const StyledUserPanel = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// `;
 
-const StyledUserPanelTitle = styled.h2`
-  text-align: center;
-  font-family: "Playfair Display", sans-serif;
-  font-size: 30px;
-  font-weight: 600;
-  margin-bottom: 0;
-`;
+// const StyledUserPanelTitle = styled.h2`
+//   text-align: center;
+//   font-family: "Playfair Display", sans-serif;
+//   font-size: 30px;
+//   font-weight: 600;
+//   margin-bottom: 0;
+// `;
