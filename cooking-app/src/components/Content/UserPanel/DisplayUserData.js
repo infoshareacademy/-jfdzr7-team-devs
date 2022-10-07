@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { UserDataContext } from "../../../App";
 import { IconButton, Button, Paper, Avatar } from "@mui/material";
@@ -23,16 +22,6 @@ import {
   StyledUserPanelTitle,
 } from "./DisplayUserData.styled";
 
-//import { CustomAvatar } from "../../Header/CustomAvatar";
-
-// const defaultAvatar =
-// "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2Favatar%20default.jpg8d69a1ee-c52d-4004-83a4-d5efa733c5ab?alt=media&token=78be46ed-8666-41d2-b987-b8782d27da63";
-
-// const urlStorageAvatars =
-//   "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2F";
-// const urlStorageAvatarsCD =
-//   "?alt=media&token=447796ed-bf03-404d-902f-ab81082e8c0d";
-
 export const DisplayUserData = () => {
   const CurrentUser = useContext(UserDataContext);
   const [currentUserData, setCurrentUserData] = useState(null);
@@ -44,14 +33,9 @@ export const DisplayUserData = () => {
   const user = auth.currentUser;
 
   useEffect(() => {
-    //console.log("--useEffect CurrentUser-", CurrentUser);
     setCurrentUserData(CurrentUser);
     setIsUser(true);
   }, [CurrentUser]);
-
-  // useEffect(() => {
-  //   console.log(isUser);
-  // }, [isUser]);
 
   const handlerImageUpload = (e) => {
     setImageUpload(e.target.files[0]);
@@ -74,7 +58,7 @@ export const DisplayUserData = () => {
   };
 
   useEffect(() => {
-    setDocRefUser(doc(db, "users", `${currentUserData?.uid}`)); //  "B3pOmEurN6QdAhSogtO2XEQvo9s1"  avatar test avatar@avatar.pl
+    setDocRefUser(doc(db, "users", `${currentUserData?.uid}`));
   }, [currentUserData]);
 
   const UpdateUserAvatar = (e) => {
@@ -122,10 +106,6 @@ export const DisplayUserData = () => {
       alert(e);
     });
   };
-
-  // {
-  //   isUser ? UserPanel : <AccountError>;
-  // }
 
   return (
     <>
@@ -186,7 +166,6 @@ export const DisplayUserData = () => {
                     )}${currentUserData?.lastName.at(0)}`}
                   </Avatar>
                 </>
-                // <CustomAvatar style={{ width: "200px", height: "200px" }} />
               )}
               <div
                 style={{
@@ -261,37 +240,3 @@ export const DisplayUserData = () => {
     </>
   );
 };
-
-/// do pliku styled
-// const StyledDispalyUserData = styled.div`
-//   @media screen and (max-width: 500px) {
-//     .paper {
-//       margin: 0px;
-//     }
-
-//     img {
-//       margin: 4px;
-//       margin-top: 0;
-//       margin-left: 0;
-//     }
-
-//     .new_avatar {
-//       display: flex;
-//       justify-content: center;
-//     }
-//   }
-// `;
-
-// const StyledUserPanel = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// `;
-
-// const StyledUserPanelTitle = styled.h2`
-//   text-align: center;
-//   font-family: "Playfair Display", sans-serif;
-//   font-size: 30px;
-//   font-weight: 600;
-//   margin-bottom: 0;
-// `;
