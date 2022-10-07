@@ -11,11 +11,12 @@ export const TextFieldMethods = ({
 }) => {
   return (
     <TextField
-      sx={{ width: 900 }}
-      label={label} //"Title"
+      fullWidth
+      required
+      label={label}
       multiline
       variant={variantType.filled}
-      name={name} //"name"
+      name={name}
       // value={value}
       onChange={(e) => {
         onChange(e);

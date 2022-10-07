@@ -1,5 +1,3 @@
-import { Timestamp } from "firebase/firestore";
-
 // export const defaultRecipe = {    //poprzednia wersja
 //   title: "",
 //   time: "",
