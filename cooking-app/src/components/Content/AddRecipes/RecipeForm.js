@@ -21,6 +21,7 @@ export const RecipeForm2 = ({
   handlerAddInputMethod,
   isRecipeSent,
   handlerDeleteInputMethod,
+  handlerDeleteInputIngredients,
 }) => {
   const ingredients = useContext(IngredientsContext);
   const methods = useContext(PreparingContext);
@@ -53,7 +54,7 @@ export const RecipeForm2 = ({
             Next ingredient{" "}
           </Button>
           <Button
-            onClick={(e) => handlerDeleteInputMethod(e)}
+            onClick={(e) => handlerDeleteInputIngredients(e)}
             variant="contained"
           >
             Delete line

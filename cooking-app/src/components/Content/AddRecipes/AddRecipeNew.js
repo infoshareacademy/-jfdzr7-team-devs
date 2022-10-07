@@ -104,10 +104,15 @@ export const AddRecipeNew = () => {
     inputList[index] = e.target.value;
     setIngredients(inputList);
   };
-
   const handleAddTextInput = (e) => {
     e.preventDefault();
     setIngredients([...ingredients, ""]);
+  };
+  const handleDeleteInputIngredients = (e, index) => {
+    e.preventDefault();
+    const inputList = [...ingredients];
+    inputList.pop();
+    setIngredients(inputList);
   };
 
   // preparing method array
@@ -158,6 +163,7 @@ export const AddRecipeNew = () => {
         setFormValues({
           ...formValues,
           instructions: [...methods],
+          ingredients: [...ingredients],
         });
         break;
       case "tags":
@@ -165,6 +171,7 @@ export const AddRecipeNew = () => {
           ...formValues,
           tags: e.target.value,
           instructions: [...methods],
+          ingredients: [...ingredients],
         });
         break;
       case "specialDiets":
@@ -216,6 +223,7 @@ export const AddRecipeNew = () => {
                   handlerDiet={handleChangeDiet}
                   isRecipeSent={isRecipeSent}
                   handlerDeleteInputMethod={handleDeleteInputMethod}
+                  handlerDeleteInputIngredients={handleDeleteInputIngredients}
                 />
               </SelectedTagsContext.Provider>
             </IngredientsContext.Provider>
