@@ -6,7 +6,9 @@ export const collectionCommentsName = "commentsList";
 export const collectionBannerName = "banner";
 export const collectionUsers = "users";
 export const folderStorage = "/images";
+export const collectionRecipes = "recipes"; // nowe MAgda !!!
 
+export const recipesCollectionMain = collection(db, collectionRecipes); // nowe MAgda
 export const recipesCollection = collection(db, collectionRecipesName);
 
 export const singleRecipeCollection = (docId) =>
@@ -100,3 +102,4 @@ export const storageErrorsCodes = {
 };
 
 export const tags = ["Breakfast", "Mains", "Snacks", "Desserts"];
+export const specialDiets = ["Dairy-free", "Vegetarian", "Gluten-free"];
