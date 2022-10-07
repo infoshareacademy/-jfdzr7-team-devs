@@ -9,6 +9,7 @@ import LinearProgressWithLabel from "../../../../utils/LinearProgressWithLabel";
 import { JSONSchema } from "./JSONSchema";
 import { ref, uploadBytes } from "firebase/storage";
 import {
+  collectionRecipesName,
   folderStorage,
   urlStorage,
   urlStorageCD,
@@ -55,22 +56,50 @@ const DatabaseControls = () => {
 
   const handleUpload = async () => {
     for (let [index, value] of Object.values(jsonData).entries()) {
-      await addDoc(collection(db, "radekTesty"), {
-        ...value,
-        isApproved: true,
-        author: userData.uid,
-      })
-        .then(async () => {
-          console.log(await saveFile(value.image));
-          setProgress(
-            parseInt((index / Object.keys(jsonData).length) * 100, 10)
-          );
+      // save file in storage
+      await fetch(value.image)
+        .then((res) => {
+          if (res.status === 200) {
+            return res.blob();
+          } else {
+            throw `http error: ${res.status}`;
+          }
         })
-        .catch((e) => {
-          setErrorData({
-            errorMessage: e.code,
-            severity: "error",
+        .then(async (blob) => {
+          const storageRef = ref(
+            storage,
+            `${folderStorage}/${value.image
+              .split("/")
+              .pop()
+              .split("?")
+              .shift()}`
+          );
+          await uploadBytes(storageRef, blob).then(async (response) => {
+            // console.log(
+            //   `${urlStorage}${response.metadata.name}${urlStorageCD}`
+            // );
+            // create new recipe
+            await addDoc(collection(db, collectionRecipesName), {
+              ...value,
+              isApproved: true,
+              author: userData.uid,
+              image: `${urlStorage}${response.metadata.name}${urlStorageCD}`,
+            })
+              .then(() => {
+                setProgress(
+                  parseInt((index / Object.keys(jsonData).length) * 100, 10)
+                );
+              })
+              .catch((e) => {
+                setErrorData({
+                  errorMessage: e.code,
+                  severity: "error",
+                });
+              });
           });
+        })
+        .catch((error) => {
+          console.error(error);
         });
     }
     setJsonData(null);
