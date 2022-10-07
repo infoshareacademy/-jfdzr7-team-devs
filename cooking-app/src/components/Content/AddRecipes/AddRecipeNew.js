@@ -27,7 +27,7 @@ export const PreparingContext = createContext([]);
 export const ImageUrlContext = createContext("");
 
 const defaultRecipeValue = {
-  author: {},
+  author: "",
   name: "",
   description: "",
   ingredients: [],
@@ -52,16 +52,16 @@ export const AddRecipeNew = () => {
   useEffect(() => {
     // console.log(userData);
     setUser(userData);
-    setFormValues({ ...formValues, author: { user } });
+    // setFormValues({ ...formValues, author: user?.uid });
   }, [userData]);
 
   // useEffect(() => {
   //   console.log(user);
   // }, [user]);
 
-  // useEffect(() => {
-  //   console.log(formValues);
-  // }, [formValues]);
+  useEffect(() => {
+    console.log(formValues);
+  }, [formValues]);
 
   useEffect(() => {
     setImageRef(ref(storage, `${folderStorage}/${imageUpload?.name + v4()}`));
@@ -74,7 +74,7 @@ export const AddRecipeNew = () => {
     if (!imageUpload) return;
     uploadBytes(imageRef, imageUpload)
       .then((response) => {
-        alert("Image uploaded");
+        // alert("Image uploaded");
         setFormValues({
           ...formValues,
           // author: { ...user },
@@ -155,7 +155,7 @@ export const AddRecipeNew = () => {
         setFormValues({
           ...formValues,
           ingredients: [...ingredients],
-          author: { ...user },
+          author: user?.uid, //{ ...user },
         });
         break;
       case "instructions":
