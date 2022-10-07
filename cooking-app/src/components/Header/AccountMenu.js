@@ -32,7 +32,7 @@ const AccountMenu = () => {
   };
   return (
     <>
-      <Tooltip title="Account settings">
+      <Tooltip title="Account settings" >
         <IconButton
           onClick={handleClick}
           aria-controls={open ? "account-menu" : undefined}
@@ -79,7 +79,7 @@ const AccountMenu = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem component={NavLink} to={`/user/${userData?.uid}/added`}>
           <Avatar /> Profile
         </MenuItem>
 

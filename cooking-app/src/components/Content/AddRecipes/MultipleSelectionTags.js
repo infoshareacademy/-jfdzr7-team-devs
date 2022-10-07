@@ -7,8 +7,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
-import { SelectedTagsContext } from "./AddRecipeNew";
-import { tags } from "../../../api/firebaseIndex";
+import { SelectedDietContext, SelectedTagsContext } from "./AddRecipeNew";
+import { tags, specialDiets } from "../../../api/firebaseIndex";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -22,6 +22,7 @@ const MenuProps = {
 };
 
 // const tags = ["Sweet", "Dinner", "Dessert", "Lunch", "Salt"];
+// const specialDiets = ["Dairy-free", "Vegetarian", "Gluten-free"];
 
 function getStyles(tag, selectedTags, theme) {
   return {
@@ -32,14 +33,15 @@ function getStyles(tag, selectedTags, theme) {
   };
 }
 
-export function MultipleSelectTags({ handlerTags, onChange }) {
+export function MultipleSelectTags({ handlerTags, handlerDiet, onChange }) {
   const selectedTags = React.useContext(SelectedTagsContext);
+  const selectedDiet = React.useContext(SelectedDietContext);
 
   // console.log(selectedTags);
   const theme = useTheme();
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl required sx={{ m: 1, width: 300 }}>
         <InputLabel id="tags">Categories</InputLabel>
         <Select
           name="tags"
@@ -66,6 +68,39 @@ export function MultipleSelectTags({ handlerTags, onChange }) {
               key={index}
               value={tag}
               style={getStyles(tag, selectedTags, theme)}
+            >
+              {tag}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl required sx={{ m: 1, width: 300 }}>
+        <InputLabel id="specialDiets">Special Diets</InputLabel>
+        <Select
+          name="specialDiets"
+          labelId="specialDiets"
+          id="specialDiets"
+          multiple
+          value={selectedDiet}
+          onChange={(e) => {
+            handlerDiet(e);
+            onChange(e);
+          }}
+          input={<OutlinedInput id="specialDiets" label="specialDiets" />}
+          renderValue={(selected) => (
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+              {selected.map((value) => (
+                <Chip key={value} label={value} />
+              ))}
+            </Box>
+          )}
+          MenuProps={MenuProps}
+        >
+          {specialDiets.map((tag, index) => (
+            <MenuItem
+              key={index}
+              value={tag}
+              style={getStyles(tag, selectedDiet, theme)}
             >
               {tag}
             </MenuItem>

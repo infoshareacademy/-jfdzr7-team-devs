@@ -6,7 +6,9 @@ export const collectionCommentsName = "commentsList";
 export const collectionBannerName = "banner";
 export const collectionUsers = "users";
 export const folderStorage = "/images";
+export const collectionRecipes = "recipes"; // nowe MAgda !!!
 
+export const recipesCollectionMain = collection(db, collectionRecipes); // nowe MAgda
 export const recipesCollection = collection(db, collectionRecipesName);
 
 export const singleRecipeCollection = (docId) =>
@@ -29,6 +31,11 @@ export const urlStorage =
   "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/images%2F";
 export const urlStorageCD =
   "?alt=media&token=04d9d94b-f79a-434c-804d-7989ede403e1";
+
+export const urlStorageAvatars =
+  "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/avatar%2F";
+export const urlStorageAvatarsCD =
+  "?alt=media&token=447796ed-bf03-404d-902f-ab81082e8c0d";
 
 export const authErrorsCodes = {
   "auth/invalid-email": "E-mail is invalid",
@@ -100,3 +107,4 @@ export const storageErrorsCodes = {
 };
 
 export const tags = ["Breakfast", "Mains", "Snacks", "Desserts"];
+export const specialDiets = ["Dairy-free", "Vegetarian", "Gluten-free"];

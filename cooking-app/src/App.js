@@ -1,6 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
 import { GlobalStyle, Wrapper } from "./utils/styles/Global.styled";
-import { Header } from "./components/Header/Header";
 import { Content } from "./components/Content/Content";
 import { Footer } from "./components/Footer/Footer";
 import { useEffect, useState } from "react";
@@ -10,6 +9,7 @@ import { createContext } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { Loader } from "./utils/Loader";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { NavBar } from "./components/Header/NavBar"
 
 export const UserDataContext = createContext({
   firstName: "",
@@ -19,14 +19,17 @@ export const UserDataContext = createContext({
   uid: "",
   favourites: [],
   avatarUrl: "",
+
+  avatarUrlId: "", // potrzebne
+
 });
 
 export const theme = createTheme({
   palette: {
     primary: {
       light: "#fff263",
-      main: "#f9c02d",
-      dark: "#c29000",
+      main: "#fbc02d",
+      dark: "#c49000",
       contrastText: "#000000",
     },
     secondary: {
@@ -59,6 +62,7 @@ function App() {
             uid: tempData.uid,
             avatarUrl: tempData.avatarUrl,
             favourites: tempData.favourites,
+            avatarUrlId: tempData.avatarUrlId,
           });
         });
       } else {
@@ -74,7 +78,7 @@ function App() {
         <GlobalStyle />
         <UserDataContext.Provider value={userData}>
           <Wrapper>
-            <Header isLoggedIn={isLoggedIn} />
+            <NavBar isLoggedIn={isLoggedIn}/>
             {isLoggedIn === null ? (
               <Loader />
             ) : (

@@ -1,11 +1,11 @@
 import { onSnapshot } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { recipesCollection } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
-import { IndividualRecipe } from "../ListRecipes/IndividualRecipe";
-import { Button, Paper, Grid } from "@mui/material";
-
-import { NavLink } from "react-router-dom";
+import { IndividualRecipe } from "../Account/UserProfile/IndividualRecipe";
+import { Button, Grid, Box } from "@mui/material";
+import { Link } from "react-router-dom";
+import { SubTitle } from "../../../utils/styles/Global.styled";
 
 export const HomePageSection = ({ category }) => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
@@ -25,7 +25,7 @@ export const HomePageSection = ({ category }) => {
     .slice(0, 4)
     .map((singleRecipe, index) => {
       return (
-        <Grid key={index} item>
+        <Grid key={index} item xs={12} sm={6} md={6} lg={3}>
           <IndividualRecipe singleRecipe={singleRecipe} />
         </Grid>
       );
@@ -33,28 +33,20 @@ export const HomePageSection = ({ category }) => {
 
   return (
     <>
-      <Grid container justifyContent="center" direction="column" alignItems="center">
-      <h3>Your best ever {category}!</h3>
-        <Paper
-          sx={{
-            width: "auto",
-            height: "auto",
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr) 30px",
-            gridTemplateRows: "minmax(100px, auto)",
-            marginBottom: 4,
-            boxShadow: 6,
-          }}
-          variant="outlined"
-        >
-            
+      <Grid container direction="column">
+        <SubTitle>{category}</SubTitle>
+        <Grid direction="row" container spacing={4}>
           {listofRecipe2}
-          <NavLink style={{ textDecoration: "none" }} to={`/ListRecipes/${category}`}>
-            <Button sx={{ marginTop: "60px", height: 150, width: 30 }} variant="contained">
-              Show More
-            </Button>
-          </NavLink>
-        </Paper>
+        </Grid>
+        <Box textAlign="right" sx={{ my: 2 }}>
+          <Button
+            variant="contained"
+            component={Link}
+            to={`/ListRecipes/${category}`}
+          >
+            more {category}
+          </Button>
+        </Box>
       </Grid>
     </>
   );

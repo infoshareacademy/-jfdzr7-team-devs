@@ -111,32 +111,6 @@ const DatabaseControls = () => {
     setShowSnackbar(true);
   };
 
-  const remoteUrl = "https://httpstat.us/403";
-  const filename = "images/photo.jpg";
-
-  const saveFile = async (url) => {
-    await fetch(url)
-      .then((res) => {
-        if (res.status === 200) {
-          return res.blob();
-        } else {
-          throw `http error: ${res.status}`;
-        }
-      })
-      .then(async (blob) => {
-        const storageRef = ref(
-          storage,
-          `${folderStorage}/${url.split("/").pop().split("?").shift()}`
-        );
-        await uploadBytes(storageRef, blob).then((response) => {
-          console.log(`${urlStorage}${response.metadata.name}${urlStorageCD}`);
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   return (
     <Paper
       sx={{
@@ -162,9 +136,6 @@ const DatabaseControls = () => {
       <Button variant="outlined" component="label" onChange={handleFileUpload}>
         Load recipes (JSON)
         <input hidden type="file" accept=".json" />
-      </Button>
-      <Button variant="outlined" onClick={() => saveFile(remoteUrl)}>
-        save img
       </Button>
 
       {jsonData !== null ? (
