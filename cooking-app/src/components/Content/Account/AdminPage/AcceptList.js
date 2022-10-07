@@ -39,7 +39,7 @@ const AcceptList = () => {
         </Badge>
       </Divider>
 
-      {datafromFirebase.map((item) => (
+      {datafromFirebase?.map((item) => (
         <AcceptItem item={item} />
       ))}
     </Paper>

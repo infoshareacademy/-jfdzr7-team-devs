@@ -1,7 +1,7 @@
 import { collection, doc, orderBy } from "firebase/firestore";
 import { db } from "./firebase";
 
-export const collectionRecipesName = "radekTesty";
+export const collectionRecipesName = "recipes";
 export const collectionCommentsName = "commentsList";
 export const collectionBannerName = "banner";
 export const collectionUsers = "users";

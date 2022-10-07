@@ -31,8 +31,9 @@ const Register = () => {
           email: registerForm.email,
           role: "standard",
           uid: jwt.user.uid,
-          favourites:[],
+          favourites: [],
           avatarUrl: `https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=${registerForm.firstName}+${registerForm.lastName}`,
+          avatarUrlId: "",
         });
         e.target.reset();
       })

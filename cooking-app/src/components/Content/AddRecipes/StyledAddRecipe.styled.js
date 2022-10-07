@@ -18,6 +18,7 @@ export const StyledFormWrapper = styled.div`
 `;
 
 export const StyledForm = styled.form`
+  padding-top: 20px;
   max-width: 80%;
   margin: auto;
 
