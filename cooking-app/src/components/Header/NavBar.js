@@ -7,11 +7,11 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
-import { StyledButton, StyledLogo } from "./NavBar.styled";
+import { StyledButton } from "./NavBar.styled";
+
 
 export const NavBar = ({ isLoggedIn }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
