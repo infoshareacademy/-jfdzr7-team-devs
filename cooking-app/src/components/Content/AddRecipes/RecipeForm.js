@@ -1,4 +1,4 @@
-import { Button, Paper } from "@mui/material";
+import { Button } from "@mui/material";
 import { useContext } from "react";
 import { IngredientsContext, PreparingContext } from "./AddRecipeNew";
 import { MultipleSelectTags } from "./MultipleSelectionTags";
@@ -24,16 +24,8 @@ export const RecipeForm2 = ({
   const ingredients = useContext(IngredientsContext);
   const methods = useContext(PreparingContext);
   return (
-    // <Paper elevation={4}>
     <StyledFormWrapper>
-      <StyledForm
-        // styled={{
-        //   margin: "auto",
-        //   maxWidth: "80%",
-        //   boxShadow: "0 12px 20px 0 rgba(0, 0, 0, 0.5)",
-        // }}
-        onSubmit={handleSubmit}
-      >
+      <StyledForm onSubmit={handleSubmit}>
         <RecipeFormTextField label="Title" name="name" onChange={onChange} />
         <RecipeFormTextField
           label="Short description"
@@ -51,7 +43,6 @@ export const RecipeForm2 = ({
                 key={i}
                 label="Enter one ingredient:"
                 name="ingredients"
-                // value={ingred}
                 onChange={onChange}
                 handlerIngredients={(e) => handlerIngredients(e, i)}
               />
@@ -100,6 +91,5 @@ export const RecipeForm2 = ({
         </Button>
       </StyledForm>
     </StyledFormWrapper>
-    // </Paper>
   );
 };
