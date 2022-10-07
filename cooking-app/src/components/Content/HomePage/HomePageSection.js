@@ -1,4 +1,4 @@
-import { onSnapshot } from "firebase/firestore";
+import { onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { recipesCollection } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
@@ -11,7 +11,11 @@ export const HomePageSection = ({ category }) => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
 
   useEffect(() => {
-    onSnapshot(recipesCollection, (snapshot) => {
+    const q = query(
+      recipesCollection,
+      where("isApproved", "==", true),
+    );
+    onSnapshot(q, (snapshot) => {
       setdatafromFirebase(getDataFromSnapshot(snapshot));
     });
   }, []);
