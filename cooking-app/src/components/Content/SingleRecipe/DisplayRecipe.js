@@ -5,9 +5,7 @@ import { PageTitle } from "../../../utils/styles/Global.styled";
 import { Loader } from "../../../utils/Loader";
 import { AddComment } from "./AddComment";
 import { DisplayComments } from "./DisplayComments";
-import {
-  singleRecipeCollection,
-} from "../../../api/firebaseIndex";
+import { singleRecipeCollection } from "../../../api/firebaseIndex";
 import {
   StyledImgMain,
   StyledCommentContainer,
@@ -30,20 +28,19 @@ import {
   StyledRecipeDescriptionDetails,
   StyledTagsDiet,
   StyledAuthorLink,
-  StyledRecipeHeader
+  StyledRecipeHeader,
 } from "./SingleRecipe.styled";
 import { GetUser } from "./GetUser";
 import { UserDataContext } from "../../../App";
 
-
-import { AddFavourites } from "./AddFavourites"
+import { AddFavourites } from "./AddFavourites";
+import AddToBanner from "./AddToBanner";
 
 export const DisplayRecipe = ({ isLoggedIn }) => {
   const [recipe, setRecipe] = useState({});
   const [load, setLoad] = useState(false);
   const userData = useContext(UserDataContext);
   const { id } = useParams();
-
 
   useEffect(() => {
     const docRef = singleRecipeCollection(id);
@@ -67,7 +64,8 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         <StyledMainContent>
           <StyledRecipeHeader>
             <PageTitle>{recipe.name}</PageTitle>
-            {userData ? <AddFavourites id={id}/> : null }
+            {userData ? <AddFavourites id={id} /> : null}
+            {userData.role === "admin" ? <AddToBanner id={id} /> : null}
           </StyledRecipeHeader>
 
           <StyledAuthorLink to={`/user/${recipe.author}`}>

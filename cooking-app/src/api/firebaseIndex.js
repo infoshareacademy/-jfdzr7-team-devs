@@ -3,18 +3,29 @@ import { db } from "./firebase";
 
 export const collectionRecipesName = "radekTesty";
 export const collectionCommentsName = "commentsList";
+export const collectionBannerName = "banner";
 export const collectionUsers = "users";
 export const folderStorage = "/images";
+export const collectionRecipes = "recipes"; // nowe MAgda !!!
 
+export const recipesCollectionMain = collection(db, collectionRecipes); // nowe MAgda
 export const recipesCollection = collection(db, collectionRecipesName);
+
 export const singleRecipeCollection = (docId) =>
   doc(db, collectionRecipesName, docId);
+
 export const commentsRecipeCollection = (docId) =>
   collection(db, collectionRecipesName, docId, collectionCommentsName);
+
 export const defaultQueryConstraint = orderBy("createdAt", "desc");
 
 export const singleUserCollection = (userId) =>
   doc(db, collectionUsers, userId);
+
+export const bannerCollection = collection(db, collectionBannerName);
+
+export const bannerArrayDocument = (arrayId) =>
+  doc(db, collectionBannerName, arrayId);
 
 export const urlStorage =
   "https://firebasestorage.googleapis.com/v0/b/devs-project-edf3a.appspot.com/o/images%2F";
@@ -96,3 +107,4 @@ export const storageErrorsCodes = {
 };
 
 export const tags = ["Breakfast", "Mains", "Snacks", "Desserts"];
+export const specialDiets = ["Dairy-free", "Vegetarian", "Gluten-free"];

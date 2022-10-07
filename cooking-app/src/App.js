@@ -19,7 +19,9 @@ export const UserDataContext = createContext({
   uid: "",
   favourites: [],
   avatarUrl: "",
+
   avatarUrlId: "", // potrzebne
+
 });
 
 export const theme = createTheme({
