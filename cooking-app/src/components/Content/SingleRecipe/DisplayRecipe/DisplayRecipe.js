@@ -50,9 +50,9 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
   const handleCheck = (event) => {
     var updatedList = [...checked];
     if (event.target.checked) {
-      updatedList = [...checked, event.target.value];
+      updatedList = [...checked, event.target.name];
     } else {
-      updatedList.splice(checked.indexOf(event.target.value), 1);
+      updatedList.splice(checked.indexOf(event.target.name), 1);
     }
     setChecked(updatedList);
   };
@@ -157,7 +157,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
                         sx={{
                           display: "flex",
                           textDecoration:
-                            isChecked(ingredients) == "yes"
+                            isChecked(`checkbox${index}`) == "yes"
                               ? "line-through"
                               : "",
                         }}
@@ -165,6 +165,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
                         <Checkbox
                           id={`checkbox${index}`}
                           value={ingredients}
+                          name={`checkbox${index}`}
                           onChange={handleCheck}
                         />
                         <Box sx={{ mt: 1.5 }}>
