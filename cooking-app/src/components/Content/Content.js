@@ -3,21 +3,24 @@ import { Container } from "../../utils/styles/Global.styled";
 import { HomePage } from "./HomePage/HomePage";
 import { ListRecipes } from "./ListRecipes/ListRecipes";
 import { Login } from "./Authorization/Login";
-import { UserProfile} from "./Account/UserProfile/UserProfile";
+import { UserProfile } from "./Account/UserProfile/UserProfile";
 import { Search } from "./Search/Search";
 import { SingleRecipe } from "./SingleRecipe/SingleRecipe";
-import Account from "./Account/Account";
+// import Account from "./Account/Account"; //
 import Register from "./Authorization/Register";
 import ForgotPassword from "./Authorization/ForgotPassword";
 import Redirect from "./Authorization/Redirect";
 import ProtectedRoute from "./Authorization/ProtectedRoute";
 import { StyledContent, StyledH2 } from "./Content.styled";
-import AddRecipePage from "./Account/AddRecipePage";
+// import AddRecipePage from "./Account/AddRecipePage"; //
 import AdminPage from "./Account/AdminPage/AdminPage";
 import { useContext } from "react";
 import { UserDataContext } from "../../App";
 import { UserRecipes } from "./Account/UserProfile/UserRecipes";
 import { UserFollowing } from "./Account/UserProfile/UserFollowing";
+
+import { DisplayUserData } from "./Account/UserPanel/DisplayUserData";
+import { AddRecipeNew } from "./AddRecipes/AddRecipeNew";
 
 export const Content = ({ isLoggedIn }) => {
   const userData = useContext(UserDataContext);
@@ -56,11 +59,12 @@ export const Content = ({ isLoggedIn }) => {
             path="/account"
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn} redirect="/login">
-                <Account />
+                {/* <Account /> */}
+                <DisplayUserData />
               </ProtectedRoute>
             }
           />
-          <Route path="/recipe/:id" element={<SingleRecipe />}/>
+          <Route path="/recipe/:id" element={<SingleRecipe />} />
 
           <Route path="/user/:id" element={<UserProfile />}>
             <Route path="added" element={<UserRecipes />} />
@@ -82,7 +86,8 @@ export const Content = ({ isLoggedIn }) => {
             path="/addRecipe"
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn} redirect="/login">
-                <AddRecipePage />
+                {/* <AddRecipePage /> */}
+                <AddRecipeNew />
               </ProtectedRoute>
             }
           />

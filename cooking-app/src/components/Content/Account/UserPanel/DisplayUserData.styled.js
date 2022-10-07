@@ -25,10 +25,10 @@ export const StyledUserPanel = styled.div`
   align-items: center;
 `;
 
-export const StyledUserPanelTitle = styled.h2`
+export const StyledUserPanelTitle = styled.h1`
   text-align: center;
   font-family: "Playfair Display", sans-serif;
-  font-size: 30px;
+  font-size: 48px;
   font-weight: 600;
-  margin-bottom: 0;
+  margin-top: 16px;
 `;

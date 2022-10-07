@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import { UserDataContext } from "../../../App";
+import { UserDataContext } from "../../../../App";
 import { IconButton, Button, Paper, Avatar } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import CloseIcon from "@mui/icons-material/Close";
@@ -9,11 +9,10 @@ import {
   storageErrorsCodes,
   urlStorageAvatars,
   urlStorageAvatarsCD,
-} from "../../../api/firebaseIndex";
+} from "../../../../api/firebaseIndex";
 import { deleteObject, ref, uploadBytes } from "firebase/storage";
-import { storage, db } from "../../../api/firebase";
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
-import { auth } from "../../../api/firebase";
+import { auth, storage, db } from "../../../../api/firebase";
 import { deleteUser, signOut } from "firebase/auth";
 import { ErrorAccount } from "./ErrorAccount";
 import {
@@ -21,6 +20,7 @@ import {
   StyledUserPanel,
   StyledUserPanelTitle,
 } from "./DisplayUserData.styled";
+import { AdminStatus, StandardUserStatus } from "./UserStatus";
 
 export const DisplayUserData = () => {
   const CurrentUser = useContext(UserDataContext);
@@ -30,6 +30,7 @@ export const DisplayUserData = () => {
   const [avatarUrlId, setAvatarUrlId] = useState("");
   const [docRefUser, setDocRefUser] = useState(null);
   const [isUser, setIsUser] = useState(true);
+  const userAvatarRef = ref(storage, `avatar/${currentUserData?.avatarUrlId}`);
   const user = auth.currentUser;
 
   useEffect(() => {
@@ -71,16 +72,13 @@ export const DisplayUserData = () => {
     alert("avatar updated");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
-      // console.log(userDataFromDB);
       setCurrentUserData(userDataFromDB);
     });
   };
 
-  const userAvatarRef = ref(storage, `avatar/${currentUserData?.avatarUrlId}`);
-
   const deleteAvatar = (e) => {
     updateDoc(docRefUser, {
-      avatarUrl: "", //defaultAvatar,
+      avatarUrl: "",
       avatarUrlId: "",
     }).catch((e) => alert(storageErrorsCodes[e.code]));
     deleteObject(userAvatarRef).catch((e) => alert(e));
@@ -97,14 +95,12 @@ export const DisplayUserData = () => {
     if (currentUserData?.avatarUrlId) {
       deleteObject(userAvatarRef).catch((e) => alert(e));
     }
-    setIsUser(false);
-    signOut(auth);
-
     deleteDoc(doc(db, "users", currentUserData?.uid));
-
     deleteUser(user).catch((e) => {
       alert(e);
     });
+    setIsUser(false);
+    // signOut(auth);
   };
 
   return (
@@ -177,6 +173,11 @@ export const DisplayUserData = () => {
                 <div style={{ textAlign: "center" }}>
                   <h2>{currentUserData?.firstName}</h2>
                   <p>{currentUserData?.email}</p>
+                  {currentUserData?.role === "admin" ? (
+                    <AdminStatus />
+                  ) : (
+                    <StandardUserStatus />
+                  )}
                   <IconButton
                     color="primary"
                     aria-label="upload picture"
