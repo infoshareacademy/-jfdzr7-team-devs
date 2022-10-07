@@ -8,9 +8,11 @@ export const HomePage = () => {
   return (
     <Box>
       <MainBanner />
-      {arr.map((category, index) => {
-        return <HomePageSection key={index} category={category} />;
-      })}
+      <Box sx={{ my: 10}}>
+        {arr.map((category, index) => {
+          return <HomePageSection key={index} category={category} />;
+        })}
+      </Box>
     </Box>
   );
 };

@@ -62,7 +62,7 @@ export const MainBanner = () => {
   return (
     <>
       {datafromFirebase != 0 ? (
-        <Paper>
+        <Paper sx={{mb:5,}}>
           <Paper
             sx={{
               display: "flex",
@@ -70,7 +70,7 @@ export const MainBanner = () => {
               height: { md: "450px" },
               minHeight: { xs: "600px", md: "450px" },
               contain: "content",
-              minWidth: "300px",
+              minWidth: "250px",
             }}
           >
             <Paper
