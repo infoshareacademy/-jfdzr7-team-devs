@@ -5,7 +5,8 @@ import { getDataFromSnapshot } from "../../../../utils/GetDataFromSnapshot";
 import { InputElement } from "../../../../utils/Search/InputElement";
 import { Button, Grid, TextField, Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { SingleCard } from "../../../../utils/SingleCard/SingleCard"
+import { SingleCard } from "../../../../utils/SingleCard/SingleCard";
+import { WrongPage } from "../../../../utils/WrongPage";
 
 const reducer = (currState, action) => {
   switch (action.type) {
@@ -98,8 +99,8 @@ export const UserRecipes = () => {
       ) : (
         <Box>
           <TextField
-            multiline
-            placeholder="Find recipe"
+            id="filter"
+            placeholder="please enter the recipe name..."
             variant="outlined"
             value={state.textInput}
             type="text"
@@ -111,6 +112,7 @@ export const UserRecipes = () => {
             {tags.map((singleTag, index) => {
               return (
                 <InputElement
+                  isClicked={state.inputCategory.includes(singleTag)}
                   key={index}
                   tag={singleTag}
                   handleInput={handleInput}
@@ -119,10 +121,16 @@ export const UserRecipes = () => {
             })}
           </Box>
 
-          <Grid direction="row" container spacing={4} sx={{ py: 5 }}>
-            {listofRecipe2}
+          <Grid
+            direction="row"
+            justifyContent="center"
+            container
+            spacing={4}
+            sx={{ py: 5 }}
+          >
+            {listofRecipe2.length ? listofRecipe2 : <WrongPage />}
           </Grid>
-          {moreLoading >= 0 ? (
+          {listofRecipe2.length > 12 ? (
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Button
                 onClick={showMoreItems}

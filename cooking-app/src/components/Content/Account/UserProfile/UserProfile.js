@@ -46,7 +46,6 @@ export const UserProfile = () => {
   return (
     <>
       <StyledLayout>
-        {/* <StyledUserCover /> */}
         <Paper
           elevation={1}
           sx={{
@@ -54,7 +53,7 @@ export const UserProfile = () => {
             justifyContent: { xs: "center", md: "left" },
             alignItems: "center",
             height: { xs: 125, sm: 180 },
-            backgroundColor: "var(--color-main-light-gray)",
+            backgroundColor: "secondary.main",
             p: 3,
             contain: "content",
             minWidth: "300px",
