@@ -1,16 +1,16 @@
-import React from 'react'
-import {Checkbox} from "@mui/material"
+import React from "react";
+import { Checkbox } from "@mui/material";
 
-export const InputElement = ({tag, handleInput, isClicked}) => {
+export const InputElement = ({ tag, handleInput, isClicked }) => {
   return (
     <>
-    <label htmlFor={tag}>{tag}</label>
+      <label htmlFor={tag}>{tag}</label>
       <Checkbox
         name={tag}
         type="checkbox"
         onChange={handleInput}
         checked={isClicked}
       />
-      </>
-  )
-}
+    </>
+  );
+};
