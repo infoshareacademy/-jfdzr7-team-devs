@@ -53,7 +53,7 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
           }
           <PhotoCamera sx={{ fontSize: "24px" }} />
         </IconButton>
-        <Button onClick={onClick} variant="contained">
+        <Button onClick={onClick} variant="contained" disabled={imageUrl}>
           {text.buttonUpload} Upload photo
         </Button>
       </Stack>
