@@ -9,34 +9,18 @@ import {
   folderStorage,
   recipesCollectionMain,
 } from "../../../api/firebaseIndex";
-import {
-  firestoreErrorsCodes,
-  storageErrorsCodes,
-} from "../../../api/firebaseIndex";
+import { firestoreErrorsCodes } from "../../../api/firebaseIndex";
 import { RecipeForm2 } from "./RecipeForm";
 import { UserDataContext } from "../../../App";
 import { StyledPageTitle } from "./StyledAddRecipe.styled";
+import { SuccessAddRecipe } from "./RecipeHelper";
+import { defaultRecipeValue } from "./RecipeHelper";
 
 export const SelectedTagsContext = createContext([]);
 export const SelectedDietContext = createContext([]);
 export const IngredientsContext = createContext([]);
 export const PreparingContext = createContext([]);
 export const ImageUrlContext = createContext("");
-
-const defaultRecipeValue = {
-  author: "",
-  name: "",
-  description: "",
-  ingredients: [],
-  instructions: [],
-  tags: [],
-  specialDiets: [],
-  time: { total: "" },
-  servings: "",
-  difficulty: "",
-  image: [],
-  isApproved: false,
-};
 
 export const AddRecipeNew = () => {
   const userData = useContext(UserDataContext);
@@ -45,6 +29,12 @@ export const AddRecipeNew = () => {
   const [imageUpload, setImageUpload] = useState(null);
   const [formValues, setFormValues] = useState(defaultRecipeValue);
   const [isRecipeSent, setIsRecipeSent] = useState(false);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedDiet, setSelectedDiet] = useState([]);
+  const [ingredients, setIngredients] = useState([""]);
+  const [methods, setMethods] = useState(["1 krok"]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     setUser(userData);
@@ -58,7 +48,6 @@ export const AddRecipeNew = () => {
     setImageRef(ref(storage, `${folderStorage}/${imageUpload?.name + v4()}`));
   }, [imageUpload]);
 
-  const [imageUrl, setImageUrl] = useState(null);
   // onClick
   const uploadImage = (e) => {
     e.preventDefault();
@@ -72,7 +61,7 @@ export const AddRecipeNew = () => {
             `${urlStorage}${response.metadata.name}${urlStorageCD}`,
           ],
         });
-        setImageUrl(`${urlStorage}${response.metadata.name}${urlStorageCD}`); /// nowe
+        setImageUrl(`${urlStorage}${response.metadata.name}${urlStorageCD}`);
       })
       .catch((e) => {
         alert(e);
@@ -80,7 +69,6 @@ export const AddRecipeNew = () => {
   };
 
   // multiselect tags
-  const [selectedTags, setSelectedTags] = useState([]);
   const handleChangeTags = (event) => {
     const {
       target: { value },
@@ -89,7 +77,6 @@ export const AddRecipeNew = () => {
   };
 
   ///multiple select diet
-  const [selectedDiet, setSelectedDiet] = useState([]);
   const handleChangeDiet = (event) => {
     const {
       target: { value },
@@ -98,20 +85,23 @@ export const AddRecipeNew = () => {
   };
 
   // ingredients array
-  const [ingredients, setIngredients] = useState([""]);
   const handleChangeIngredients = (e, index) => {
     const inputList = [...ingredients];
     inputList[index] = e.target.value;
     setIngredients(inputList);
   };
-
   const handleAddTextInput = (e) => {
     e.preventDefault();
     setIngredients([...ingredients, ""]);
   };
+  const handleDeleteInputIngredients = (e, index) => {
+    e.preventDefault();
+    const inputList = [...ingredients];
+    inputList.pop();
+    setIngredients(inputList);
+  };
 
   // preparing method array
-  const [methods, setMethods] = useState(["1 krok"]);
   const handleChangeMethods = (e, index) => {
     const inputList = [...methods];
     inputList[index] = e.target.value;
@@ -120,6 +110,13 @@ export const AddRecipeNew = () => {
   const handleMethodAddTextInput = (e) => {
     e.preventDefault();
     setMethods([...methods, ""]);
+  };
+
+  const handleDeleteInputMethod = (e, index) => {
+    e.preventDefault();
+    const inputList = [...methods];
+    inputList.pop();
+    setMethods(inputList);
   };
 
   // onChange
@@ -144,25 +141,29 @@ export const AddRecipeNew = () => {
         setFormValues({
           ...formValues,
           ingredients: [...ingredients],
-          author: user?.uid, //{ ...user },
+          author: user?.uid,
         });
         break;
       case "instructions":
         setFormValues({
           ...formValues,
           instructions: [...methods],
+          ingredients: [...ingredients],
         });
         break;
       case "tags":
         setFormValues({
           ...formValues,
           tags: e.target.value,
+          instructions: [...methods],
+          ingredients: [...ingredients],
         });
         break;
       case "specialDiets":
         setFormValues({
           ...formValues,
           specialDiets: e.target.value,
+          instructions: [...methods],
         });
         break;
       case "file":
@@ -181,6 +182,7 @@ export const AddRecipeNew = () => {
         alert(firestoreErrorsCodes[e.code]);
       });
     alert("Recipe saved");
+    setMessage("recipe saved");
     setFormValues(defaultRecipeValue);
     setImageUrl(null);
     e.target.reset();
@@ -190,6 +192,7 @@ export const AddRecipeNew = () => {
   return (
     <>
       <StyledPageTitle>Add Recipe</StyledPageTitle>
+      {message ? <SuccessAddRecipe /> : null}
       <ImageUrlContext.Provider value={imageUrl}>
         <SelectedDietContext.Provider value={selectedDiet}>
           <PreparingContext.Provider value={methods}>
@@ -206,6 +209,8 @@ export const AddRecipeNew = () => {
                   handlerAddInputMethod={handleMethodAddTextInput}
                   handlerDiet={handleChangeDiet}
                   isRecipeSent={isRecipeSent}
+                  handlerDeleteInputMethod={handleDeleteInputMethod}
+                  handlerDeleteInputIngredients={handleDeleteInputIngredients}
                 />
               </SelectedTagsContext.Provider>
             </IngredientsContext.Provider>
