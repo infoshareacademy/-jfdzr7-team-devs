@@ -30,6 +30,7 @@ export const DisplayUserData = () => {
   const [avatarUrlId, setAvatarUrlId] = useState("");
   const [docRefUser, setDocRefUser] = useState(null);
   const [isUser, setIsUser] = useState(true);
+  const [message, setMessage] = useState("");
   const userAvatarRef = ref(storage, `avatar/${currentUserData?.avatarUrlId}`);
   const user = auth.currentUser;
 
@@ -62,8 +63,6 @@ export const DisplayUserData = () => {
     setDocRefUser(doc(db, "users", `${currentUserData?.uid}`));
   }, [currentUserData]);
 
-  const [message, setMessage] = useState("");
-
   const UpdateUserAvatar = (e) => {
     updateDoc(docRefUser, {
       avatarUrl: avatarUrl,
@@ -86,7 +85,6 @@ export const DisplayUserData = () => {
     }).catch((e) => alert(storageErrorsCodes[e.code]));
     deleteObject(userAvatarRef).catch((e) => alert(e));
 
-    // alert("avatar deleted");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
       console.log("---userDataFromDB---", userDataFromDB);

@@ -9,35 +9,18 @@ import {
   folderStorage,
   recipesCollectionMain,
 } from "../../../api/firebaseIndex";
-import {
-  firestoreErrorsCodes,
-  storageErrorsCodes,
-} from "../../../api/firebaseIndex";
+import { firestoreErrorsCodes } from "../../../api/firebaseIndex";
 import { RecipeForm2 } from "./RecipeForm";
 import { UserDataContext } from "../../../App";
 import { StyledPageTitle } from "./StyledAddRecipe.styled";
 import { SuccessAddRecipe } from "./RecipeHelper";
+import { defaultRecipeValue } from "./RecipeHelper";
 
 export const SelectedTagsContext = createContext([]);
 export const SelectedDietContext = createContext([]);
 export const IngredientsContext = createContext([]);
 export const PreparingContext = createContext([]);
 export const ImageUrlContext = createContext("");
-
-const defaultRecipeValue = {
-  author: "",
-  name: "",
-  description: "",
-  ingredients: [],
-  instructions: [],
-  tags: [],
-  specialDiets: [],
-  time: { total: "" },
-  servings: "",
-  difficulty: "",
-  image: [],
-  isApproved: false,
-};
 
 export const AddRecipeNew = () => {
   const userData = useContext(UserDataContext);
@@ -46,20 +29,25 @@ export const AddRecipeNew = () => {
   const [imageUpload, setImageUpload] = useState(null);
   const [formValues, setFormValues] = useState(defaultRecipeValue);
   const [isRecipeSent, setIsRecipeSent] = useState(false);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedDiet, setSelectedDiet] = useState([]);
+  const [ingredients, setIngredients] = useState([""]);
+  const [methods, setMethods] = useState(["1 krok"]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     setUser(userData);
   }, [userData]);
 
-  useEffect(() => {
-    console.log(formValues);
-  }, [formValues]);
+  // useEffect(() => {
+  //   console.log(formValues);
+  // }, [formValues]);
 
   useEffect(() => {
     setImageRef(ref(storage, `${folderStorage}/${imageUpload?.name + v4()}`));
   }, [imageUpload]);
 
-  const [imageUrl, setImageUrl] = useState(null);
   // onClick
   const uploadImage = (e) => {
     e.preventDefault();
@@ -73,7 +61,7 @@ export const AddRecipeNew = () => {
             `${urlStorage}${response.metadata.name}${urlStorageCD}`,
           ],
         });
-        setImageUrl(`${urlStorage}${response.metadata.name}${urlStorageCD}`); /// nowe
+        setImageUrl(`${urlStorage}${response.metadata.name}${urlStorageCD}`);
       })
       .catch((e) => {
         alert(e);
@@ -81,7 +69,6 @@ export const AddRecipeNew = () => {
   };
 
   // multiselect tags
-  const [selectedTags, setSelectedTags] = useState([]);
   const handleChangeTags = (event) => {
     const {
       target: { value },
@@ -90,7 +77,6 @@ export const AddRecipeNew = () => {
   };
 
   ///multiple select diet
-  const [selectedDiet, setSelectedDiet] = useState([]);
   const handleChangeDiet = (event) => {
     const {
       target: { value },
@@ -99,7 +85,6 @@ export const AddRecipeNew = () => {
   };
 
   // ingredients array
-  const [ingredients, setIngredients] = useState([""]);
   const handleChangeIngredients = (e, index) => {
     const inputList = [...ingredients];
     inputList[index] = e.target.value;
@@ -117,7 +102,6 @@ export const AddRecipeNew = () => {
   };
 
   // preparing method array
-  const [methods, setMethods] = useState(["1 krok"]);
   const handleChangeMethods = (e, index) => {
     const inputList = [...methods];
     inputList[index] = e.target.value;
@@ -157,7 +141,7 @@ export const AddRecipeNew = () => {
         setFormValues({
           ...formValues,
           ingredients: [...ingredients],
-          author: user?.uid, //{ ...user },
+          author: user?.uid,
         });
         break;
       case "instructions":
@@ -189,7 +173,6 @@ export const AddRecipeNew = () => {
     }
   };
 
-  const [message, setMessage] = useState("");
   //onSubmit
   const handleAddingRecipe = (e) => {
     e.preventDefault();

@@ -5,11 +5,7 @@ import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
 import { useContext } from "react";
 import { ImageUrlContext } from "./AddRecipeNew";
-import ImageIcon from "@mui/icons-material/Image";
-import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import { PhotoRequired } from "./RecipeHelper";
-
-const imageupload = true;
 
 export const SelectImageToUpload = ({ onChange, onClick, text }) => {
   const imageUrl = useContext(ImageUrlContext);
@@ -31,26 +27,19 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
             name="file"
             onChange={onChange}
           />
-          {
-            imageUrl ? (
-              <img
-                src={imageUrl}
-                style={{
-                  width: "100px",
-                  height: "120px",
-                  background: "pink",
-                  marginRight: "8px",
-                }}
-              ></img>
-            ) : (
-              <PhotoRequired />
-            )
-            // <>
-            //   {/* // <p style={{ marginRight: "12px" }}> nie ma url</p> */}
-            //   <ImageIcon />
-            //   <InsertPhotoIcon />
-            // </>
-          }
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              style={{
+                width: "100px",
+                height: "120px",
+                background: "pink",
+                marginRight: "8px",
+              }}
+            ></img>
+          ) : (
+            <PhotoRequired />
+          )}
           <PhotoCamera sx={{ fontSize: "24px" }} />
         </IconButton>
         <Button onClick={onClick} variant="contained" disabled={imageUrl}>
@@ -60,5 +49,3 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
     </>
   );
 };
-
-// disabled={imageUrl}

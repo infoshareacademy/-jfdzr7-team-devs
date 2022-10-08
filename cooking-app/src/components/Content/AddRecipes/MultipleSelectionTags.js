@@ -21,9 +21,6 @@ const MenuProps = {
   },
 };
 
-// const tags = ["Sweet", "Dinner", "Dessert", "Lunch", "Salt"];
-// const specialDiets = ["Dairy-free", "Vegetarian", "Gluten-free"];
-
 function getStyles(tag, selectedTags, theme) {
   return {
     fontWeight:
@@ -36,9 +33,8 @@ function getStyles(tag, selectedTags, theme) {
 export function MultipleSelectTags({ handlerTags, handlerDiet, onChange }) {
   const selectedTags = React.useContext(SelectedTagsContext);
   const selectedDiet = React.useContext(SelectedDietContext);
-
-  // console.log(selectedTags);
   const theme = useTheme();
+
   return (
     <div>
       <FormControl required sx={{ m: 1, width: 300 }}>
