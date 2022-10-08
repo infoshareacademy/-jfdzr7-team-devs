@@ -19,6 +19,7 @@ import { UserFollowing } from "./Account/UserProfile/UserFollowing";
 
 import { DisplayUserData } from "./Account/UserPanel/DisplayUserData";
 import { AddRecipeNew } from "./AddRecipes/AddRecipeNew";
+import { DisplayRecipe } from "./SingleRecipe/DisplayRecipe/DisplayRecipe";
 
 export const Content = ({ isLoggedIn }) => {
   const userData = useContext(UserDataContext);
@@ -61,7 +62,7 @@ export const Content = ({ isLoggedIn }) => {
               </ProtectedRoute>
             }
           />
-          <Route path="/recipe/:id" element={<SingleRecipe />} />
+          <Route path="/recipe/:id" element={<DisplayRecipe />} />
 
           <Route path="/user/:id" element={<UserProfile />}>
             <Route path="added" element={<UserRecipes />} />
