@@ -19,7 +19,6 @@ export const SelectsBox = ({ onChange }) => {
             labelId="servings"
             id="servings"
             name="servings"
-            // velue=""
             onChange={onChange}
           >
             <MenuItem value={""}>
@@ -34,13 +33,7 @@ export const SelectsBox = ({ onChange }) => {
 
         <FormControl required variant="filled" sx={{ m: 1, minWidth: 120 }}>
           <InputLabel id="time">Total Time:</InputLabel>
-          <Select
-            labelId="time"
-            id="time"
-            name="time"
-            // value=""
-            onChange={onChange}
-          >
+          <Select labelId="time" id="time" name="time" onChange={onChange}>
             <MenuItem value={""}>
               <em></em>
             </MenuItem>
@@ -58,7 +51,6 @@ export const SelectsBox = ({ onChange }) => {
             labelId="difficulty"
             id="difficulty"
             name="difficulty"
-            // value=""
             onChange={onChange}
           >
             <MenuItem value={""}>
@@ -73,5 +65,3 @@ export const SelectsBox = ({ onChange }) => {
     </>
   );
 };
-
-//required

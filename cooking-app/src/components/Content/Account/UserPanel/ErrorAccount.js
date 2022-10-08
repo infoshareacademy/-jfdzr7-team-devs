@@ -7,3 +7,11 @@ export const ErrorAccount = () => {
     </Alert>
   );
 };
+
+export const UpdateSuccess = () => {
+  return (
+    <Alert severity="success" variant="outlined">
+      <p> Success ! Yor Profile Is Alraeady Updated !</p>
+    </Alert>
+  );
+};
