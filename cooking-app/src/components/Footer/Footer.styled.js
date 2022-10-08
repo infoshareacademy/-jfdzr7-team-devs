@@ -17,6 +17,7 @@ export const StyledMessage = styled.h3`
   padding: 10px;
   margin: 0;
   white-space: nowrap;
+  font-weight:400;
 `;
 
 export const StyledFooterContent = styled(Box)`
@@ -33,5 +34,5 @@ export const StyledCopyRight = styled.h3`
   margin: 0;
   background-color: "lightgreen";
   padding: 10px;
-  font-weight:300;
+  font-weight:400;
 `;

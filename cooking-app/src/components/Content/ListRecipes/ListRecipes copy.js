@@ -45,6 +45,8 @@ export const ListRecipes = () => {
     inputState: false,
   });
 
+  console.log(state.inputCategory);
+
   const handelTextInput = (e) => {
     dispatcher({ type: "newTextInput", payload: e.target.value });
   };
@@ -62,6 +64,15 @@ export const ListRecipes = () => {
     const q = query(recipesCollection, where("isApproved", "==", true));
     onSnapshot(q, (snapshot) => {
       setdatafromFirebase(getDataFromSnapshot(snapshot));
+      console.log([
+        ...new Set(
+          getDataFromSnapshot(snapshot).reduce((arr, a) => {
+            a.tags.forEach((tag) => arr.push(tag));
+            return arr;
+          }, [])
+        ),
+      ]);
+      // console.log([...new Set([].concat(...getDataFromSnapshot(snapshot)))]);
     });
   }, []);
 
@@ -98,7 +109,7 @@ export const ListRecipes = () => {
           flexGrow: "1",
         }}
       >
-      <PageTitle>Recipes</PageTitle>
+        <PageTitle>Recipes</PageTitle>
       </Box>
       <StyledInputText
         id="filter"
@@ -132,7 +143,7 @@ export const ListRecipes = () => {
         {listofRecipe2.length ? listofRecipe2 : <WrongPage />}
       </Grid>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        {listofRecipe2.length  ? (
+        {listofRecipe2.length ? (
           <Button onClick={showMoreItems} variant="contained" sx={{ mb: 10 }}>
             Show more
           </Button>
