@@ -16,6 +16,7 @@ import {
 import { RecipeForm2 } from "./RecipeForm";
 import { UserDataContext } from "../../../App";
 import { StyledPageTitle } from "./StyledAddRecipe.styled";
+import { SuccessAddRecipe } from "./RecipeHelper";
 
 export const SelectedTagsContext = createContext([]);
 export const SelectedDietContext = createContext([]);
@@ -188,6 +189,7 @@ export const AddRecipeNew = () => {
     }
   };
 
+  const [message, setMessage] = useState("");
   //onSubmit
   const handleAddingRecipe = (e) => {
     e.preventDefault();
@@ -197,6 +199,7 @@ export const AddRecipeNew = () => {
         alert(firestoreErrorsCodes[e.code]);
       });
     alert("Recipe saved");
+    setMessage("recipe saved");
     setFormValues(defaultRecipeValue);
     setImageUrl(null);
     e.target.reset();
@@ -206,6 +209,7 @@ export const AddRecipeNew = () => {
   return (
     <>
       <StyledPageTitle>Add Recipe</StyledPageTitle>
+      {message ? <SuccessAddRecipe /> : null}
       <ImageUrlContext.Provider value={imageUrl}>
         <SelectedDietContext.Provider value={selectedDiet}>
           <PreparingContext.Provider value={methods}>

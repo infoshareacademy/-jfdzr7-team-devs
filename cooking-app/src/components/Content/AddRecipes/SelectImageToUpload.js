@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { ImageUrlContext } from "./AddRecipeNew";
 import ImageIcon from "@mui/icons-material/Image";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import { PhotoRequired } from "./RecipeHelper";
 
 const imageupload = true;
 
@@ -23,6 +24,7 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
           size="large"
         >
           <input
+            required
             hidden
             accept="image/*"
             type="file"
@@ -40,7 +42,9 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
                   marginRight: "8px",
                 }}
               ></img>
-            ) : null
+            ) : (
+              <PhotoRequired />
+            )
             // <>
             //   {/* // <p style={{ marginRight: "12px" }}> nie ma url</p> */}
             //   <ImageIcon />

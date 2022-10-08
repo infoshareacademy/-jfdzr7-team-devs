@@ -1,15 +1,19 @@
-// export const defaultRecipe = {    //poprzednia wersja
-//   title: "",
-//   time: "",
-//   portion: "",
-//   ingredients: "",
-//   describe: "",
-//   url: [],
-//   categories: [],
-//   recipeTimestamp: Timestamp.fromDate(new Date()).toDate(),
-//   author: "",
-//   posts: [],
-// };
+import { Alert } from "@mui/material";
+
+export const SuccessAddRecipe = () => {
+  return (
+    <Alert severity="success" variant="outlined">
+      <p> Thank You ! Your Recipe Will Be Checked By the Administrator ! </p>
+    </Alert>
+  );
+};
+export const PhotoRequired = () => {
+  return (
+    <Alert severity="warning" variant="outlined">
+      {" Photo Is Required"}
+    </Alert>
+  );
+};
 
 export const textsRecipe = {
   addRecipe: {
