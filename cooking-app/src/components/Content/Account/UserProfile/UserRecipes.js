@@ -1,11 +1,11 @@
 import { onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
 import { recipesCollection, tags } from "../../../../api/firebaseIndex";
-import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../../utils/GetDataFromSnapshot";
-import { InputElement } from "./InputElement";
+import { InputElement } from "../../../../utils/Search/InputElement";
 import { Button, Grid, TextField, Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { SingleCard } from "../../../../utils/SingleCard/SingleCard"
 
 const reducer = (currState, action) => {
   switch (action.type) {
@@ -84,7 +84,7 @@ export const UserRecipes = () => {
     .map((singleRecipe, index) => {
       return (
         <Grid key={index} item xs={12} sm={12} md={4} lg={3}>
-          <IndividualRecipe singleRecipe={singleRecipe} />
+          <SingleCard singleRecipe={singleRecipe} />
         </Grid>
       );
     });
@@ -107,7 +107,7 @@ export const UserRecipes = () => {
             fullWidth
           />
 
-          <Box sx={{ my: 2 }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
             {tags.map((singleTag, index) => {
               return (
                 <InputElement

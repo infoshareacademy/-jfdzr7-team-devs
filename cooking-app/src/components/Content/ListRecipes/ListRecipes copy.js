@@ -1,13 +1,13 @@
-import { onSnapshot, query, where } from "firebase/firestore";
+import { onSnapshot } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
 import { recipesCollection, tags } from "../../../api/firebaseIndex";
+import { IndividualRecipe } from "./IndividualRecipe";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { PageTitle } from "../../../utils/styles/Global.styled";
 import styled from "styled-components";
-import { InputElement } from "../../../utils/Search/InputElement"
-import { Button, Grid, Box } from "@mui/material";
+import { InputElement } from "./InputElement";
+import { Button, Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { SingleCard } from "../../../utils/SingleCard/SingleCard";
 
 const reducer = (currState, action) => {
   switch (action.type) {
@@ -35,6 +35,8 @@ const reducer = (currState, action) => {
 export const ListRecipes = () => {
   const { tag } = useParams();
 
+  console.log(tag);
+
   const [datafromFirebase, setdatafromFirebase] = useState([]);
   const [visible, setVisible] = useState(12);
 
@@ -43,6 +45,8 @@ export const ListRecipes = () => {
     textInput: "",
     inputState: false,
   });
+
+  console.log(state.inputCategory);
 
   const handelTextInput = (e) => {
     dispatcher({ type: "newTextInput", payload: e.target.value });
@@ -58,8 +62,7 @@ export const ListRecipes = () => {
   };
 
   useEffect(() => {
-    const q = query(recipesCollection, where("isApproved", "==", true));
-    onSnapshot(q, (snapshot) => {
+    onSnapshot(recipesCollection, (snapshot) => {
       setdatafromFirebase(getDataFromSnapshot(snapshot));
     });
   }, []);
@@ -81,32 +84,23 @@ export const ListRecipes = () => {
     .map((singleRecipe, index) => {
       return (
         <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-          <SingleCard singleRecipe={singleRecipe} />
+          <IndividualRecipe singleRecipe={singleRecipe} />
         </Grid>
       );
     });
 
   return (
-    <Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: { xs: "center", md: "left" },
-          flexGrow: "1",
-        }}
-      >
-        <PageTitle>Recipes</PageTitle>
-      </Box>
+    <StyledDiv>
+      <PageTitle>Recipes</PageTitle>
       <StyledInputText
         id="filter"
         placeholder="please enter the recipe name..."
-        variant="outlined"
         value={state.textInput}
         type="text"
         onChange={handelTextInput}
       />
       <br />
-      <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
+      <div>
         {tags.map((singleTag, index) => {
           return (
             <InputElement
@@ -117,19 +111,33 @@ export const ListRecipes = () => {
             />
           );
         })}
-      </Box>
+      </div>
 
-      <Grid direction="row" container spacing={4} sx={{ py: 5 }}>
+      <Grid
+        direction="row"
+        container
+        spacing={3}
+        sx={{
+          marginBottom: 2,
+        }}
+        justifyContent="center"
+      >
         {listofRecipe2}
       </Grid>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <Button onClick={showMoreItems} variant="contained" sx={{ mb: 10 }}>
+      <Button onClick={showMoreItems} variant="contained">
         Show more
       </Button>
-      </Box>
-    </Box>
+    </StyledDiv>
   );
 };
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  width: auto;
+`;
 
 const StyledInputText = styled.input`
   width: 100%;

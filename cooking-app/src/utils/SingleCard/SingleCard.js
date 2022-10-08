@@ -3,17 +3,14 @@ import { NavLink } from "react-router-dom";
 import { CardActionArea, Paper, Box, Card, Typography } from "@mui/material";
 import styled from "styled-components";
 
-export const IndividualRecipe = ({ singleRecipe }) => {
+export const SingleCard = ({ singleRecipe }) => {
   return (
     <Card
       key={singleRecipe.id}
       elevation={0}
       sx={{ height: { xs: "400px", sm: "500px", md: "350px" } }}
     >
-      <CardActionArea
-        sx={{
-          width: "100%",
-        }}
+      <StyledCard
         component={NavLink}
         to={`/recipe/${singleRecipe.id}`}
       >
@@ -30,11 +27,11 @@ export const IndividualRecipe = ({ singleRecipe }) => {
         </Paper>
 
         <StyledName>
-          <Typography gutterBottom variant="h6" component="div">
+          <StyledTitle gutterBottom variant="h6" component="div">
             {singleRecipe.name}
-          </Typography>
+          </StyledTitle>
         </StyledName>
-      </CardActionArea>
+      </StyledCard>
     </Card>
   );
 };
@@ -52,4 +49,18 @@ const StyledName = styled(Box)`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const StyledTitle = styled(Typography)`
+  &:hover {
+    color: var(--color-orange);
+  }
+`;
+
+const StyledCard = styled(CardActionArea)`
+  &:hover {
+    transition: 0.3s;
+    background-color: white;
+    width: 100%;
+  }
 `;

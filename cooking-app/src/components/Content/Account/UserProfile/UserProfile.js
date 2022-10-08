@@ -2,7 +2,7 @@ import { useState, useEffect, createContext } from "react";
 import { useParams, Outlet, NavLink } from "react-router-dom";
 import { Paper, Avatar, Box, Tabs, Tab } from "@mui/material";
 import {
-  StyledUserCover,
+  StyledAutorSection,
   StyledLayout,
   StyledAuthorName,
 } from "./UserProfileStyled";
@@ -46,36 +46,30 @@ export const UserProfile = () => {
   return (
     <>
       <StyledLayout>
-        <Paper elevation={3} sx={{ minWidth: 300 }}>
-          <StyledUserCover />
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: { xs: "center", md: "left" },
-              ml: { xs:"20px", md: "150px" },
-              position: "relative",
-              height: { xs: 125, sm: 180 },
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                position: "absolute",
-                zIndex: 1,
-                top: "-50px",
-              }}
-            >
-              <Avatar
-                alt={user.firstName}
-                src={user.avatarUrl}
-                sx={{ width: { xs: 150, sm: 200 }, height: "auto" }}
-              />
-              <StyledAuthorName>
-                {user.firstName} {user.lastName}
-              </StyledAuthorName>
-            </Box>
-          </Box>
+        {/* <StyledUserCover /> */}
+        <Paper
+          elevation={1}
+          sx={{
+            display: "flex",
+            justifyContent: { xs: "center", md: "left" },
+            alignItems: "center",
+            height: { xs: 125, sm: 180 },
+            backgroundColor: "var(--color-main-light-gray)",
+            p: 3,
+            contain: "content",
+            minWidth: "300px",
+          }}
+        >
+            <Avatar
+                  sx={{ height:"100%", width:{ xs: 77, sm: 132 }}}
+              alt={user.firstName}
+              src={user.avatarUrl}
+            />
+            <StyledAutorSection>
+            <StyledAuthorName>
+              {user.firstName} {user.lastName}
+            </StyledAuthorName>
+            </StyledAutorSection>
         </Paper>
 
         <UserProfileContext.Provider value={user}>

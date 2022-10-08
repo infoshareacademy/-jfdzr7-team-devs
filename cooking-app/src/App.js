@@ -9,7 +9,7 @@ import { createContext } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { Loader } from "./utils/Loader";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { NavBar } from "./components/Header/NavBar"
+import { NavBar } from "./components/Header/NavBar";
 
 export const UserDataContext = createContext({
   firstName: "",
@@ -21,7 +21,6 @@ export const UserDataContext = createContext({
   avatarUrl: "",
 
   avatarUrlId: "", // potrzebne
-
 });
 
 export const theme = createTheme({

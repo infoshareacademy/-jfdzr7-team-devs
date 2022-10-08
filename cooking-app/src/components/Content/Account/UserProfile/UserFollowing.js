@@ -1,7 +1,7 @@
 import { getDoc } from "firebase/firestore";
 import { useEffect, useReducer, useState, useRef, useContext } from "react";
 import { singleRecipeCollection, tags } from "../../../../api/firebaseIndex";
-import { IndividualRecipe } from "./IndividualRecipe";
+import { SingleCard } from "../../../../utils/SingleCard/SingleCard"
 import { InputElement } from "./InputElement";
 import { Button, Grid, TextField, Box, Typography } from "@mui/material";
 import { UserProfileContext } from "./UserProfile";
@@ -49,8 +49,9 @@ export const UserFollowing = () => {
       preventUpdate.current = true;
       user.favourites.forEach((recipeId) => {
         getDoc(singleRecipeCollection(recipeId)).then((recipe) => {
-          setdatafromFirebase((current) => [...current, 
-            {...recipe.data(), id: recipeId },
+          setdatafromFirebase((current) => [
+            ...current,
+            { ...recipe.data(), id: recipeId },
           ]);
           // setdatafromFirebase((current) => [...current, recipe.data()]);
         });
@@ -96,7 +97,7 @@ export const UserFollowing = () => {
     .map((singleRecipe, index) => {
       return (
         <Grid key={index} item xs={12} sm={12} md={4} lg={3}>
-          <IndividualRecipe singleRecipe={singleRecipe} />
+          <SingleCard singleRecipe={singleRecipe} />
         </Grid>
       );
     });
@@ -119,7 +120,7 @@ export const UserFollowing = () => {
             fullWidth
           />
 
-          <Box sx={{ my: 2 }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
             {tags.map((singleTag, index) => {
               return (
                 <InputElement
