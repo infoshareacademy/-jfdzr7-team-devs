@@ -41,6 +41,11 @@ export const theme = createTheme({
       main: "#000000",
     },
   },
+  typography: {
+    styled: {
+      fontFamily:"Playfair Display",
+    }
+  }
 });
 
 function App() {

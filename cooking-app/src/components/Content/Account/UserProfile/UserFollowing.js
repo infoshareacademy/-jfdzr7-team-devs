@@ -2,7 +2,7 @@ import { getDoc } from "firebase/firestore";
 import { useEffect, useReducer, useState, useRef, useContext } from "react";
 import { singleRecipeCollection, tags } from "../../../../api/firebaseIndex";
 import { SingleCard } from "../../../../utils/SingleCard/SingleCard"
-import { InputElement } from "./InputElement";
+import { InputElement } from "../../../../utils/Search/InputElement";
 import { Button, Grid, TextField, Box, Typography } from "@mui/material";
 import { UserProfileContext } from "./UserProfile";
 import { WrongPage } from "../../../../utils/WrongPage";
