@@ -14,7 +14,7 @@ import { LibraryAdd, Logout, Settings } from "@mui/icons-material";
 import { signOut } from "firebase/auth";
 import { auth } from "../../api/firebase";
 import { NavLink } from "react-router-dom";
-import {CustomAvatar} from "./CustomAvatar";
+import { CustomAvatar } from "./CustomAvatar";
 
 const AccountMenu = () => {
   const userData = useContext(UserDataContext);
@@ -32,7 +32,7 @@ const AccountMenu = () => {
   };
   return (
     <>
-      <Tooltip title="Account settings" >
+      <Tooltip title="Account settings">
         <IconButton
           onClick={handleClick}
           aria-controls={open ? "account-menu" : undefined}
@@ -40,7 +40,7 @@ const AccountMenu = () => {
           aria-expanded={open ? "true" : undefined}
         >
           {/*<Avatar alt={userData?.firstName} src={userData?.avatarUrl} />*/}
-          <CustomAvatar/>
+          <CustomAvatar />
           <KeyboardArrowDownIcon />
         </IconButton>
       </Tooltip>
@@ -80,7 +80,7 @@ const AccountMenu = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem component={NavLink} to={`/user/${userData?.uid}/added`}>
-          <Avatar /> Profile
+          <CustomAvatar /> Profile
         </MenuItem>
 
         {userData?.role === "admin" ? (
