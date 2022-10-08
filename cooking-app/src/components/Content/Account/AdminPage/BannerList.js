@@ -5,7 +5,8 @@ import {
   bannerCollection,
   singleRecipeCollection,
 } from "../../../../api/firebaseIndex";
-import { IndividualRecipe } from "../UserProfile/IndividualRecipe";
+import { SingleCard } from "../../../../utils/SingleCard/SingleCard";
+
 
 const BannerList = () => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
@@ -59,7 +60,7 @@ const BannerList = () => {
             {datafromFirebase.map((singleRecipe, index) => {
               return (
                 <Grid key={index} item xs={12} sm={6} md={6} lg={3}>
-                  <IndividualRecipe singleRecipe={singleRecipe} />
+                  <SingleCard singleRecipe={singleRecipe} />
                 </Grid>
               );
             })}
