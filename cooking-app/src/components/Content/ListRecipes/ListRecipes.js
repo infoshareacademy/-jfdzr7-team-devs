@@ -4,10 +4,11 @@ import { recipesCollection, tags } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { PageTitle } from "../../../utils/styles/Global.styled";
 import styled from "styled-components";
-import { InputElement } from "../../../utils/Search/InputElement"
+import { InputElement } from "../../../utils/Search/InputElement";
 import { Button, Grid, Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { SingleCard } from "../../../utils/SingleCard/SingleCard";
+import { WrongPage } from "../../../utils/WrongPage";
 
 const reducer = (currState, action) => {
   switch (action.type) {
@@ -44,6 +45,8 @@ export const ListRecipes = () => {
     inputState: false,
   });
 
+  console.log(state.inputCategory)
+
   const handelTextInput = (e) => {
     dispatcher({ type: "newTextInput", payload: e.target.value });
   };
@@ -71,11 +74,11 @@ export const ListRecipes = () => {
   const listofRecipe2 = datafromFirebase
     .filter((item) => {
       if (state.inputCategory.length > 0) {
-        let arr = state.inputCategory.filter((tag) => item.tags?.includes(tag));
+        let arr = state.inputCategory.filter((tag) => item.tags?.concat(item.specialDiets).includes(tag));
         return !(arr.length === 0);
       } else if (state.textInput.toLowerCase() === "") {
         return item;
-      } else return item.name?.toLowerCase().includes(state.textInput);
+      } else return item.name?.toLowerCase().includes(state.textInput)
     })
     .slice(0, visible)
     .map((singleRecipe, index) => {
@@ -91,7 +94,7 @@ export const ListRecipes = () => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: { xs: "center", md: "left" },
+          justifyContent: { xs: "center", md: "left"},
           flexGrow: "1",
         }}
       >
@@ -119,13 +122,13 @@ export const ListRecipes = () => {
         })}
       </Box>
 
-      <Grid direction="row" container spacing={4} sx={{ py: 5 }}>
-        {listofRecipe2}
+      <Grid direction="row" justifyContent="center" container spacing={4} sx={{ py: 5 }}>
+        {listofRecipe2.length ? listofRecipe2 : <WrongPage/>}
       </Grid>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <Button onClick={showMoreItems} variant="contained" sx={{ mb: 10 }}>
+      {listofRecipe2.length ? <Button onClick={showMoreItems} variant="contained" sx={{ mb: 10 }}>
         Show more
-      </Button>
+      </Button> : null}
       </Box>
     </Box>
   );

@@ -19,6 +19,8 @@ import { UserFollowing } from "./Account/UserProfile/UserFollowing";
 
 import { DisplayUserData } from "./Account/UserPanel/DisplayUserData";
 import { AddRecipeNew } from "./AddRecipes/AddRecipeNew";
+import { DisplayRecipe } from "./SingleRecipe/DisplayRecipe/DisplayRecipe";
+import { ErrorMessage } from "../../utils/Message";
 
 export const Content = ({ isLoggedIn }) => {
   const userData = useContext(UserDataContext);
@@ -61,7 +63,7 @@ export const Content = ({ isLoggedIn }) => {
               </ProtectedRoute>
             }
           />
-          <Route path="/recipe/:id" element={<SingleRecipe />} />
+          <Route path="/recipe/:id" element={<DisplayRecipe />} />
 
           <Route path="/user/:id" element={<UserProfile />}>
             <Route path="added" element={<UserRecipes />} />
@@ -93,7 +95,8 @@ export const Content = ({ isLoggedIn }) => {
 
           <Route
             path="*"
-            element={<StyledH2>Ups, Website does not exist</StyledH2>}
+            // element={<StyledH2>Ups, Website does not exist</StyledH2>}
+            element={<ErrorMessage />}
           />
         </Routes>
       </Container>

@@ -14,7 +14,7 @@ import { LibraryAdd, Logout, Settings } from "@mui/icons-material";
 import { signOut } from "firebase/auth";
 import { auth } from "../../api/firebase";
 import { NavLink } from "react-router-dom";
-import { CustomAvatar } from "./CustomAvatar";
+import { CustomAvatar } from "../../utils/CustomAvatar";
 
 const AccountMenu = () => {
   const userData = useContext(UserDataContext);

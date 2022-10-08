@@ -65,14 +65,14 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         <Grid container spacing={5}>
           <Grid xs={12} md={5} item={true}>
             <Box>
-              <StyledImgMain src={recipe.image} alt={recipe.name} />
+              <StyledImgMain src={recipe?.image} alt={recipe?.name} />
             </Box>
           </Grid>
 
           <Grid xs={12} md={7} item={true}>
             <StyledContainer>
               <StyledAuthor>
-                <PageTitle>{recipe.name}</PageTitle>
+                <PageTitle>{recipe?.name}</PageTitle>
               </StyledAuthor>
               <StyledContainer>
                 {userData ? <AddFavourites id={id} /> : null}
@@ -80,55 +80,55 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
               </StyledContainer>
             </StyledContainer>
             <Box>
-              <Typography variant="h6">{recipe.subName}</Typography>
-              <GetAuthor userId={recipe.author} />
+              <Typography variant="h6">{recipe?.subName}</Typography>
+              <GetAuthor userId={recipe?.author} />
               <StyledSpecialTags>
-                {recipe.specialDiets
-                  ? recipe.specialDiets.map((specialDietItem, index) => (
+                {recipe?.specialDiets
+                  ? recipe?.specialDiets.map((specialDietItem, index) => (
                       <StyledTags
                         variant="contained"
                         component={Link}
                         key={index}
-                        to={`/ListRecipes/${recipe.specialDiets}`}
+                        to={`/ListRecipes/${specialDietItem}`}
                       >
                         {specialDietItem}
                       </StyledTags>
                     ))
                   : null}
               </StyledSpecialTags>
-              <StyledQuote>{recipe.description}</StyledQuote>
+              <StyledQuote>{recipe?.description}</StyledQuote>
               <StyledDetail>
                 <StyledRecipeDetails>
                   <StyledInfo>Serves</StyledInfo>
                   <StyledDetailedInfo variant="overline">
-                    {recipe.servings} people
+                    {recipe?.servings} people
                   </StyledDetailedInfo>
                 </StyledRecipeDetails>
                 <StyledRecipeDetails>
                   <StyledInfo>Time</StyledInfo>
                   <StyledDetailedInfo variant="overline">
-                    {recipe.time.total}
+                    {recipe?.time.total}
                   </StyledDetailedInfo>
                 </StyledRecipeDetails>
                 <StyledRecipeDetails>
                   <StyledInfo>Difficulty</StyledInfo>
                   <StyledDetailedInfo variant="overline">
-                    {recipe.difficulty}
+                    {recipe?.difficulty}
                   </StyledDetailedInfo>
                 </StyledRecipeDetails>
               </StyledDetail>
 
               <StyledSpecialTags>
-                {recipe.tags
-                  ? recipe.tags.map((tags, index) => (
+                {recipe?.tags
+                  ? recipe.tags.map((singleTag, index) => (
                       <StyledTags
                         sx={{ color: "#c29000" }}
                         variant="outlined"
                         component={Link}
                         key={index}
-                        to={`/ListRecipes/${recipe.specialDiets}`}
+                        to={`/ListRecipes/${singleTag}`}
                       >
-                        {tags}
+                        {singleTag}
                       </StyledTags>
                     ))
                   : null}
@@ -143,7 +143,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
             <Box>
               <SubTitle>Ingredients</SubTitle>
               <Box>
-                {recipe.ingredients ? (
+                {recipe?.ingredients ? (
                   recipe.ingredients.map((ingredients, index) =>
                     ingredients === ingredients.toUpperCase() ? (
                       <StyledRecipeContent>
@@ -186,7 +186,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
             <Box>
               <SubTitle>Instructions</SubTitle>
               <StyledList>
-                {recipe.instructions
+                {recipe?.instructions
                   ? recipe.instructions.map((instruction, index) => (
                       <StyledListItemNumber key={index} to="/">
                         {instruction}
@@ -208,7 +208,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
         ) : (
           <AddComment />
         )}
-        <DisplayComments recipeName={recipe.name} />
+        <DisplayComments recipeName={recipe?.name} />
       </StyledWrapper>
     </>
   );

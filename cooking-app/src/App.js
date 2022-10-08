@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import { GlobalStyle, Wrapper } from "./utils/styles/Global.styled";
 import { Content } from "./components/Content/Content";
 import { Footer } from "./components/Footer/Footer";
@@ -73,11 +73,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <HashRouter>
         <GlobalStyle />
         <UserDataContext.Provider value={userData}>
           <Wrapper>
-            <NavBar isLoggedIn={isLoggedIn}/>
+            <NavBar isLoggedIn={isLoggedIn} />
             {isLoggedIn === null ? (
               <Loader />
             ) : (
@@ -86,7 +86,7 @@ function App() {
             <Footer />
           </Wrapper>
         </UserDataContext.Provider>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 }

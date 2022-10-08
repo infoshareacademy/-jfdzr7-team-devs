@@ -24,7 +24,7 @@ export const SingleRecipe = () => {
   if (load === false) {
     return <Loader />;
   }
-
+  
   const ErrorMessage = () => {
     return (
       <Alert severity="error" variant={variantType.outlined}>
