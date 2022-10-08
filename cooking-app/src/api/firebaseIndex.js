@@ -185,5 +185,10 @@ export const tags = [
 "Curry",
 "Dinner for two",
 "Store cupboard recipes",
-"Feta"];
+"Feta",
+"Dairy-free", 
+"Vegetarian", 
+"Gluten-free",
+"Vegan"];
+
 export const specialDiets = ["Dairy-free", "Vegetarian", "Gluten-free"];

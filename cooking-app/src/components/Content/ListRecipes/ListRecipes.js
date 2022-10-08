@@ -64,15 +64,6 @@ export const ListRecipes = () => {
     const q = query(recipesCollection, where("isApproved", "==", true));
     onSnapshot(q, (snapshot) => {
       setdatafromFirebase(getDataFromSnapshot(snapshot));
-      console.log([
-        ...new Set(
-          getDataFromSnapshot(snapshot).reduce((arr, a) => {
-            a.tags.forEach((tag) => arr.push(tag));
-            return arr;
-          }, [])
-        ),
-      ]);
-      // console.log([...new Set([].concat(...getDataFromSnapshot(snapshot)))]);
     });
   }, []);
 
@@ -83,7 +74,7 @@ export const ListRecipes = () => {
   const listofRecipe2 = datafromFirebase
     .filter((item) => {
       if (state.inputCategory.length > 0) {
-        let arr = state.inputCategory.filter((tag) => item.tags?.includes(tag));
+        let arr = state.inputCategory.filter((tag) => item.tags?.concat(item.specialDiets).includes(tag));
         return !(arr.length === 0);
       } else if (state.textInput.toLowerCase() === "") {
         return item;
