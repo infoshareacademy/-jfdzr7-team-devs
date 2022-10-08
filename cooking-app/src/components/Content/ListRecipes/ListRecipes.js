@@ -4,7 +4,7 @@ import { recipesCollection, tags } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { PageTitle } from "../../../utils/styles/Global.styled";
 import styled from "styled-components";
-import { InputElement } from "../../../utils/Search/InputElement"
+import { InputElement } from "../../../utils/Search/InputElement";
 import { Button, Grid, Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { SingleCard } from "../../../utils/SingleCard/SingleCard";
@@ -64,6 +64,15 @@ export const ListRecipes = () => {
     const q = query(recipesCollection, where("isApproved", "==", true));
     onSnapshot(q, (snapshot) => {
       setdatafromFirebase(getDataFromSnapshot(snapshot));
+      console.log([
+        ...new Set(
+          getDataFromSnapshot(snapshot).reduce((arr, a) => {
+            a.tags.forEach((tag) => arr.push(tag));
+            return arr;
+          }, [])
+        ),
+      ]);
+      // console.log([...new Set([].concat(...getDataFromSnapshot(snapshot)))]);
     });
   }, []);
 
