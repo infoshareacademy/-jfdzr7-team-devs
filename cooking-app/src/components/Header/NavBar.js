@@ -12,7 +12,6 @@ import { NavLink } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
 import { StyledButton } from "./NavBar.styled";
 
-
 export const NavBar = ({ isLoggedIn }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -93,15 +92,16 @@ export const NavBar = ({ isLoggedIn }) => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <StyledButton
               component={NavLink}
+              end
               to="/"
-              sx={{color:"primary.contrastText"}}
+              sx={{ color: "primary.contrastText" }}
             >
               Home
             </StyledButton>
             <StyledButton
               component={NavLink}
               to="/ListRecipes"
-              sx={{color:"primary.contrastText"}}
+              sx={{ color: "primary.contrastText" }}
             >
               Recipes
             </StyledButton>
@@ -135,7 +135,7 @@ export const NavBar = ({ isLoggedIn }) => {
               <StyledButton
                 component={NavLink}
                 to="/login"
-                sx={{color:"primary.contrastText"}}
+                sx={{ color: "primary.contrastText" }}
               >
                 Login
               </StyledButton>
