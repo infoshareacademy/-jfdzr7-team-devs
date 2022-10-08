@@ -89,7 +89,7 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
                         variant="contained"
                         component={Link}
                         key={index}
-                        to={`/ListRecipes/${recipe.specialDiets}`}
+                        to={`/ListRecipes/${specialDietItem}`}
                       >
                         {specialDietItem}
                       </StyledTags>
@@ -120,15 +120,15 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
 
               <StyledSpecialTags>
                 {recipe?.tags
-                  ? recipe.tags.map((tags, index) => (
+                  ? recipe.tags.map((tagItem, index) => (
                       <StyledTags
                         sx={{ color: "#c29000" }}
                         variant="outlined"
                         component={Link}
                         key={index}
-                        to={`/ListRecipes/${recipe.specialDiets}`}
+                        to={`/ListRecipes/${tagItem}`}
                       >
-                        {tags}
+                        {tagItem}
                       </StyledTags>
                     ))
                   : null}
