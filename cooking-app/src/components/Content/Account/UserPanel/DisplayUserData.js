@@ -57,24 +57,25 @@ export const DisplayUserData = () => {
       .catch((e) => {
         alert(storageErrorsCodes[e.code]);
       });
+    setImageUpload(null); //
   };
 
   useEffect(() => {
     setDocRefUser(doc(db, "users", `${currentUserData?.uid}`));
   }, [currentUserData]);
 
-  const UpdateUserAvatar = (e) => {
+  const updateUserAvatar = (e) => {
     updateDoc(docRefUser, {
       avatarUrl: avatarUrl,
       avatarUrlId: avatarUrlId,
     }).catch((e) => alert(e));
-    setAvatarUrl(null);
-    setImageUpload(null);
     // alert("avatar updated");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
       setCurrentUserData(userDataFromDB);
     });
+    setAvatarUrl("");
+    setImageUpload(null);
     setMessage("Success ! Alraeady updated ! ");
   };
 
@@ -87,10 +88,9 @@ export const DisplayUserData = () => {
 
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
-      console.log("---userDataFromDB---", userDataFromDB);
       setCurrentUserData(userDataFromDB);
     });
-    setMessage("Success ! Alraeady updated !");
+    setMessage("message");
   };
 
   const handlerDeleteUser = () => {
@@ -133,7 +133,7 @@ export const DisplayUserData = () => {
                       backgroundColor: "var(--color-orange)",
                     }}
                     onClick={() => {
-                      setAvatarUrl(null);
+                      setAvatarUrl("");
                       deleteObject(userAvatarRef);
                     }}
                   />
@@ -211,7 +211,7 @@ export const DisplayUserData = () => {
                   }}
                 >
                   <Button
-                    onClick={UpdateUserAvatar}
+                    onClick={updateUserAvatar}
                     variant="contained"
                     style={{ margin: "16px" }}
                     disabled={!avatarUrl}

@@ -7,7 +7,7 @@ import {
   MenuItem,
   Tooltip,
 } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserDataContext } from "../../App";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { LibraryAdd, Logout, Settings } from "@mui/icons-material";
@@ -18,7 +18,6 @@ import { CustomAvatar } from "../../utils/CustomAvatar";
 
 const AccountMenu = () => {
   const userData = useContext(UserDataContext);
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

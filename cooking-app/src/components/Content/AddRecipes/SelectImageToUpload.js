@@ -31,10 +31,10 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
             <img
               src={imageUrl}
               style={{
-                width: "100px",
+                width: "120px",
                 height: "120px",
                 background: "pink",
-                marginRight: "8px",
+                marginRight: "24px",
               }}
             ></img>
           ) : (
@@ -42,7 +42,7 @@ export const SelectImageToUpload = ({ onChange, onClick, text }) => {
           )}
           <PhotoCamera sx={{ fontSize: "24px" }} />
         </IconButton>
-        <Button onClick={onClick} variant="contained" disabled={imageUrl}>
+        <Button onClick={onClick} variant="contained">
           {text.buttonUpload} Upload photo
         </Button>
       </Stack>

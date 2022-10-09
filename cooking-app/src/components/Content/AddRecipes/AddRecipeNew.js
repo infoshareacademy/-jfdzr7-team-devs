@@ -15,6 +15,7 @@ import { UserDataContext } from "../../../App";
 import { StyledPageTitle } from "./StyledAddRecipe.styled";
 import { SuccessAddRecipe } from "./RecipeHelper";
 import { defaultRecipeValue } from "./RecipeHelper";
+import { Button } from "@mui/material";
 
 export const SelectedTagsContext = createContext([]);
 export const SelectedDietContext = createContext([]);
@@ -181,7 +182,7 @@ export const AddRecipeNew = () => {
       .catch((e) => {
         alert(firestoreErrorsCodes[e.code]);
       });
-    alert("Recipe saved");
+    //alert("Recipe saved");
     setMessage("recipe saved");
     setFormValues(defaultRecipeValue);
     setImageUrl(null);
@@ -189,29 +190,43 @@ export const AddRecipeNew = () => {
     setIsRecipeSent(true);
   };
 
+  const handleNewRecipeForm = () => {
+    setMessage("");
+    setFormValues(defaultRecipeValue);
+    setIsRecipeSent(false);
+  };
+
   return (
     <>
-      <StyledPageTitle>Add Recipe</StyledPageTitle>
-      {message ? <SuccessAddRecipe /> : null}
       <ImageUrlContext.Provider value={imageUrl}>
         <SelectedDietContext.Provider value={selectedDiet}>
           <PreparingContext.Provider value={methods}>
             <IngredientsContext.Provider value={ingredients}>
               <SelectedTagsContext.Provider value={selectedTags}>
-                <RecipeForm2
-                  onChange={changeFormValues}
-                  onClick={uploadImage}
-                  handleSubmit={handleAddingRecipe}
-                  handlerTags={handleChangeTags}
-                  handlerIngredients={handleChangeIngredients}
-                  handlerAddInputIngredient={handleAddTextInput}
-                  handlerMethods={handleChangeMethods}
-                  handlerAddInputMethod={handleMethodAddTextInput}
-                  handlerDiet={handleChangeDiet}
-                  isRecipeSent={isRecipeSent}
-                  handlerDeleteInputMethod={handleDeleteInputMethod}
-                  handlerDeleteInputIngredients={handleDeleteInputIngredients}
-                />
+                <StyledPageTitle>Add Recipe</StyledPageTitle>
+                {message ? (
+                  <>
+                    <SuccessAddRecipe />
+                    <Button onClick={handleNewRecipeForm} variant="contained">
+                      Add New Recipe
+                    </Button>
+                  </>
+                ) : (
+                  <RecipeForm2
+                    onChange={changeFormValues}
+                    onClick={uploadImage}
+                    handleSubmit={handleAddingRecipe}
+                    handlerTags={handleChangeTags}
+                    handlerIngredients={handleChangeIngredients}
+                    handlerAddInputIngredient={handleAddTextInput}
+                    handlerMethods={handleChangeMethods}
+                    handlerAddInputMethod={handleMethodAddTextInput}
+                    handlerDiet={handleChangeDiet}
+                    isRecipeSent={isRecipeSent}
+                    handlerDeleteInputMethod={handleDeleteInputMethod}
+                    handlerDeleteInputIngredients={handleDeleteInputIngredients}
+                  />
+                )}
               </SelectedTagsContext.Provider>
             </IngredientsContext.Provider>
           </PreparingContext.Provider>
