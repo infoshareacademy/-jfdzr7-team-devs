@@ -5,7 +5,6 @@ import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { SingleCard } from "../../../utils/SingleCard/SingleCard";
 import { Button, Grid, Box, Divider, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { SubTitle } from "../../../utils/styles/Global.styled";
 
 export const HomePageSection = ({ category }) => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
