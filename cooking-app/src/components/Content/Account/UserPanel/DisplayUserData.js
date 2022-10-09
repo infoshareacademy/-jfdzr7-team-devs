@@ -14,7 +14,7 @@ import { deleteObject, ref, uploadBytes } from "firebase/storage";
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, storage, db } from "../../../../api/firebase";
 import { deleteUser, signOut } from "firebase/auth";
-import { ErrorAccount } from "./ErrorAccount";
+import { ErrorAccount, UpdateSuccess } from "./ErrorAccount";
 import {
   StyledDispalyUserData,
   StyledUserPanel,
@@ -30,6 +30,7 @@ export const DisplayUserData = () => {
   const [avatarUrlId, setAvatarUrlId] = useState("");
   const [docRefUser, setDocRefUser] = useState(null);
   const [isUser, setIsUser] = useState(true);
+  const [message, setMessage] = useState("");
   const userAvatarRef = ref(storage, `avatar/${currentUserData?.avatarUrlId}`);
   const user = auth.currentUser;
 
@@ -69,11 +70,12 @@ export const DisplayUserData = () => {
     }).catch((e) => alert(e));
     setAvatarUrl(null);
     setImageUpload(null);
-    alert("avatar updated");
+    // alert("avatar updated");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
       setCurrentUserData(userDataFromDB);
     });
+    setMessage("Success ! Alraeady updated ! ");
   };
 
   const deleteAvatar = (e) => {
@@ -83,12 +85,12 @@ export const DisplayUserData = () => {
     }).catch((e) => alert(storageErrorsCodes[e.code]));
     deleteObject(userAvatarRef).catch((e) => alert(e));
 
-    alert("avatar deleted");
     getDoc(docRefUser).then((dataDB) => {
       const userDataFromDB = dataDB.data();
       console.log("---userDataFromDB---", userDataFromDB);
       setCurrentUserData(userDataFromDB);
     });
+    setMessage("Success ! Alraeady updated !");
   };
 
   const handlerDeleteUser = () => {
@@ -100,7 +102,7 @@ export const DisplayUserData = () => {
       alert(e);
     });
     setIsUser(false);
-    // signOut(auth);
+    signOut(auth);
   };
 
   return (
@@ -110,6 +112,7 @@ export const DisplayUserData = () => {
           <StyledUserPanelTitle>
             Twoje dane {currentUserData?.firstName}
           </StyledUserPanelTitle>
+          {message ? <UpdateSuccess /> : null}
           <StyledDispalyUserData>
             <Paper
               className="paper"
@@ -220,6 +223,7 @@ export const DisplayUserData = () => {
                     onClick={deleteAvatar}
                     variant="contained"
                     style={{ margin: "16px" }}
+                    disabled={CurrentUser?.avatarUrl === ""}
                   >
                     Delete Avatar
                   </Button>

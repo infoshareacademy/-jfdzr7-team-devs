@@ -45,6 +45,8 @@ export const ListRecipes = () => {
     inputState: false,
   });
 
+  console.log(state.inputCategory);
+
   const handelTextInput = (e) => {
     dispatcher({ type: "newTextInput", payload: e.target.value });
   };
@@ -62,6 +64,15 @@ export const ListRecipes = () => {
     const q = query(recipesCollection, where("isApproved", "==", true));
     onSnapshot(q, (snapshot) => {
       setdatafromFirebase(getDataFromSnapshot(snapshot));
+      console.log([
+        ...new Set(
+          getDataFromSnapshot(snapshot).reduce((arr, a) => {
+            a.tags.forEach((tag) => arr.push(tag));
+            return arr;
+          }, [])
+        ),
+      ]);
+      // console.log([...new Set([].concat(...getDataFromSnapshot(snapshot)))]);
     });
   }, []);
 
@@ -111,16 +122,14 @@ export const ListRecipes = () => {
       <br />
       <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
         {tags.map((singleTag, index) => {
-          if (index < 8) {
-            return (
-              <InputElement
-                isClicked={state.inputCategory.includes(singleTag)}
-                key={index}
-                tag={singleTag}
-                handleInput={handleInput}
-              />
-            );
-          }
+          return (
+            <InputElement
+              isClicked={state.inputCategory.includes(singleTag)}
+              key={index}
+              tag={singleTag}
+              handleInput={handleInput}
+            />
+          );
         })}
       </Box>
 

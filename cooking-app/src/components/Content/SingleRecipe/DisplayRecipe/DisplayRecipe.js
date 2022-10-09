@@ -120,15 +120,15 @@ export const DisplayRecipe = ({ isLoggedIn }) => {
 
               <StyledSpecialTags>
                 {recipe?.tags
-                  ? recipe.tags.map((singleTag, index) => (
+                  ? recipe.tags.map((tagItem, index) => (
                       <StyledTags
                         sx={{ color: "#c29000" }}
                         variant="outlined"
                         component={Link}
                         key={index}
-                        to={`/ListRecipes/${singleTag}`}
+                        to={`/ListRecipes/${tagItem}`}
                       >
-                        {singleTag}
+                        {tagItem}
                       </StyledTags>
                     ))
                   : null}

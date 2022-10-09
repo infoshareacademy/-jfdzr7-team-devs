@@ -39,7 +39,7 @@ export const DisplayComments = ({ recipeName }) => {
     const first = query(
       commentsRecipeCollection(id),
       defaultQueryConstraint,
-      limit(5)
+      limit(4)
     );
 
     onSnapshot(first, (comment) => {

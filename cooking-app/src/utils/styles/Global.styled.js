@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
   :root {
     --color-little-light-gray: #ffffff;
     --color-main-light-gray: #fafafa;
+    --color-natural-gray: #ededed;
     --color-light-gray: #c7c7c7;
     --color-gray: #757575;
     --color-black: #000000;
@@ -42,7 +43,7 @@ export const Container = styled.div`
 export const PageTitle = styled.h1`
   margin: 0;
   font-family: "Playfair Display", serif;
-  font-size: 55px;
+  font-size: 45px;
   padding: 0 0 16px 0;
 `;
 

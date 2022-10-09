@@ -15,8 +15,7 @@ export const TextFieldIngredients = ({
       required
       multiline
       variant={variantType.filled}
-      name={name} //"name"
-      // value={value}
+      name={name}
       onChange={(e) => {
         onChange(e);
         handlerIngredients(e);

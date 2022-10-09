@@ -2,9 +2,10 @@ import { getDoc } from "firebase/firestore";
 import { useEffect, useReducer, useState, useRef, useContext } from "react";
 import { singleRecipeCollection, tags } from "../../../../api/firebaseIndex";
 import { SingleCard } from "../../../../utils/SingleCard/SingleCard"
-import { InputElement } from "./InputElement";
+import { InputElement } from "../../../../utils/Search/InputElement";
 import { Button, Grid, TextField, Box, Typography } from "@mui/material";
 import { UserProfileContext } from "./UserProfile";
+import { WrongPage } from "../../../../utils/WrongPage";
 
 const reducer = (currState, action) => {
   switch (action.type) {
@@ -111,8 +112,8 @@ export const UserFollowing = () => {
       ) : (
         <Box>
           <TextField
-            multiline
-            placeholder="Find recipe"
+            id="filter"
+            placeholder="please enter the recipe name..."
             variant="outlined"
             value={state.textInput}
             type="text"
@@ -124,18 +125,25 @@ export const UserFollowing = () => {
             {tags.map((singleTag, index) => {
               return (
                 <InputElement
-                  key={index}
-                  tag={singleTag}
-                  handleInput={handleInput}
+                isClicked={state.inputCategory.includes(singleTag)}
+                key={index}
+                tag={singleTag}
+                handleInput={handleInput}
                 />
               );
             })}
           </Box>
 
-          <Grid direction="row" container spacing={4} sx={{ py: 5 }}>
-            {listofRecipe2}
+          <Grid
+            direction="row"
+            justifyContent="center"
+            container
+            spacing={4}
+            sx={{ py: 5 }}
+          >
+            {listofRecipe2.length ? listofRecipe2 : <WrongPage />}
           </Grid>
-          {moreLoading >= 0 ? (
+          {moreLoading >= 0 && listofRecipe2.length > 4 ? (
             <Button onClick={showMoreItems} variant="contained" sx={{ mb: 10 }}>
               Show more
             </Button>

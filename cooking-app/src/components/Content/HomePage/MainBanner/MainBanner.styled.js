@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Paper, Box } from "@mui/material";
+import { Paper, Box, Typography } from "@mui/material";
 import { PageTitle } from "../../../../utils/styles/Global.styled";
 
 export const StyledSlider = styled(Paper)`
@@ -12,26 +12,24 @@ export const StyledImg = styled.img`
   width: 100%;
   object-fit: cover;
   height: 100%;
-  object-position: center;
+  object-position: cover;
 `;
 
-export const StyledDescription = styled(Paper)`
-  padding: 55px;
+export const StyledDescription = styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
-export const StyledDescriptionText = styled.div`
+export const StyledDescriptionText = styled(Box)`
   display: flex;
-  flex: 1;
   flex-direction: column;
   justify-content: center;
 `;
 
-export const BannerTitle = styled(PageTitle)`
-  font-size: 40px;
-  padding: 0;
+export const StyledText = styled(Box)`
+  flex: 1;
+  overflow: hidden;
 `;
 
 export const StyledNavigation = styled(Box)`
@@ -39,9 +37,9 @@ export const StyledNavigation = styled(Box)`
   flex-direction: row;
   justify-content: space-between;
   z-index: 1;
-  top: 50%;
-  transform: translate(0, -50%);
+  bottom: 12px;
   position: absolute;
   width: 100%;
-  padding: 10px;
+  padding: 5px;
+
 `;
