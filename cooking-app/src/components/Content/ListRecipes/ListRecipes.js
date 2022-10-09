@@ -3,9 +3,8 @@ import { useEffect, useReducer, useState } from "react";
 import { recipesCollection, tags } from "../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../utils/GetDataFromSnapshot";
 import { PageTitle } from "../../../utils/styles/Global.styled";
-import styled from "styled-components";
 import { InputElement } from "../../../utils/Search/InputElement";
-import { Button, Grid, Box } from "@mui/material";
+import { Button, Grid, Box, TextField } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { SingleCard } from "../../../utils/SingleCard/SingleCard";
 import { WrongPage } from "../../../utils/WrongPage";
@@ -38,6 +37,7 @@ export const ListRecipes = () => {
 
   const [datafromFirebase, setdatafromFirebase] = useState([]);
   const [visible, setVisible] = useState(12);
+  const [moreTags, setMoreTags] = useState(10);
 
   const [state, dispatcher] = useReducer(reducer, {
     inputCategory: tag ? [tag] : "",
@@ -67,6 +67,14 @@ export const ListRecipes = () => {
 
   const showMoreItems = () => {
     setVisible((prev) => prev + 8);
+  };
+
+  const showMoreTags = () => {
+    setMoreTags(100);
+  };
+
+  const showLessTags = () => {
+    setMoreTags(10);
   };
 
   const listofRecipe2 = datafromFirebase
@@ -100,7 +108,8 @@ export const ListRecipes = () => {
       >
         <PageTitle>Recipes</PageTitle>
       </Box>
-      <StyledInputText
+      <TextField
+        fullWidth
         id="filter"
         placeholder="please enter the recipe name..."
         variant="outlined"
@@ -109,9 +118,16 @@ export const ListRecipes = () => {
         onChange={handelTextInput}
       />
       <br />
-      <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          my: 2,
+          justifyContent: "center",
+        }}
+      >
         {tags.map((singleTag, index) => {
-          if (index < 8) {
+          if (index < moreTags) {
             return (
               <InputElement
                 isClicked={state.inputCategory.includes(singleTag)}
@@ -122,6 +138,17 @@ export const ListRecipes = () => {
             );
           }
         })}
+      </Box>
+      <Box sx={{ justifyContent: "center", display: "flex" }}>
+        {moreTags < 20 ? (
+          <Button onClick={showMoreTags} variant="contained" sx={{}}>
+            Show more tags
+          </Button>
+        ) : (
+          <Button onClick={showLessTags} variant="contained" sx={{}}>
+            Show less tags
+          </Button>
+        )}
       </Box>
 
       <Grid
@@ -143,8 +170,3 @@ export const ListRecipes = () => {
     </Box>
   );
 };
-
-const StyledInputText = styled.input`
-  width: 100%;
-  height: 50px;
-`;
