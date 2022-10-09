@@ -2,7 +2,6 @@ import { onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
 import { recipesCollection, tags } from "../../../../api/firebaseIndex";
 import { getDataFromSnapshot } from "../../../../utils/GetDataFromSnapshot";
-import { InputElement } from "../../../../utils/Search/InputElement";
 import { Button, Grid, TextField, Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { SingleCard } from "../../../../utils/SingleCard/SingleCard";
@@ -108,19 +107,6 @@ export const UserRecipes = () => {
             fullWidth
           />
 
-          <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
-            {tags.map((singleTag, index) => {
-              return (
-                <InputElement
-                  isClicked={state.inputCategory.includes(singleTag)}
-                  key={index}
-                  tag={singleTag}
-                  handleInput={handleInput}
-                />
-              );
-            })}
-          </Box>
-
           <Grid
             direction="row"
             justifyContent="center"
@@ -130,7 +116,7 @@ export const UserRecipes = () => {
           >
             {listofRecipe2.length ? listofRecipe2 : <WrongPage />}
           </Grid>
-          {listofRecipe2.length > 12 ? (
+          {listofRecipe2.length > 0 ? (
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Button
                 onClick={showMoreItems}

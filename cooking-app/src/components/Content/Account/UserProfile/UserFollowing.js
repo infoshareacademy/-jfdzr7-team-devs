@@ -2,7 +2,6 @@ import { getDoc } from "firebase/firestore";
 import { useEffect, useReducer, useState, useRef, useContext } from "react";
 import { singleRecipeCollection, tags } from "../../../../api/firebaseIndex";
 import { SingleCard } from "../../../../utils/SingleCard/SingleCard"
-import { InputElement } from "../../../../utils/Search/InputElement";
 import { Button, Grid, TextField, Box, Typography } from "@mui/material";
 import { UserProfileContext } from "./UserProfile";
 import { WrongPage } from "../../../../utils/WrongPage";
@@ -33,17 +32,8 @@ const reducer = (currState, action) => {
 export const UserFollowing = () => {
   const [datafromFirebase, setdatafromFirebase] = useState([]);
   const [visible, setVisible] = useState(12);
-  // const { id } = useParams();
-  // const [user, setUser] = useState([]);
   const preventUpdate = useRef(false);
   const user = useContext(UserProfileContext);
-
-  // useEffect(() => {
-  //   const userRef = singleUserCollection(id);
-  //   onSnapshot(userRef, (doc) => {
-  //     setUser(doc.data(), doc.id);
-  //   });
-  // }, []);
 
   useEffect(() => {
     if (user.favourites && !preventUpdate.current) {
@@ -54,7 +44,6 @@ export const UserFollowing = () => {
             ...current,
             { ...recipe.data(), id: recipeId },
           ]);
-          // setdatafromFirebase((current) => [...current, recipe.data()]);
         });
       });
     }
@@ -120,19 +109,6 @@ export const UserFollowing = () => {
             onChange={handelTextInput}
             fullWidth
           />
-
-          <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
-            {tags.map((singleTag, index) => {
-              return (
-                <InputElement
-                isClicked={state.inputCategory.includes(singleTag)}
-                key={index}
-                tag={singleTag}
-                handleInput={handleInput}
-                />
-              );
-            })}
-          </Box>
 
           <Grid
             direction="row"
