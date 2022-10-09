@@ -10,7 +10,7 @@ import Register from "./Authorization/Register";
 import ForgotPassword from "./Authorization/ForgotPassword";
 import Redirect from "./Authorization/Redirect";
 import ProtectedRoute from "./Authorization/ProtectedRoute";
-import { StyledContent, StyledH2 } from "./Content.styled";
+import { StyledContent } from "./Content.styled";
 import AdminPage from "./Account/AdminPage/AdminPage";
 import { useContext } from "react";
 import { UserDataContext } from "../../App";
@@ -19,7 +19,6 @@ import { UserFollowing } from "./Account/UserProfile/UserFollowing";
 
 import { DisplayUserData } from "./Account/UserPanel/DisplayUserData";
 import { AddRecipeNew } from "./AddRecipes/AddRecipeNew";
-import { DisplayRecipe } from "./SingleRecipe/DisplayRecipe/DisplayRecipe";
 import { ErrorMessage } from "../../utils/Message";
 
 export const Content = ({ isLoggedIn }) => {
@@ -63,7 +62,7 @@ export const Content = ({ isLoggedIn }) => {
               </ProtectedRoute>
             }
           />
-          <Route path="/recipe/:id" element={<DisplayRecipe />} />
+          <Route path="/recipe/:id" element={<SingleRecipe />} />
 
           <Route path="/user/:id" element={<UserProfile />}>
             <Route path="added" element={<UserRecipes />} />
