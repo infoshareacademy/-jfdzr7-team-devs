@@ -1,6 +1,5 @@
-import { BrowserRouter } from "react-router-dom";
-import { GlobalStyle, Wrapper } from "./components/styles/Global.styled";
-import { Header } from "./components/Header/Header";
+import { BrowserRouter, HashRouter } from "react-router-dom";
+import { GlobalStyle, Wrapper } from "./utils/styles/Global.styled";
 import { Content } from "./components/Content/Content";
 import { Footer } from "./components/Footer/Footer";
 import { useEffect, useState } from "react";
@@ -9,6 +8,8 @@ import { auth, db } from "./api/firebase";
 import { createContext } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { Loader } from "./utils/Loader";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { NavBar } from "./components/Header/NavBar";
 
 export const UserDataContext = createContext({
   firstName: "",
@@ -16,6 +17,35 @@ export const UserDataContext = createContext({
   email: "",
   role: "",
   uid: "",
+  favourites: [],
+  avatarUrl: "",
+
+  avatarUrlId: "", // potrzebne
+});
+
+export const theme = createTheme({
+  palette: {
+    primary: {
+      light: "#fff263",
+      main: "#fbc02d",
+      dark: "#c49000",
+      contrastText: "#000000",
+    },
+    secondary: {
+      light: "#ffffff",
+      main: "#fafafa",
+      dark: "#c7c7c7",
+      contrastText: "#757575",
+    },
+    neutral: {
+      main: "#000000",
+    },
+  },
+  typography: {
+    styled: {
+      fontFamily:"Playfair Display",
+    }
+  }
 });
 
 function App() {
@@ -34,6 +64,9 @@ function App() {
             email: tempData.email,
             role: tempData.role,
             uid: tempData.uid,
+            avatarUrl: tempData.avatarUrl,
+            favourites: tempData.favourites,
+            avatarUrlId: tempData.avatarUrlId,
           });
         });
       } else {
@@ -44,20 +77,22 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <UserDataContext.Provider value={userData}>
-        <Wrapper>
-          <Header isLoggedIn={isLoggedIn} />
-          {isLoggedIn === null ? (
-            <Loader />
-          ) : (
-            <Content isLoggedIn={isLoggedIn} />
-          )}
-          <Footer />
-        </Wrapper>
-      </UserDataContext.Provider>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <HashRouter>
+        <GlobalStyle />
+        <UserDataContext.Provider value={userData}>
+          <Wrapper>
+            <NavBar isLoggedIn={isLoggedIn} />
+            {isLoggedIn === null ? (
+              <Loader />
+            ) : (
+              <Content isLoggedIn={isLoggedIn} />
+            )}
+            <Footer />
+          </Wrapper>
+        </UserDataContext.Provider>
+      </HashRouter>
+    </ThemeProvider>
   );
 }
 
